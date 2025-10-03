@@ -3,7 +3,8 @@
 # OpenAI API Key (para geração de texto, se necessário)
 OPENAI_API_KEY=your_openai_api_key_here
 
-# Pexels API Key (para busca de vídeos)
+# Pexels API Key (para busca de vídeos) - OBRIGATÓRIO
+# Obtenha sua chave gratuita em: https://www.pexels.com/api/
 PEXELS_API_KEY=your_pexels_api_key_here
 
 # Configurações opcionais

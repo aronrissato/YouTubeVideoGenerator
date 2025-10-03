@@ -1,0 +1,23 @@
+{
+  "subject": "livro-biblico",
+  "duration": "auto",
+  "language": "en",
+  "voice_speed": 0.7,
+  "voice_gender": "female",
+  "video_quality": "high",
+  "background_music": true,
+  "background_music_volume": 0.3,
+  "subtitle_style": "modern",
+  "video_style": "calm",
+  "custom_queries": [
+    "nature",
+    "peaceful landscape",
+    "sunset",
+    "ocean waves"
+  ],
+  "youtube_settings": {
+    "privacy": "private",
+    "category": "22",
+    "auto_publish": false
+  }
+}

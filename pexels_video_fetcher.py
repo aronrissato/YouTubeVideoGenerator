@@ -24,12 +24,12 @@ class PexelsVideoFetcher:
         Busca vídeos no Pexels com base na query e duração total necessária
         """
         try:
-            # Calcular quantos vídeos precisamos (assumindo 30s por vídeo)
-            videos_needed = (duration // 30) + 1
+            # Calcular quantos vídeos precisamos (assumindo 30s por vídeo em média)
+            videos_needed = max(3, (duration // 30) + 2)  # Pelo menos 3 vídeos, com margem de segurança
             
             params = {
                 'query': query,
-                'per_page': min(per_page, videos_needed * 2),  # Buscar mais para ter opções
+                'per_page': min(per_page, videos_needed * 3),  # Buscar 3x mais para ter opções
                 'min_duration': 10,
                 'max_duration': 60
             }
@@ -42,7 +42,7 @@ class PexelsVideoFetcher:
                 data = response.json()
                 videos = data.get('videos', [])
                 
-                print(f"Encontrados {len(videos)} vídeos para '{query}'")
+                print(f"Encontrados {len(videos)} vídeos para '{query}' (necessários: {videos_needed})")
                 return videos
             else:
                 print(f"Erro na API do Pexels: {response.status_code}")
@@ -70,6 +70,18 @@ class PexelsVideoFetcher:
             print(f"Erro ao baixar vídeo: {str(e)}")
             return None
     
+    def _get_video_duration(self, video_path: str) -> float:
+        """
+        Obtém a duração real do vídeo em segundos
+        """
+        try:
+            from moviepy.editor import VideoFileClip
+            with VideoFileClip(video_path) as clip:
+                return clip.duration
+        except Exception as e:
+            print(f"Erro ao obter duração do vídeo {video_path}: {str(e)}")
+            return 0.0
+    
     def get_videos_for_duration(self, query: str, total_duration: int) -> List[str]:
         """
         Obtém vídeos suficientes para cobrir a duração total do áudio
@@ -84,7 +96,10 @@ class PexelsVideoFetcher:
         current_duration = 0
         video_index = 0
         
-        while current_duration < total_duration and video_index < len(videos):
+        # Adicionar margem de segurança (10% a mais que a duração necessária)
+        target_duration = total_duration * 1.1
+        
+        while current_duration < target_duration and video_index < len(videos):
             video = videos[video_index]
             
             # Pegar a melhor qualidade disponível
@@ -103,19 +118,32 @@ class PexelsVideoFetcher:
                 continue
             
             # Baixar vídeo
-            filename = f"video_{video_index + 1}"
+            filename = f"video_{len(downloaded_videos) + 1}"
             file_path = self.download_video(video_url, filename)
             
             if file_path:
-                downloaded_videos.append(file_path)
-                video_duration = video.get('duration', 30)
-                current_duration += video_duration
-                print(f"Baixado: {filename} (duração: {video_duration}s, total: {current_duration}s)")
+                # Obter duração real do vídeo baixado
+                actual_duration = self._get_video_duration(file_path)
+                if actual_duration > 0:
+                    downloaded_videos.append(file_path)
+                    current_duration += actual_duration
+                    print(f"Baixado: {filename} (duração real: {actual_duration}s, total: {current_duration}s)")
+                else:
+                    # Se não conseguir obter duração, usar estimativa da API
+                    estimated_duration = video.get('duration', 30)
+                    downloaded_videos.append(file_path)
+                    current_duration += estimated_duration
+                    print(f"Baixado: {filename} (duração estimada: {estimated_duration}s, total: {current_duration}s)")
             
             video_index += 1
         
         print(f"Total de vídeos baixados: {len(downloaded_videos)}")
         print(f"Duração total dos vídeos: {current_duration}s")
+        print(f"Duração necessária do áudio: {total_duration}s")
+        
+        if current_duration < total_duration:
+            print(f"AVISO: Duração dos vídeos ({current_duration}s) é menor que a necessária ({total_duration}s)")
+            print("O sistema irá repetir os vídeos para completar a duração do áudio")
         
         return downloaded_videos
     

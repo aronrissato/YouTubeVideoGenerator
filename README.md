@@ -10,6 +10,7 @@ Um projeto Python para gerar vídeos completos de livros bíblicos com narraçã
 - **Criação de Vídeo**: Combina áudio e vídeos em um MP4 final
 - **Geração de Legendas**: Cria arquivos SRT e VTT
 - **Publicação no YouTube**: Upload automático com metadados
+- **⚙️ Sistema de Configuração**: Interface completa para personalizar todas as opções do vídeo
 
 ## 📋 Pré-requisitos
 
@@ -50,18 +51,53 @@ PEXELS_API_KEY=sua_chave_pexels
 
 ## 🎯 Como Usar
 
-### Execução Rápida
+### Configuração Inicial
 
-Execute o gerador principal:
+Primeiro, configure suas opções personalizadas:
+
 ```bash
-python bible_video_generator.py
+python run.py config
 ```
 
-O programa irá:
-1. Listar os livros bíblicos disponíveis
-2. Permitir seleção do livro
-3. Gerar texto, áudio, vídeos e legendas
-4. Opcionalmente publicar no YouTube
+Isso abrirá uma interface interativa onde você pode configurar:
+- **Assunto do vídeo**: Livro completo, capítulo, versículo, etc.
+- **Duração**: Automática ou personalizada (1-180 minutos)
+- **Idioma**: Português, inglês, espanhol, francês, alemão, italiano
+- **Velocidade da voz**: 0.5x a 3.0x
+- **Gênero da voz**: Masculina ou feminina
+- **Qualidade do vídeo**: 720p, 1080p, 4K
+- **Estilo do vídeo**: Dinâmico, calmo, dramático
+- **Música de fundo**: Ativar/desativar e ajustar volume
+- **Estilo das legendas**: Clássico, moderno, minimalista
+- **Configurações do YouTube**: Privacidade, categoria, auto-publicação
+
+### Execução Básica
+
+```bash
+python run.py
+```
+
+Siga as instruções na tela para:
+1. Escolher entre gerar vídeo, configurar opções ou ver ajuda
+2. Selecionar um livro bíblico
+3. O sistema usará suas configurações salvas
+
+### Execução com Livro Específico
+
+```bash
+python run.py genesis
+python run.py salmos
+python run.py joao
+```
+
+### Comandos Disponíveis
+
+```bash
+python run.py                    # Execução interativa completa
+python run.py [nome-do-livro]    # Gerar vídeo de um livro específico
+python run.py config             # Abrir configurações
+python run.py help               # Mostrar ajuda
+```
 
 ### Execução Programática
 
@@ -82,6 +118,9 @@ video_path = generator.generate_full_video(
 
 ```
 YouTubeVideoGenerator/
+├── run.py                      # Script principal de execução
+├── config.py                   # Sistema de configuração
+├── config_ui.py                # Interface de configuração
 ├── bible_video_generator.py    # Gerador principal
 ├── bible_text_generator.py     # Geração de texto bíblico
 ├── audio_generator.py          # Conversão texto→áudio
@@ -89,7 +128,8 @@ YouTubeVideoGenerator/
 ├── video_creator.py            # Criação do vídeo final
 ├── subtitle_generator.py       # Geração de legendas
 ├── youtube_publisher.py        # Publicação no YouTube
-├── config.py                   # Configurações
+├── video_config.json           # Configurações salvas (gerado automaticamente)
+├── video_config_example.json   # Exemplo de configuração
 ├── requirements.txt            # Dependências
 └── env_example.txt            # Exemplo de variáveis
 ```
@@ -141,6 +181,111 @@ O processo cria os seguintes arquivos:
 - `pexels_videos/`: Vídeos baixados do Pexels
 - `output/`: Vídeo final (MP4)
 - `subtitles/`: Legendas (SRT e VTT)
+
+## ⚙️ Sistema de Configuração
+
+O projeto inclui um sistema completo de configuração que permite personalizar todas as opções do vídeo:
+
+### Arquivo de Configuração
+
+As configurações são salvas automaticamente em `video_config.json`:
+
+```json
+{
+  "subject": "livro-biblico",
+  "duration": "auto",
+  "language": "pt",
+  "voice_speed": 1.0,
+  "voice_gender": "female",
+  "video_quality": "high",
+  "background_music": true,
+  "background_music_volume": 0.3,
+  "subtitle_style": "modern",
+  "video_style": "calm",
+  "custom_queries": ["nature", "peaceful landscape"],
+  "youtube_settings": {
+    "privacy": "private",
+    "category": "22",
+    "auto_publish": false
+  }
+}
+```
+
+### Opções de Configuração
+
+#### Assunto do Vídeo
+- `livro-biblico`: Livro Bíblico Completo
+- `capitulo-biblico`: Capítulo Bíblico Específico
+- `versiculo-especifico`: Versículo Específico
+- `estudo-biblico`: Estudo Bíblico
+- `devocional`: Devocional Diário
+- `historia-biblica`: História Bíblica
+- `salmos`: Salmos e Louvores
+- `proverbios`: Provérbios de Sabedoria
+
+#### Idiomas Disponíveis
+- `pt`: Português (Brasil)
+- `pt-pt`: Português (Portugal)
+- `en`: English (US)
+- `en-gb`: English (UK)
+- `es`: Español
+- `fr`: Français
+- `de`: Deutsch
+- `it`: Italiano
+
+#### Qualidade de Vídeo
+- `low`: Baixa (720p)
+- `medium`: Média (1080p)
+- `high`: Alta (1080p otimizada)
+
+#### Estilo de Vídeo
+- `dynamic`: Dinâmico (música e transições rápidas)
+- `calm`: Calmo (música suave e transições lentas)
+- `dramatic`: Dramático (efeitos sonoros e visuais marcantes)
+
+#### Estilo de Legendas
+- `classic`: Clássico (fonte serifada, fundo preto)
+- `modern`: Moderno (fonte sans-serif, fundo transparente)
+- `minimal`: Minimalista (fonte fina, sem fundo)
+
+### Comandos de Configuração
+
+```bash
+# Abrir interface de configuração
+python run.py config
+
+# Ver configurações atuais
+python run.py help
+```
+
+## 🧹 Sistema de Limpeza Automática
+
+O projeto inclui um sistema inteligente de limpeza de arquivos temporários:
+
+### Limpeza Automática
+- **Após publicação**: Arquivos são automaticamente removidos após upload no YouTube
+- **Em caso de erro**: Limpeza automática em qualquer falha durante o processo
+- **Interrupção manual**: Limpeza quando o processo é interrompido (Ctrl+C)
+
+### Limpeza Manual
+Execute o script de limpeza para remover arquivos temporários:
+
+```bash
+# Limpeza geral (todos os arquivos temporários)
+python cleanup.py
+
+# Limpeza específica de um livro
+python cleanup.py genesis
+```
+
+### Arquivos Removidos na Limpeza
+- Textos gerados (`temp/*_text.txt`)
+- Áudios de narração (`audio/*_audio.mp3`)
+- Vídeos do Pexels (`pexels_videos/*.mp4`)
+- Vídeo final (`output/*_final.mp4`)
+- Legendas (`subtitles/*_subtitles.srt`)
+- Música de fundo (`temp/background_music.mp3`)
+- Arquivos temporários do MoviePy (`temp/temp-audio*`)
 
 ## 🔧 Solução de Problemas
 

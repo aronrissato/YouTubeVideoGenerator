@@ -3,10 +3,14 @@ Gerador de legendas para o vídeo
 """
 import os
 from typing import List, Tuple
+from config import video_config
 
 class SubtitleGenerator:
     def __init__(self):
         self.output_dir = 'subtitles'
+        
+        # Usar configurações personalizadas
+        self.subtitle_style = video_config.get('subtitle_style', 'modern')
         
         # Criar diretório se não existir
         if not os.path.exists(self.output_dir):
