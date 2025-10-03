@@ -15,7 +15,7 @@ from .pexels_video_fetcher import PexelsVideoFetcher
 from .video_creator import VideoCreator
 from text.subtitle_generator import SubtitleGenerator
 from .youtube_publisher import YouTubePublisher
-from config.config import video_config, AUDIO_LANGUAGE, AUDIO_SPEED, VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, PEXELS_VIDEOS_DIR, SUBTITLES_DIR, GENERATED_FILES_DIR, DEFAULT_PRIVACY_STATUS, DEFAULT_CATEGORY_ID
+from config.config import video_config, AUDIO_LANGUAGE, AUDIO_SPEED, VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, PEXELS_VIDEOS_DIR, SUBTITLES_DIR, OUTPUT_DIR, DEFAULT_PRIVACY_STATUS, DEFAULT_CATEGORY_ID
 
 class BibleVideoGenerator:
     def __init__(self):
@@ -36,7 +36,7 @@ class BibleVideoGenerator:
     
     def _create_directories(self):
         """Cria diretórios necessários para o projeto"""
-        directories = [GENERATED_FILES_DIR, VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, PEXELS_VIDEOS_DIR, SUBTITLES_DIR]
+        directories = [OUTPUT_DIR, VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, PEXELS_VIDEOS_DIR, SUBTITLES_DIR]
         for directory in directories:
             if not os.path.exists(directory):
                 os.makedirs(directory)

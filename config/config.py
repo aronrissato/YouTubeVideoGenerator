@@ -18,12 +18,12 @@ YOUTUBE_TOKEN_FILE = 'token.json'
 PEXELS_API_KEY = os.getenv('PEXELS_API_KEY')
 
 # Configurações de vídeo
-GENERATED_FILES_DIR = 'generated_files'
-VIDEO_OUTPUT_DIR = os.path.join(GENERATED_FILES_DIR, 'output')
-AUDIO_OUTPUT_DIR = os.path.join(GENERATED_FILES_DIR, 'audio')
-TEMP_DIR = os.path.join(GENERATED_FILES_DIR, 'temp')
-PEXELS_VIDEOS_DIR = os.path.join(GENERATED_FILES_DIR, 'pexels_videos')
-SUBTITLES_DIR = os.path.join(GENERATED_FILES_DIR, 'subtitles')
+OUTPUT_DIR = 'output'
+VIDEO_OUTPUT_DIR = os.path.join(OUTPUT_DIR, 'videos')
+AUDIO_OUTPUT_DIR = os.path.join(OUTPUT_DIR, 'audio')
+TEMP_DIR = os.path.join(OUTPUT_DIR, 'temp')
+PEXELS_VIDEOS_DIR = os.path.join(OUTPUT_DIR, 'pexels_videos')
+SUBTITLES_DIR = os.path.join(OUTPUT_DIR, 'subtitles')
 
 # Configurações de áudio
 AUDIO_LANGUAGE = os.getenv('AUDIO_LANGUAGE', 'en')
