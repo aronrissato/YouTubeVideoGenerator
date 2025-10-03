@@ -3,7 +3,7 @@
 Script para limpeza manual de arquivos temporários
 """
 import sys
-from bible_video_generator import BibleVideoGenerator
+from video.bible_video_generator import BibleVideoGenerator
 
 def main():
     """Executa limpeza de arquivos temporários"""

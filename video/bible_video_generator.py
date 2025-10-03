@@ -9,13 +9,13 @@ import glob
 from typing import Optional
 
 # Importar módulos do projeto
-from bible_text_generator import BibleTextGenerator
-from audio_generator import AudioGenerator
-from pexels_video_fetcher import PexelsVideoFetcher
-from video_creator import VideoCreator
-from subtitle_generator import SubtitleGenerator
-from youtube_publisher import YouTubePublisher
-from config import video_config, AUDIO_LANGUAGE, AUDIO_SPEED, VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, DEFAULT_PRIVACY_STATUS, DEFAULT_CATEGORY_ID
+from text.bible_text_generator import BibleTextGenerator
+from audio.audio_generator import AudioGenerator
+from .pexels_video_fetcher import PexelsVideoFetcher
+from .video_creator import VideoCreator
+from text.subtitle_generator import SubtitleGenerator
+from .youtube_publisher import YouTubePublisher
+from config.config import video_config, AUDIO_LANGUAGE, AUDIO_SPEED, VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, DEFAULT_PRIVACY_STATUS, DEFAULT_CATEGORY_ID
 
 class BibleVideoGenerator:
     def __init__(self):

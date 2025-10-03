@@ -3,7 +3,7 @@ Gerador de legendas para o vídeo
 """
 import os
 from typing import List, Tuple
-from config import video_config
+from config.config import video_config
 
 class SubtitleGenerator:
     def __init__(self):

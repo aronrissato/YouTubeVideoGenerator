@@ -3,7 +3,7 @@
 Script de execução principal simplificado
 Utiliza o padrão de orquestração para seguir princípios SOLID
 """
-from video_generation_orchestrator import VideoGenerationOrchestrator
+from video.video_generation_orchestrator import VideoGenerationOrchestrator
 
 
 def main():

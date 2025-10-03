@@ -6,7 +6,7 @@ from moviepy.editor import VideoFileClip, AudioFileClip, concatenate_videoclips,
 from moviepy.video.fx import resize
 import tempfile
 import yt_dlp
-from config import video_config
+from config.config import video_config
 
 class VideoCreator:
     def __init__(self):

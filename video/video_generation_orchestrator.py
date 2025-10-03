@@ -5,9 +5,9 @@ Centraliza o fluxo de execução e aplica princípios SOLID
 import sys
 import os
 from typing import Optional
-from bible_video_generator import BibleVideoGenerator
-from config_ui import ConfigUI
-from config import video_config
+from .bible_video_generator import BibleVideoGenerator
+from config.config_ui import ConfigUI
+from config.config import video_config
 
 
 class VideoGenerationOrchestrator:

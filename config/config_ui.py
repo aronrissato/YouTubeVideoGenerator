@@ -1,7 +1,7 @@
 """
 Interface de configuração interativa para o gerador de vídeos
 """
-from config import video_config
+from .config import video_config
 
 class ConfigUI:
     """Interface de usuário para configurações"""

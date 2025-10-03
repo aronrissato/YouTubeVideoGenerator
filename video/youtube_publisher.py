@@ -9,7 +9,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
 class YouTubePublisher:
-    def __init__(self, client_secret_file='client_secret.json', token_file='token.json'):
+    def __init__(self, client_secret_file='config/client_secret.json', token_file='config/token.json'):
         self.client_secret_file = client_secret_file
         self.token_file = token_file
         self.youtube = None
