@@ -1,16 +1,14 @@
-# Arquivos de credenciais e chaves de API
+# Arquivos de configuração
 .env
-*.env
-client_secret*.json
+client_secret.json
 token.json
 
-# Arquivos gerados pelo projeto
-videos/
-music/
-*.mp4
-*.mp3
-*.srt
-video_final.mp4
+# Diretórios de saída
+output/
+audio/
+temp/
+pexels_videos/
+subtitles/
 
 # Cache Python
 __pycache__/
@@ -22,7 +20,14 @@ __pycache__/
 # Arquivos temporários
 *.tmp
 *.temp
+temp-audio.m4a
+
+# Logs
 *.log
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
 
 # IDEs
 .vscode/
@@ -30,10 +35,7 @@ __pycache__/
 *.swp
 *.swo
 
-# Sistema operacional
-.DS_Store
-Thumbs.db
-
-# Scripts de limpeza e utilitários
-*.bat
-*.ps1
+# Virtual environments
+venv/
+env/
+ENV/

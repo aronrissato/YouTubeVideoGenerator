@@ -1,0 +1,11 @@
+# Configurações de API
+
+# OpenAI API Key (para geração de texto, se necessário)
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Pexels API Key (para busca de vídeos)
+PEXELS_API_KEY=your_pexels_api_key_here
+
+# Configurações opcionais
+AUDIO_LANGUAGE=pt
+AUDIO_SPEED=1.0
