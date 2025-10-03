@@ -15,7 +15,7 @@ from .pexels_video_fetcher import PexelsVideoFetcher
 from .video_creator import VideoCreator
 from text.subtitle_generator import SubtitleGenerator
 from .youtube_publisher import YouTubePublisher
-from config.config import video_config, AUDIO_LANGUAGE, AUDIO_SPEED, VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, DEFAULT_PRIVACY_STATUS, DEFAULT_CATEGORY_ID
+from config.config import video_config, AUDIO_LANGUAGE, AUDIO_SPEED, VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, PEXELS_VIDEOS_DIR, SUBTITLES_DIR, GENERATED_FILES_DIR, DEFAULT_PRIVACY_STATUS, DEFAULT_CATEGORY_ID
 
 class BibleVideoGenerator:
     def __init__(self):
@@ -36,7 +36,7 @@ class BibleVideoGenerator:
     
     def _create_directories(self):
         """Cria diretórios necessários para o projeto"""
-        directories = [VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, 'pexels_videos', 'subtitles']
+        directories = [GENERATED_FILES_DIR, VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, PEXELS_VIDEOS_DIR, SUBTITLES_DIR]
         for directory in directories:
             if not os.path.exists(directory):
                 os.makedirs(directory)
@@ -75,12 +75,12 @@ class BibleVideoGenerator:
                 os.path.join(TEMP_DIR, f"{book_name}_text.txt"),
                 os.path.join(AUDIO_OUTPUT_DIR, f"{book_name}_audio.mp3"),
                 os.path.join(VIDEO_OUTPUT_DIR, f"{book_name}_final.mp4"),
-                os.path.join('subtitles', f"{book_name}_subtitles.srt"),
-                os.path.join('temp', 'background_music.mp3'),
+                os.path.join(SUBTITLES_DIR, f"{book_name}_subtitles.srt"),
+                os.path.join(TEMP_DIR, 'background_music.mp3'),
             ]
             
             # Limpar arquivos de áudio temporários (MoviePy)
-            temp_audio_files = glob.glob(os.path.join('temp', 'temp-audio*'))
+            temp_audio_files = glob.glob(os.path.join(TEMP_DIR, 'temp-audio*'))
             temp_files_to_clean.extend(temp_audio_files)
             
             # Limpar arquivos temporários do MoviePy no diretório raiz
@@ -88,7 +88,7 @@ class BibleVideoGenerator:
             temp_files_to_clean.extend(moviepy_temp_files)
             
             # Limpar arquivos temporários do MoviePy no diretório temp
-            moviepy_temp_files_temp = glob.glob(os.path.join('temp', '*TEMP*.mp4'))
+            moviepy_temp_files_temp = glob.glob(os.path.join(TEMP_DIR, '*TEMP*.mp4'))
             temp_files_to_clean.extend(moviepy_temp_files_temp)
             
             # Limpar arquivos temp-audio.m4a que podem ficar no diretório raiz
@@ -96,7 +96,7 @@ class BibleVideoGenerator:
             temp_files_to_clean.extend(temp_audio_root)
             
             # Limpar vídeos do Pexels baixados
-            pexels_videos = glob.glob(os.path.join('pexels_videos', '*.mp4'))
+            pexels_videos = glob.glob(os.path.join(PEXELS_VIDEOS_DIR, '*.mp4'))
             temp_files_to_clean.extend(pexels_videos)
             
             # Remover cada arquivo com retry para arquivos bloqueados
@@ -108,7 +108,7 @@ class BibleVideoGenerator:
                         cleaned_count += 1
             
             # Limpar diretórios vazios
-            temp_dirs = ['pexels_videos', 'temp', 'audio', 'output', 'subtitles']
+            temp_dirs = [PEXELS_VIDEOS_DIR, TEMP_DIR, AUDIO_OUTPUT_DIR, VIDEO_OUTPUT_DIR, SUBTITLES_DIR]
             for temp_dir in temp_dirs:
                 if os.path.exists(temp_dir):
                     try:
@@ -317,12 +317,12 @@ Que a palavra de Deus abençoe sua vida!
                 os.path.join(TEMP_DIR, "*_text.txt"),
                 os.path.join(AUDIO_OUTPUT_DIR, "*_audio.mp3"),
                 os.path.join(VIDEO_OUTPUT_DIR, "*_final.mp4"),
-                os.path.join('subtitles', "*_subtitles.srt"),
-                os.path.join('temp', "temp-audio*"),
-                os.path.join('pexels_videos', "*.mp4"),
-                os.path.join('temp', 'background_music.mp3'),
+                os.path.join(SUBTITLES_DIR, "*_subtitles.srt"),
+                os.path.join(TEMP_DIR, "temp-audio*"),
+                os.path.join(PEXELS_VIDEOS_DIR, "*.mp4"),
+                os.path.join(TEMP_DIR, 'background_music.mp3'),
                 "*TEMP*.mp4",  # Arquivos temporários do MoviePy no diretório raiz
-                os.path.join('temp', "*TEMP*.mp4"),  # Arquivos temporários do MoviePy no temp
+                os.path.join(TEMP_DIR, "*TEMP*.mp4"),  # Arquivos temporários do MoviePy no temp
                 "temp-audio.*",  # Arquivos temp-audio que podem ficar no diretório raiz
             ]
             
@@ -335,7 +335,7 @@ Que a palavra de Deus abençoe sua vida!
                         cleaned_count += 1
             
             # Limpar diretórios vazios após remoção dos arquivos
-            temp_dirs = ['pexels_videos', 'temp', 'audio', 'output', 'subtitles']
+            temp_dirs = [PEXELS_VIDEOS_DIR, TEMP_DIR, AUDIO_OUTPUT_DIR, VIDEO_OUTPUT_DIR, SUBTITLES_DIR]
             for temp_dir in temp_dirs:
                 if os.path.exists(temp_dir):
                     try:

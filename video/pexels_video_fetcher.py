@@ -13,7 +13,8 @@ class PexelsVideoFetcher:
         self.headers = {
             'Authorization': api_key
         }
-        self.videos_dir = 'pexels_videos'
+        from config.config import PEXELS_VIDEOS_DIR
+        self.videos_dir = PEXELS_VIDEOS_DIR
         
         # Criar diretório se não existir
         if not os.path.exists(self.videos_dir):

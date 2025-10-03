@@ -7,7 +7,8 @@ from config.config import video_config
 
 class SubtitleGenerator:
     def __init__(self):
-        self.output_dir = 'subtitles'
+        from config.config import SUBTITLES_DIR
+        self.output_dir = SUBTITLES_DIR
         
         # Usar configurações personalizadas
         self.subtitle_style = video_config.get('subtitle_style', 'modern')

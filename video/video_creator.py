@@ -10,8 +10,9 @@ from config.config import video_config
 
 class VideoCreator:
     def __init__(self):
-        self.output_dir = 'output'
-        self.temp_dir = 'temp'
+        from config.config import VIDEO_OUTPUT_DIR, TEMP_DIR
+        self.output_dir = VIDEO_OUTPUT_DIR
+        self.temp_dir = TEMP_DIR
         self.background_music_file = os.path.join(self.temp_dir, 'background_music.mp3')
         
         # Usar configurações personalizadas
