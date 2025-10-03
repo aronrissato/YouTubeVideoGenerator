@@ -33,3 +33,7 @@ __pycache__/
 # Sistema operacional
 .DS_Store
 Thumbs.db
+
+# Scripts de limpeza e utilitários
+*.bat
+*.ps1
