@@ -1,0 +1,35 @@
+# Arquivos de credenciais e chaves de API
+.env
+*.env
+client_secret*.json
+token.json
+
+# Arquivos gerados pelo projeto
+videos/
+music/
+*.mp4
+*.mp3
+*.srt
+video_final.mp4
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.log
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
