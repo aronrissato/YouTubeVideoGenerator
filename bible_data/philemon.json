@@ -1,0 +1,25 @@
+{
+  "reference": "Philemon",
+  "verses": [
+    {
+      "book_id": "PHM",
+      "book_name": "Philemon",
+      "chapter": 1,
+      "verse": 1,
+      "text": "Paul, a prisoner of Christ Jesus, and Timothy our brother, to Philemon, our beloved fellow worker,\n"
+    }
+  ],
+  "metadata": {
+    "chapter_count": 1,
+    "verse_count": 1,
+    "duration": {
+      "duration_text": "24s",
+      "status": "Curto",
+      "duration_minutes": 0.41,
+      "char_count": 98,
+      "estimated_words": 20.0,
+      "words_per_minute": 48.0
+    },
+    "last_updated": "1759773568.3244312"
+  }
+}

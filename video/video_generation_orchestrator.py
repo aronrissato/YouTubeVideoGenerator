@@ -133,6 +133,83 @@ class VideoGenerationOrchestrator:
         result = self._generate_video(book_name, publish_decision, pexels_key)
         self._handle_generation_result(result, book_name)
     
+    def _calculate_estimated_duration(self, book_name: str) -> tuple:
+        """
+        Calcula a duração estimada do vídeo baseada no número de caracteres do texto
+        Retorna (duração_em_minutos, caracteres, palavras_por_minuto)
+        """
+        try:
+            # Obter texto do livro
+            text = self.generator.text_generator.get_full_book_text(book_name)
+            
+            if not text:
+                return (0, 0, 0)
+            
+            # Contar caracteres (sem espaços em branco extras)
+            char_count = len(text.strip())
+            
+            # Configurações de velocidade da voz
+            voice_speed = video_config.get('voice_speed', 1.0)
+            
+            # Palavras por minuto baseadas no idioma e velocidade
+            language = video_config.get('language', 'en')
+            
+            # Palavras por minuto padrão por idioma (velocidade 1.0x)
+            base_wpm = {
+                'pt': 150, 'pt-BR': 150, 'pt-pt': 150,
+                'en': 160, 'en-US': 160, 'en-GB': 160,
+                'es': 155, 'fr': 150, 'de': 150, 'it': 150
+            }
+            
+            words_per_minute = base_wpm.get(language, 160) * voice_speed
+            
+            # Estimar palavras baseado em caracteres (aproximadamente 5 caracteres por palavra)
+            estimated_words = char_count / 5
+            
+            # Calcular duração em minutos
+            duration_minutes = estimated_words / words_per_minute
+            
+            return (duration_minutes, char_count, words_per_minute)
+            
+        except Exception as e:
+            print(f"Erro ao calcular duração estimada: {str(e)}")
+            return (0, 0, 0)
+    
+    def _show_estimated_duration(self, book_name: str):
+        """Exibe a duração estimada do vídeo no console"""
+        print(f"\nCALCULANDO DURAÇÃO ESTIMADA PARA {book_name.upper()}")
+        print("-" * 50)
+        
+        duration_minutes, char_count, wpm = self._calculate_estimated_duration(book_name)
+        
+        if duration_minutes > 0:
+            hours = int(duration_minutes // 60)
+            minutes = int(duration_minutes % 60)
+            seconds = int((duration_minutes % 1) * 60)
+            
+            print(f"Caracteres no texto: {char_count:,}")
+            print(f"Velocidade da voz: {video_config.get('voice_speed', 1.0)}x")
+            print(f"Palavras por minuto: {wpm:.0f}")
+            print(f"Duração estimada: {duration_minutes:.1f} minutos")
+            
+            if hours > 0:
+                print(f"   ({hours}h {minutes:02d}m {seconds:02d}s)")
+            else:
+                print(f"   ({minutes}m {seconds:02d}s)")
+            
+            # Avisos baseados na duração
+            if duration_minutes > 60:
+                print("AVISO: Vídeo muito longo (>1h). Considere dividir em partes.")
+            elif duration_minutes > 30:
+                print("INFO: Vídeo longo (>30min). Pode levar mais tempo para processar.")
+            elif duration_minutes < 5:
+                print("INFO: Vídeo curto (<5min). Processamento será mais rápido.")
+            
+            print("-" * 50)
+        else:
+            print("Erro ao calcular duração estimada")
+            print("-" * 50)
+    
     def _validate_book_exists(self, book_name: str) -> bool:
         """Valida se o livro existe"""
         available_books = self.generator.text_generator.get_available_books()

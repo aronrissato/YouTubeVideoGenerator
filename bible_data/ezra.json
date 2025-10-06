@@ -1,0 +1,893 @@
+{
+  "reference": "Ezra",
+  "verses": [
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 1,
+      "verse": 1,
+      "text": "Now in the first year of Cyrus king of Persia, that Yahweh’s word\n by Jeremiah’s mouth might be accomplished, Yahweh stirred up the spirit of Cyrus king of Persia, so that he made a proclamation throughout all his kingdom, and put it also in writing, saying,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 1,
+      "verse": 2,
+      "text": "“Thus says Cyrus king of Persia, ‘Yahweh, the God of heaven, has given me all the kingdoms of the earth; and he has commanded me to build him a house in Jerusalem, which is in Judah.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 1,
+      "verse": 3,
+      "text": "Whoever there is among you of all his people, may his God be with him, and let him go up to Jerusalem, which is in Judah, and build the house of Yahweh, the God of Israel (he is God), which is in Jerusalem.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 1,
+      "verse": 4,
+      "text": "Whoever is left, in any place where he lives, let the men of his place help him with silver, with gold, with goods, and with animals, besides the freewill offering for God’s house which is in Jerusalem.’”\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 1,
+      "verse": 5,
+      "text": "Then the heads of fathers’ households of Judah and Benjamin, the priests, and the Levites, all whose spirit God had stirred to go up rose up to build Yahweh’s house which is in Jerusalem.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 1,
+      "verse": 6,
+      "text": "All those who were around them strengthened their hands with vessels of silver, with gold, with goods, with animals, and with precious things, besides all that was willingly offered.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 1,
+      "verse": 7,
+      "text": "Also Cyrus the king brought out the vessels of Yahweh’s house, which Nebuchadnezzar had brought out of Jerusalem, and had put in the house of his gods;\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 1,
+      "verse": 8,
+      "text": "even those, Cyrus king of Persia brought out by the hand of Mithredath the treasurer, and counted them out to Sheshbazzar, the prince of Judah.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 1,
+      "verse": 9,
+      "text": "This is the number of them: thirty platters of gold, one thousand platters of silver, twenty-nine knives,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 1,
+      "verse": 10,
+      "text": "thirty bowls of gold, four hundred ten silver bowls of a second sort, and one thousand other vessels.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 1,
+      "verse": 11,
+      "text": "All the vessels of gold and of silver were five thousand four hundred. Sheshbazzar brought all these up when the captives were brought up from Babylon to Jerusalem.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 1,
+      "text": "Now these are the children of the province, who went up out of the captivity of those who had been carried away, whom Nebuchadnezzar the king of Babylon had carried away to Babylon, and who returned to Jerusalem and Judah, everyone to his city;\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 2,
+      "text": "who came with Zerubbabel, Jeshua, Nehemiah, Seraiah, Reelaiah, Mordecai, Bilshan, Mispar, Bigvai, Rehum, and Baanah.\nThe number of the men of the people of Israel:\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 3,
+      "text": "The children of Parosh, two thousand one hundred seventy-two.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 4,
+      "text": "The children of Shephatiah, three hundred seventy-two.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 5,
+      "text": "The children of Arah, seven hundred seventy-five.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 6,
+      "text": "The children of Pahathmoab, of the children of Jeshua and Joab, two thousand eight hundred twelve.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 7,
+      "text": "The children of Elam, one thousand two hundred fifty-four.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 8,
+      "text": "The children of Zattu, nine hundred forty-five.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 9,
+      "text": "The children of Zaccai, seven hundred sixty.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 10,
+      "text": "The children of Bani, six hundred forty-two.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 11,
+      "text": "The children of Bebai, six hundred twenty-three.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 12,
+      "text": "The children of Azgad, one thousand two hundred twenty-two.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 13,
+      "text": "The children of Adonikam, six hundred sixty-six.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 14,
+      "text": "The children of Bigvai, two thousand fifty-six.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 15,
+      "text": "The children of Adin, four hundred fifty-four.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 16,
+      "text": "The children of Ater, of Hezekiah, ninety-eight.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 17,
+      "text": "The children of Bezai, three hundred twenty-three.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 18,
+      "text": "The children of Jorah, one hundred twelve.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 19,
+      "text": "The children of Hashum, two hundred twenty-three.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 20,
+      "text": "The children of Gibbar, ninety-five.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 21,
+      "text": "The children of Bethlehem, one hundred twenty-three.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 22,
+      "text": "The men of Netophah, fifty-six.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 23,
+      "text": "The men of Anathoth, one hundred twenty-eight.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 24,
+      "text": "The children of Azmaveth, forty-two.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 25,
+      "text": "The children of Kiriath Arim, Chephirah, and Beeroth, seven hundred forty-three.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 26,
+      "text": "The children of Ramah and Geba, six hundred twenty-one.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 27,
+      "text": "The men of Michmas, one hundred twenty-two.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 28,
+      "text": "The men of Bethel and Ai, two hundred twenty-three.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 29,
+      "text": "The children of Nebo, fifty-two.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 30,
+      "text": "The children of Magbish, one hundred fifty-six.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 31,
+      "text": "The children of the other Elam, one thousand two hundred fifty-four.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 32,
+      "text": "The children of Harim, three hundred twenty.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 33,
+      "text": "The children of Lod, Hadid, and Ono, seven hundred twenty-five.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 34,
+      "text": "The children of Jericho, three hundred forty-five.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 35,
+      "text": "The children of Senaah, three thousand six hundred thirty.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 36,
+      "text": "The priests: the children of Jedaiah, of the house of Jeshua, nine hundred seventy-three.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 37,
+      "text": "The children of Immer, one thousand fifty-two.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 38,
+      "text": "The children of Pashhur, one thousand two hundred forty-seven.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 39,
+      "text": "The children of Harim, one thousand seventeen.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 40,
+      "text": "The Levites: the children of Jeshua and Kadmiel, of the children of Hodaviah, seventy-four.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 41,
+      "text": "The singers: the children of Asaph, one hundred twenty-eight.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 42,
+      "text": "The children of the gatekeepers: the children of Shallum, the children of Ater, the children of Talmon, the children of Akkub, the children of Hatita, the children of Shobai, in all one hundred thirty-nine.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 43,
+      "text": "The temple servants: the children of Ziha, the children of Hasupha, the children of Tabbaoth,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 44,
+      "text": "the children of Keros, the children of Siaha, the children of Padon,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 45,
+      "text": "the children of Lebanah, the children of Hagabah, the children of Akkub,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 46,
+      "text": "the children of Hagab, the children of Shamlai, the children of Hanan,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 47,
+      "text": "the children of Giddel, the children of Gahar, the children of Reaiah,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 48,
+      "text": "the children of Rezin, the children of Nekoda, the children of Gazzam,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 49,
+      "text": "the children of Uzza, the children of Paseah, the children of Besai,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 50,
+      "text": "the children of Asnah, the children of Meunim, the children of Nephisim,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 51,
+      "text": "the children of Bakbuk, the children of Hakupha, the children of Harhur,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 52,
+      "text": "the children of Bazluth, the children of Mehida, the children of Harsha,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 53,
+      "text": "the children of Barkos, the children of Sisera, the children of Temah,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 54,
+      "text": "the children of Neziah, the children of Hatipha.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 55,
+      "text": "The children of Solomon’s servants: the children of Sotai, the children of Hassophereth, the children of Peruda,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 56,
+      "text": "the children of Jaalah, the children of Darkon, the children of Giddel,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 57,
+      "text": "the children of Shephatiah, the children of Hattil, the children of Pochereth Hazzebaim, the children of Ami.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 58,
+      "text": "All the temple servants, and the children of Solomon’s servants, were three hundred ninety-two.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 59,
+      "text": "These were those who went up from Tel Melah, Tel Harsha, Cherub, Addan, and Immer; but they could not show their fathers’ houses, and their offspring, whether they were of Israel:\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 60,
+      "text": "the children of Delaiah, the children of Tobiah, the children of Nekoda, six hundred fifty-two.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 61,
+      "text": "Of the children of the priests: the children of Habaiah, the children of Hakkoz, and the children of Barzillai, who took a wife of the daughters of Barzillai the Gileadite, and was called after their name.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 62,
+      "text": "These sought their place among those who were registered by genealogy, but they were not found: therefore were they deemed disqualified and removed from the priesthood.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 63,
+      "text": "The governor told them that they should not eat of the most holy things until a priest stood up to serve with Urim and with Thummim.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 64,
+      "text": "The whole assembly together was forty-two thousand three hundred sixty,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 65,
+      "text": "besides their male servants and their female servants, of whom there were seven thousand three hundred thirty-seven; and they had two hundred singing men and singing women.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 66,
+      "text": "Their horses were seven hundred thirty-six; their mules, two hundred forty-five;\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 67,
+      "text": "their camels, four hundred thirty-five; their donkeys, six thousand seven hundred twenty.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 68,
+      "text": "Some of the heads of fathers’ households, when they came to Yahweh’s house which is in Jerusalem, offered willingly for God’s house to set it up in its place.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 69,
+      "text": "They gave according to their ability into the treasury of the work sixty-one thousand darics of gold, and five thousand minas of silver, and one hundred priests’ garments.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 2,
+      "verse": 70,
+      "text": "So the priests, and the Levites, and some of the people, the singers, the gatekeepers, and the temple servants, lived in their cities, and all Israel in their cities.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 1,
+      "text": "Now while Ezra prayed and made confession, weeping and casting himself down before God’s house, there was gathered together to him out of Israel a very great assembly of men and women and children; for the people wept very bitterly.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 2,
+      "text": "Shecaniah the son of Jehiel, one of the sons of Elam, answered Ezra, “We have trespassed against our God, and have married foreign women of the peoples of the land. Yet now there is hope for Israel concerning this thing.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 3,
+      "text": "Now therefore let us make a covenant with our God to put away all the wives, and those who as are born of them, according to the counsel of my lord, and of those who tremble at the commandment of our God. Let it be done according to the law.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 4,
+      "text": "Arise; for the matter belongs to you, and we are with you. Be courageous, and do it.”\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 5,
+      "text": "Then Ezra arose, and made the chiefs of the priests, the Levites, and all Israel, to swear that they would do according to this word. So they swore.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 6,
+      "text": "Then Ezra rose up from before God’s house, and went into the room of Jehohanan the son of Eliashib. When he came there, he ate no bread, nor drank water; for he mourned because of their trespass of the captivity.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 7,
+      "text": "They made a proclamation throughout Judah and Jerusalem to all the children of the captivity, that they should gather themselves together to Jerusalem;\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 8,
+      "text": "and that whoever didn’t come within three days, according to the counsel of the princes and the elders, all his possessions should be forfeited, and himself separated from the assembly of the captivity.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 9,
+      "text": "Then all the men of Judah and Benjamin gathered themselves together to Jerusalem within the three days. It was the ninth month, on the twentieth day of the month; and all the people sat in the wide place in front of God’s house, trembling because of this matter, and because of the great rain.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 10,
+      "text": "Ezra the priest stood up and said to them, “You have trespassed, and have married foreign women, to increase the guilt of Israel.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 11,
+      "text": "Now therefore make confession to Yahweh, the God of your fathers, and do his pleasure; and separate yourselves from the peoples of the land, and from the foreign women.”\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 12,
+      "text": "Then all the assembly answered with a loud voice, “As you have said concerning us, so must we do.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 13,
+      "text": "But the people are many, and it is a time of much rain, and we are not able to stand outside. This is not a work of one day or two, for we have greatly transgressed in this matter.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 14,
+      "text": "Now let our princes be appointed for all the assembly, and let all those who are in our cities who have married foreign women come at appointed times, and with them the elders of every city, and its judges, until the fierce wrath of our God is turned from us, until this matter is resolved.”\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 15,
+      "text": "Only Jonathan the son of Asahel and Jahzeiah the son of Tikvah stood up against this; and Meshullam and Shabbethai the Levite helped them.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 16,
+      "text": "The children of the captivity did so. Ezra the priest, with certain heads of fathers’ households, after their fathers’ houses, and all of them by their names, were set apart; and they sat down in the first day of the tenth month to examine the matter.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 17,
+      "text": "They finished with all the men who had married foreign women by the first day of the first month.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 18,
+      "text": "Among the sons of the priests there were found who had married foreign women:\nof the sons of Jeshua, the son of Jozadak, and his brothers, Maaseiah, and Eliezer, and Jarib, and Gedaliah.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 19,
+      "text": "They gave their hand that they would put away their wives; and being guilty, they offered a ram of the flock for their guilt.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 20,
+      "text": "Of the sons of Immer: Hanani and Zebadiah.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 21,
+      "text": "Of the sons of Harim: Maaseiah, and Elijah, and Shemaiah, and Jehiel, and Uzziah.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 22,
+      "text": "Of the sons of Pashhur: Elioenai, Maaseiah, Ishmael, Nethanel, Jozabad, and Elasah.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 23,
+      "text": "Of the Levites: Jozabad, and Shimei, and Kelaiah (also called Kelita), Pethahiah, Judah, and Eliezer.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 24,
+      "text": "Of the singers: Eliashib. Of the gatekeepers: Shallum, and Telem, and Uri.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 25,
+      "text": "Of Israel: Of the sons of Parosh: Ramiah, and Izziah, and Malchijah, and Mijamin, and Eleazar, and Malchijah, and Benaiah.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 26,
+      "text": "Of the sons of Elam: Mattaniah, Zechariah, and Jehiel, and Abdi, and Jeremoth, and Elijah.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 27,
+      "text": "Of the sons of Zattu: Elioenai, Eliashib, Mattaniah, and Jeremoth, and Zabad, and Aziza.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 28,
+      "text": "Of the sons of Bebai: Jehohanan, Hananiah, Zabbai, Athlai.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 29,
+      "text": "Of the sons of Bani: Meshullam, Malluch, and Adaiah, Jashub, and Sheal, Jeremoth.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 30,
+      "text": "Of the sons of Pahathmoab: Adna, and Chelal, Benaiah, Maaseiah, Mattaniah, Bezalel, and Binnui, and Manasseh.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 31,
+      "text": "Of the sons of Harim: Eliezer, Isshijah, Malchijah, Shemaiah, Shimeon,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 32,
+      "text": "Benjamin, Malluch, Shemariah.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 33,
+      "text": "Of the sons of Hashum: Mattenai, Mattattah, Zabad, Eliphelet, Jeremai, Manasseh, Shimei.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 34,
+      "text": "Of the sons of Bani: Maadai, Amram, and Uel,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 35,
+      "text": "Benaiah, Bedeiah, Cheluhi,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 36,
+      "text": "Vaniah, Meremoth, Eliashib,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 37,
+      "text": "Mattaniah, Mattenai, and Jaasu,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 38,
+      "text": "and Bani, and Binnui, Shimei,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 39,
+      "text": "and Shelemiah, and Nathan, and Adaiah,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 40,
+      "text": "Machnadebai, Shashai, Sharai,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 41,
+      "text": "Azarel, and Shelemiah, Shemariah,\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 42,
+      "text": "Shallum, Amariah, Joseph.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 43,
+      "text": "Of the sons of Nebo: Jeiel, Mattithiah, Zabad, Zebina, Iddo, and Joel, Benaiah.\n"
+    },
+    {
+      "book_id": "EZR",
+      "book_name": "Ezra",
+      "chapter": 10,
+      "verse": 44,
+      "text": "All these had taken foreign wives; and some of them had wives by whom they had children.\n"
+    }
+  ],
+  "metadata": {
+    "chapter_count": 3,
+    "verse_count": 125,
+    "duration": {
+      "duration_text": "52.6min",
+      "status": "Longo",
+      "duration_minutes": 52.62,
+      "char_count": 12629,
+      "estimated_words": 2526.0,
+      "words_per_minute": 48.0
+    },
+    "last_updated": "1759772601.6929002"
+  }
+}

@@ -50,8 +50,9 @@ class VideoConfig:
             'subject': 'livro-biblico',
             'duration': 'auto',  # 'auto' ou número em minutos
             'language': 'en',
-            'voice_speed': 1.0,
+            'voice_speed': 0.3,
             'voice_gender': 'female',  # 'male' ou 'female'
+            'voice_volume': 1.0,  # Volume da voz (0.0 a 1.0)
             'video_quality': 'high',  # 'low', 'medium', 'high'
             'background_music': True,
             'background_music_volume': 0.3,
@@ -183,6 +184,10 @@ class VideoConfig:
         # Validar volume da música de fundo
         if not isinstance(self.config['background_music_volume'], (int, float)) or self.config['background_music_volume'] < 0 or self.config['background_music_volume'] > 1:
             errors.append("Volume da música de fundo deve estar entre 0 e 1")
+        
+        # Validar volume da voz
+        if not isinstance(self.config['voice_volume'], (int, float)) or self.config['voice_volume'] < 0 or self.config['voice_volume'] > 2:
+            errors.append("Volume da voz deve estar entre 0 e 2")
         
         return errors
 

@@ -4,6 +4,7 @@
   "language": "en",
   "voice_speed": 0.7,
   "voice_gender": "female",
+  "voice_volume": 1.0,
   "video_quality": "high",
   "background_music": true,
   "background_music_volume": 0.3,

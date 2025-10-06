@@ -3,44 +3,109 @@ Gerador de texto bíblico completo
 """
 import requests
 import json
+import os
 from typing import Dict, List
 
 class BibleTextGenerator:
     def __init__(self):
         self.base_url = "https://bible-api.com"
+        self.local_bible_dir = "bible_data"
+        self.use_local = os.path.exists(self.local_bible_dir)
         
+        if self.use_local:
+            print("[INFO] Usando dados locais da bíblia")
+        else:
+            print("[INFO] Usando API online da bíblia")
+        
+    def get_local_book_data(self, book_name: str) -> Dict:
+        """Carrega dados de um livro do armazenamento local"""
+        filename = f"{book_name.replace(' ', '_').lower()}.json"
+        filepath = os.path.join(self.local_bible_dir, filename)
+        
+        if not os.path.exists(filepath):
+            return None
+        
+        try:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"[ERRO] Erro ao carregar arquivo local {filepath}: {str(e)}")
+            return None
+    
     def get_book_chapters(self, book_name: str) -> Dict:
         """
         Obtém informações sobre os capítulos de um livro bíblico
         """
-        response = requests.get(f"{self.base_url}/{book_name}")
-        if response.status_code == 200:
-            return response.json()
+        # Tentar usar dados locais primeiro
+        if self.use_local:
+            local_data = self.get_local_book_data(book_name)
+            if local_data:
+                return local_data
+        
+        # Fallback para API online
+        try:
+            response = requests.get(f"{self.base_url}/{book_name}", timeout=10)
+            if response.status_code == 200:
+                return response.json()
+        except Exception as e:
+            print(f"[ERRO] Falha na API online: {str(e)}")
+        
         return None
     
     def get_chapter_text(self, book_name: str, chapter: int) -> str:
         """
         Obtém o texto de um capítulo específico
         """
-        response = requests.get(f"{self.base_url}/{book_name}+{chapter}")
-        if response.status_code == 200:
-            try:
-                data = response.json()
-                # Verificar se realmente retornou o capítulo solicitado
-                verses = data.get('verses', [])
-                if verses:
-                    first_verse = verses[0]
-                    returned_chapter = first_verse.get('chapter', 0)
-                    if returned_chapter == chapter:
-                        return data.get('text', '')
-            except:
-                pass
+        # Tentar usar dados locais primeiro
+        if self.use_local:
+            local_data = self.get_local_book_data(book_name)
+            if local_data:
+                verses = local_data.get('verses', [])
+                chapter_verses = [v for v in verses if v.get('chapter') == chapter]
+                if chapter_verses:
+                    # Extrair texto dos versículos
+                    text_parts = []
+                    for verse in chapter_verses:
+                        verse_text = verse.get('text', '').strip()
+                        if verse_text:
+                            text_parts.append(verse_text)
+                    return ' '.join(text_parts)
+        
+        # Fallback para API online
+        try:
+            response = requests.get(f"{self.base_url}/{book_name}+{chapter}", timeout=10)
+            if response.status_code == 200:
+                try:
+                    data = response.json()
+                    # Verificar se realmente retornou o capítulo solicitado
+                    verses = data.get('verses', [])
+                    if verses:
+                        first_verse = verses[0]
+                        returned_chapter = first_verse.get('chapter', 0)
+                        if returned_chapter == chapter:
+                            return data.get('text', '')
+                except:
+                    pass
+        except Exception as e:
+            print(f"[ERRO] Falha na API online para {book_name} capítulo {chapter}: {str(e)}")
+        
         return ''
     
     def detect_chapter_count(self, book_name: str) -> int:
         """
         Detecta automaticamente o número de capítulos de um livro
         """
+        # Tentar usar dados locais primeiro
+        if self.use_local:
+            local_data = self.get_local_book_data(book_name)
+            if local_data:
+                verses = local_data.get('verses', [])
+                if verses:
+                    # Encontrar o maior número de capítulo
+                    max_chapter = max(verse.get('chapter', 0) for verse in verses)
+                    return max_chapter
+        
+        # Fallback para API online
         # Primeiro, verificar se o capítulo 1 existe
         if not self.get_chapter_text(book_name, 1):
             return 0
@@ -150,7 +215,7 @@ class BibleTextGenerator:
             return ''
         
         print(f"Encontrados {chapter_count} capítulos para {api_book_name}")
-        full_text = f"Livro de {api_book_name.upper()}\n\n"
+        full_text = ""
         
         # Buscar cada capítulo
         for chapter_num in range(1, chapter_count + 1):
@@ -162,6 +227,26 @@ class BibleTextGenerator:
                 print(f"Aviso: Capítulo {chapter_num} não encontrado")
         
         return full_text
+    
+    def get_book_metadata(self, book_name: str) -> Dict:
+        """
+        Obtém metadados de um livro bíblico (capítulos, duração, etc.)
+        """
+        if self.use_local:
+            local_data = self.get_local_book_data(book_name)
+            if local_data and 'metadata' in local_data:
+                return local_data['metadata']
+        
+        # Fallback: retornar informações básicas se não houver metadados
+        return {
+            'chapter_count': 0,
+            'verse_count': 0,
+            'duration': {
+                'duration_text': 'N/A',
+                'status': 'N/A',
+                'duration_minutes': 0
+            }
+        }
     
     def get_available_books(self) -> List[str]:
         """
@@ -189,9 +274,30 @@ def main():
     generator = BibleTextGenerator()
     books = generator.get_available_books()
     
+    # Mapeamento de livros bíblicos com número de capítulos
+    book_chapters = {
+        'genesis': 50, 'exodus': 40, 'leviticus': 27, 'numbers': 36, 'deuteronomy': 34,
+        'joshua': 24, 'judges': 21, 'ruth': 4, '1-samuel': 31, '2-samuel': 24,
+        '1-kings': 22, '2-kings': 25, '1-chronicles': 29, '2-chronicles': 36,
+        'ezra': 10, 'nehemiah': 13, 'esther': 10, 'job': 42, 'psalms': 150,
+        'proverbs': 31, 'ecclesiastes': 12, 'song-of-solomon': 8, 'isaiah': 66,
+        'jeremiah': 52, 'lamentations': 5, 'ezekiel': 48, 'daniel': 12,
+        'hosea': 14, 'joel': 3, 'amos': 9, 'obadiah': 1, 'jonah': 4,
+        'micah': 7, 'nahum': 3, 'habakkuk': 3, 'zephaniah': 3, 'haggai': 2,
+        'zechariah': 14, 'malachi': 4, 'matthew': 28, 'mark': 16, 'luke': 24,
+        'john': 21, 'acts': 28, 'romans': 16, '1-corinthians': 16, '2-corinthians': 13,
+        'galatians': 6, 'ephesians': 6, 'philippians': 4, 'colossians': 4,
+        '1-thessalonians': 5, '2-thessalonians': 3, '1-timothy': 6, '2-timothy': 4,
+        'titus': 3, 'philemon': 1, 'hebrews': 13, 'james': 5, '1-peter': 5,
+        '2-peter': 3, '1-john': 5, '2-john': 1, '3-john': 1, 'jude': 1, 'revelation': 22
+    }
+    
     print("Livros bíblicos disponíveis:")
+    print("-" * 50)
     for i, book in enumerate(books, 1):
-        print(f"{i}. {book}")
+        book_name = book.replace('-', ' ').title()
+        chapters = book_chapters.get(book, '?')
+        print(f"{i:2d}. {book_name} ({chapters} capítulos)")
     
     choice = input("\nDigite o número do livro ou o nome: ")
     

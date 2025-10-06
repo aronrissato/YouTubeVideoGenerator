@@ -1,0 +1,25 @@
+{
+  "reference": "3 John",
+  "verses": [
+    {
+      "book_id": "3JN",
+      "book_name": "3 John",
+      "chapter": 1,
+      "verse": 1,
+      "text": "The elder to Gaius the beloved, whom I love in truth.\n"
+    }
+  ],
+  "metadata": {
+    "chapter_count": 1,
+    "verse_count": 1,
+    "duration": {
+      "duration_text": "13s",
+      "status": "Curto",
+      "duration_minutes": 0.22,
+      "char_count": 53,
+      "estimated_words": 11.0,
+      "words_per_minute": 48.0
+    },
+    "last_updated": "1759771114.2454472"
+  }
+}

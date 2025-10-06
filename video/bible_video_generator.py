@@ -221,36 +221,23 @@ class BibleVideoGenerator:
                 # Personalizar título baseado no assunto configurado
                 subject_options = video_config.get_subject_options()
                 subject_type = video_config.get('subject', 'livro-biblico')
+                language = video_config.get('language', 'pt')
+                
+                # Mapeamento de descrições por idioma
+                descriptions = self._get_descriptions_by_language(language)
                 
                 if subject_type == 'livro-biblico':
-                    title = f"Livro de {book_name.upper()} - Narração Completa da Bíblia"
-                    description = f"""Narração completa do livro de {book_name.upper()} da Bíblia Sagrada.
-
-Este vídeo contém a leitura integral do livro, proporcionando uma experiência de meditação e estudo bíblico.
-
-Que esta palavra abençoe sua vida!
-
-#Bíblia #Cristianismo #Fé #Deus #Jesus #Religião #Meditação #EstudoBíblico #PalavraDeDeus #Espiritualidade"""
+                    title = descriptions['livro-biblico']['title'].format(book_name=book_name.upper())
+                    description = descriptions['livro-biblico']['description'].format(book_name=book_name.upper())
                 elif subject_type == 'salmos':
-                    title = f"Salmos de {book_name.upper()} - Louvores e Adoração"
-                    description = f"""Salmos selecionados do livro de {book_name.upper()} para meditação e adoração.
-
-Que estes louvores elevem seu coração ao Senhor!
-
-#Salmos #Louvores #Adoração #Bíblia #Cristianismo #Música #Espiritualidade"""
+                    title = descriptions['salmos']['title'].format(book_name=book_name.upper())
+                    description = descriptions['salmos']['description'].format(book_name=book_name.upper())
                 else:
-                    title = f"{subject_options.get(subject_type, 'Conteúdo Bíblico')} - {book_name.upper()}"
-                    description = f"""Conteúdo bíblico do livro de {book_name.upper()}.
-
-Que a palavra de Deus abençoe sua vida!
-
-#Bíblia #Cristianismo #Fé #PalavraDeDeus #Espiritualidade"""
+                    subject_name = subject_options.get(subject_type, 'Conteúdo Bíblico')
+                    title = descriptions['outros']['title'].format(subject_name=subject_name, book_name=book_name.upper())
+                    description = descriptions['outros']['description'].format(book_name=book_name.upper())
                 
-                tags = [
-                    "bíblia", "cristianismo", "fé", "deus", "jesus", "religião",
-                    "meditação", "estudo bíblico", "palavra de deus", "espiritualidade",
-                    book_name.lower(), "narração", "leitura bíblica"
-                ]
+                tags = self._get_tags_by_language(language, book_name, subject_type)
                 
                 video_id = self.youtube_publisher.upload_video(
                     final_video, title, description, tags, category, privacy
@@ -293,15 +280,31 @@ Que a palavra de Deus abençoe sua vida!
         return []
     
     def list_available_books(self):
-        """Lista todos os livros bíblicos disponíveis"""
+        """Lista todos os livros bíblicos disponíveis com número de capítulos e duração estimada"""
         books = self.text_generator.get_available_books()
+        
         print("Livros bíblicos disponíveis:")
-        print("-" * 40)
+        print("-" * 80)
+        print(f"{'#':<3} {'Livro':<20} {'Capítulos':<10} {'Duração Est.':<15} {'Status':<10}")
+        print("-" * 80)
         
         for i, book in enumerate(books, 1):
-            print(f"{i:2d}. {book.replace('-', ' ').title()}")
+            book_name = book.replace('-', ' ').title()
+            
+            # Obter metadados do livro (incluindo duração pré-calculada)
+            metadata = self.text_generator.get_book_metadata(book)
+            chapters = metadata.get('chapter_count', '?')
+            duration_info = metadata.get('duration', {})
+            duration_text = duration_info.get('duration_text', 'N/A')
+            status = duration_info.get('status', 'N/A')
+            
+            print(f"{i:<3} {book_name:<20} {chapters:<10} {duration_text:<15} {status:<10}")
+        
+        print("-" * 80)
+        print("Legenda: Curto(<5min) | Médio(5-30min) | Longo(30-60min) | Muito Longo(>60min)")
         
         return books
+    
     
     def manual_cleanup(self, book_name: str = None):
         """
@@ -349,6 +352,166 @@ Que a palavra de Deus abençoe sua vida!
                 print(f"Limpeza completa: {cleaned_count} arquivos temporários removidos")
             else:
                 print("Nenhum arquivo temporário encontrado para limpeza")
+    
+    def _get_descriptions_by_language(self, language: str) -> dict:
+        """Retorna descrições e títulos traduzidos baseados no idioma configurado"""
+        
+        descriptions = {
+            'pt': {
+                'livro-biblico': {
+                    'title': "Livro de {book_name} - Narração Completa da Bíblia",
+                    'description': """Narração completa do livro de {book_name} da Bíblia Sagrada.
+
+Este vídeo contém a leitura integral do livro, proporcionando uma experiência de meditação e estudo bíblico.
+
+Que esta palavra abençoe sua vida!
+
+#Bíblia #Cristianismo #Fé #Deus #Jesus #Religião #Meditação #EstudoBíblico #PalavraDeDeus #Espiritualidade"""
+                },
+                'salmos': {
+                    'title': "Salmos de {book_name} - Louvores e Adoração",
+                    'description': """Salmos selecionados do livro de {book_name} para meditação e adoração.
+
+Que estes louvores elevem seu coração ao Senhor!
+
+#Salmos #Louvores #Adoração #Bíblia #Cristianismo #Música #Espiritualidade"""
+                },
+                'outros': {
+                    'title': "{subject_name} - {book_name}",
+                    'description': """Conteúdo bíblico do livro de {book_name}.
+
+Que a palavra de Deus abençoe sua vida!
+
+#Bíblia #Cristianismo #Fé #PalavraDeDeus #Espiritualidade"""
+                }
+            },
+            'en': {
+                'livro-biblico': {
+                    'title': "Book of {book_name} - Complete Bible Narration",
+                    'description': """Complete narration of the book of {book_name} from the Holy Bible.
+
+This video contains the complete reading of the book, providing a meditation and Bible study experience.
+
+May this word bless your life!
+
+#Bible #Christianity #Faith #God #Jesus #Religion #Meditation #BibleStudy #WordOfGod #Spirituality"""
+                },
+                'salmos': {
+                    'title': "Psalms of {book_name} - Praise and Worship",
+                    'description': """Selected Psalms from the book of {book_name} for meditation and worship.
+
+May these praises lift your heart to the Lord!
+
+#Psalms #Praise #Worship #Bible #Christianity #Music #Spirituality"""
+                },
+                'outros': {
+                    'title': "{subject_name} - {book_name}",
+                    'description': """Biblical content from the book of {book_name}.
+
+May the word of God bless your life!
+
+#Bible #Christianity #Faith #WordOfGod #Spirituality"""
+                }
+            },
+            'es': {
+                'livro-biblico': {
+                    'title': "Libro de {book_name} - Narración Completa de la Biblia",
+                    'description': """Narración completa del libro de {book_name} de la Sagrada Biblia.
+
+Este video contiene la lectura integral del libro, proporcionando una experiencia de meditación y estudio bíblico.
+
+¡Que esta palabra bendiga tu vida!
+
+#Biblia #Cristianismo #Fe #Dios #Jesús #Religión #Meditación #EstudioBíblico #PalabraDeDios #Espiritualidad"""
+                },
+                'salmos': {
+                    'title': "Salmos de {book_name} - Alabanzas y Adoración",
+                    'description': """Salmos seleccionados del libro de {book_name} para meditación y adoración.
+
+¡Que estas alabanzas eleven tu corazón al Señor!
+
+#Salmos #Alabanzas #Adoración #Biblia #Cristianismo #Música #Espiritualidad"""
+                },
+                'outros': {
+                    'title': "{subject_name} - {book_name}",
+                    'description': """Contenido bíblico del libro de {book_name}.
+
+¡Que la palabra de Dios bendiga tu vida!
+
+#Biblia #Cristianismo #Fe #PalabraDeDios #Espiritualidad"""
+                }
+            },
+            'fr': {
+                'livro-biblico': {
+                    'title': "Livre de {book_name} - Narration Complète de la Bible",
+                    'description': """Narration complète du livre de {book_name} de la Sainte Bible.
+
+Cette vidéo contient la lecture intégrale du livre, offrant une expérience de méditation et d'étude biblique.
+
+Que cette parole bénisse votre vie !
+
+#Bible #Christianisme #Foi #Dieu #Jésus #Religion #Méditation #ÉtudeBiblique #ParoleDeDieu #Spiritualité"""
+                },
+                'salmos': {
+                    'title': "Psaumes de {book_name} - Louanges et Adoration",
+                    'description': """Psaumes sélectionnés du livre de {book_name} pour la méditation et l'adoration.
+
+Que ces louanges élèvent votre cœur vers le Seigneur !
+
+#Psaumes #Louanges #Adoration #Bible #Christianisme #Musique #Spiritualité"""
+                },
+                'outros': {
+                    'title': "{subject_name} - {book_name}",
+                    'description': """Contenu biblique du livre de {book_name}.
+
+Que la parole de Dieu bénisse votre vie !
+
+#Bible #Christianisme #Foi #ParoleDeDieu #Spiritualité"""
+                }
+            }
+        }
+        
+        # Retorna descrições em português como fallback se o idioma não estiver disponível
+        return descriptions.get(language, descriptions['pt'])
+    
+    def _get_tags_by_language(self, language: str, book_name: str, subject_type: str) -> list:
+        """Retorna tags traduzidas baseadas no idioma configurado"""
+        
+        tag_sets = {
+            'pt': {
+                'base': ["bíblia", "cristianismo", "fé", "deus", "jesus", "religião", 
+                        "meditação", "estudo bíblico", "palavra de deus", "espiritualidade",
+                        book_name.lower(), "narração", "leitura bíblica"],
+                'salmos': ["salmos", "louvores", "adoração", "música", "cantos"]
+            },
+            'en': {
+                'base': ["bible", "christianity", "faith", "god", "jesus", "religion",
+                        "meditation", "bible study", "word of god", "spirituality",
+                        book_name.lower(), "narration", "bible reading"],
+                'salmos': ["psalms", "praise", "worship", "music", "songs"]
+            },
+            'es': {
+                'base': ["biblia", "cristianismo", "fe", "dios", "jesús", "religión",
+                        "meditación", "estudio bíblico", "palabra de dios", "espiritualidad",
+                        book_name.lower(), "narración", "lectura bíblica"],
+                'salmos': ["salmos", "alabanzas", "adoración", "música", "cantos"]
+            },
+            'fr': {
+                'base': ["bible", "christianisme", "foi", "dieu", "jésus", "religion",
+                        "méditation", "étude biblique", "parole de dieu", "spiritualité",
+                        book_name.lower(), "narration", "lecture biblique"],
+                'salmos': ["psaumes", "louanges", "adoration", "musique", "chants"]
+            }
+        }
+        
+        # Obter tags base
+        tags = tag_sets.get(language, tag_sets['pt'])['base']
+        
+        # Adicionar tags específicas para salmos
+        if subject_type == 'salmos':
+            tags.extend(tag_sets.get(language, tag_sets['pt'])['salmos'])
+        
+        return tags
 
 def main():
     """Função principal para execução interativa"""

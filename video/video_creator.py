@@ -4,6 +4,7 @@ Criador de vídeo final combinando áudio e vídeos do Pexels
 import os
 from moviepy.editor import VideoFileClip, AudioFileClip, concatenate_videoclips, CompositeAudioClip
 from moviepy.video.fx import resize
+from moviepy.audio.fx.all import volumex
 import tempfile
 import yt_dlp
 from config.config import video_config
@@ -17,7 +18,8 @@ class VideoCreator:
         
         # Usar configurações personalizadas
         self.background_music_enabled = video_config.get('background_music', True)
-        self.background_music_volume = video_config.get('background_music_volume', 0.3)
+        self.background_music_volume = video_config.get('background_music_volume', 0.1)
+        self.voice_volume = video_config.get('voice_volume', 1.0)
         self.video_quality = video_config.get('video_quality', 'high')
         self.video_style = video_config.get('video_style', 'calm')
         
@@ -56,6 +58,8 @@ class VideoCreator:
             }
             
             print("Baixando música de fundo do YouTube...")
+            print(f"URL: {music_url}")
+            print(f"Diretório de destino: {self.temp_dir}")
             
             # Criar diretório temp se não existir
             os.makedirs(self.temp_dir, exist_ok=True)
@@ -85,6 +89,7 @@ class VideoCreator:
                 
         except Exception as e:
             print(f"Aviso: Erro ao baixar música de fundo: {str(e)}")
+            print("Continuando sem música de fundo...")
             return None
     
     def create_video_with_audio(self, audio_file: str, video_files: list, output_filename: str) -> str:
@@ -95,6 +100,10 @@ class VideoCreator:
             print("Carregando áudio...")
             audio_clip = AudioFileClip(audio_file)
             audio_duration = audio_clip.duration
+            
+            # Aplicar volume da voz se necessário
+            if self.voice_volume != 1.0:
+                audio_clip = audio_clip.fx(volumex, self.voice_volume)
             
             print("Carregando vídeos...")
             video_clips = []
@@ -173,33 +182,67 @@ class VideoCreator:
             # Baixar música de fundo
             background_music_file = self._download_background_music()
             
+            # Variável para armazenar o áudio final que será usado
+            audio_to_use = audio_clip
+            composite_audio_file = None  # Arquivo temporário do áudio composto para fallback
+            
             if background_music_file and os.path.exists(background_music_file):
                 print("Combinando narração com música de fundo...")
+                print(f"Arquivo de música: {background_music_file}")
                 # Carregar música de fundo
                 background_music = AudioFileClip(background_music_file)
+                print(f"Duração da música: {background_music.duration:.2f}s")
                 
                 # Ajustar duração da música de fundo para corresponder ao áudio
                 if background_music.duration < audio_duration:
-                    # Repetir a música se for mais curta
-                    loops_needed = int(audio_duration / background_music.duration) + 1
-                    background_music = concatenate_videoclips([background_music] * loops_needed)
+                    # Repetir a música se for mais curta usando loop
+                    background_music = background_music.loop(duration=audio_duration)
                 
                 # Cortar para a duração exata
                 background_music = background_music.subclip(0, audio_duration)
                 
-                # Reduzir volume da música de fundo baseado na configuração
-                background_music = background_music.volumex(self.background_music_volume)
+                # Reduzir volume da música de fundo baseado na configuração (usando fx como na versão anterior)
+                background_music = background_music.fx(volumex, self.background_music_volume)
                 
-                # Combinar narração + música de fundo
-                final_audio = CompositeAudioClip([audio_clip, background_music])
-                final_video = final_video.set_audio(final_audio)
+                # Combinar música de fundo + narração (mesma ordem da versão anterior)
+                print(f"Volume da música: {self.background_music_volume}")
+                print("Criando áudio composto...")
+                final_audio = CompositeAudioClip([background_music, audio_clip])
+                print(f"Duração do áudio final: {final_audio.duration:.2f}s")
                 
-                # Fechar clipe da música de fundo
-                background_music.close()
+                # Salvar áudio composto em arquivo temporário para fallback do ffmpeg
+                composite_audio_file = os.path.join(self.temp_dir, 'composite_audio_temp.mp3')
+                print(f"Salvando áudio composto em arquivo temporário: {composite_audio_file}")
+                try:
+                    # Usar write_audiofile com fps definido explicitamente para AudioClip
+                    final_audio.write_audiofile(
+                        composite_audio_file, 
+                        fps=44100,  # Taxa de amostragem padrão para áudio
+                        codec='libmp3lame',
+                        bitrate='192k',
+                        verbose=False, 
+                        logger=None
+                    )
+                    print("Áudio composto salvo com sucesso")
+                except Exception as audio_save_error:
+                    print(f"Aviso: Erro ao salvar áudio composto: {str(audio_save_error)}")
+                    # Se falhar, usar apenas o arquivo de narração original no fallback
+                    composite_audio_file = None
+                
+                # Usar o áudio composto
+                audio_to_use = final_audio
+                
+                # Fechar clipes para liberar memória (mas manter final_audio até depois de renderizar)
+                try:
+                    background_music.close()
+                except:
+                    pass  # Ignorar erros de fechamento
             else:
                 # Se não conseguir baixar música de fundo, usar apenas narração
                 print("Usando apenas narração (música de fundo não disponível)")
-                final_video = final_video.set_audio(audio_clip)
+            
+            # Aplicar o áudio ao vídeo (seja composto ou apenas narração)
+            final_video = final_video.set_audio(audio_to_use)
             
             # Salvar vídeo final
             output_path = os.path.join(self.output_dir, f"{output_filename}.mp4")
@@ -258,11 +301,15 @@ class VideoCreator:
                         temp_video = output_path.replace('.mp4', '_temp.mp4')
                         os.rename(output_path, temp_video)
                         
+                        # Usar áudio composto se disponível, caso contrário usar narração original
+                        audio_to_add = composite_audio_file if composite_audio_file and os.path.exists(composite_audio_file) else audio_file
+                        print(f"Adicionando áudio ao vídeo usando ffmpeg: {audio_to_add}")
+                        
                         # Comando ffmpeg para adicionar áudio
                         cmd = [
                             'ffmpeg', '-y',
                             '-i', temp_video,
-                            '-i', audio_file,
+                            '-i', audio_to_add,
                             '-c:v', 'copy',
                             '-c:a', 'aac',
                             '-map', '0:v:0',
@@ -288,6 +335,13 @@ class VideoCreator:
             except:
                 pass
             
+            # Fechar áudio composto se existir (depois da renderização)
+            try:
+                if 'final_audio' in locals():
+                    final_audio.close()
+            except:
+                pass
+            
             try:
                 final_video.close()
             except:
@@ -305,6 +359,13 @@ class VideoCreator:
             
             # Limpar arquivos temporários do MoviePy imediatamente após uso
             self._cleanup_moviepy_temp_files()
+            
+            # Limpar arquivo de áudio composto temporário se foi criado
+            if composite_audio_file and os.path.exists(composite_audio_file):
+                try:
+                    os.unlink(composite_audio_file)
+                except:
+                    pass
             
             print(f"Vídeo criado com sucesso: {output_path}")
             return output_path

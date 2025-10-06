@@ -24,13 +24,14 @@ class ConfigUI:
             print("2. Configurar duração do vídeo")
             print("3. Configurar idioma")
             print("4. Configurar velocidade da voz")
-            print("5. Configurar qualidade de vídeo")
-            print("6. Configurar estilo do vídeo")
-            print("7. Configurar música de fundo")
-            print("8. Configurar legendas")
-            print("9. Configurações avançadas")
-            print("10. Reset para padrões")
-            print("11. Salvar e sair")
+            print("5. Configurar volume da voz")
+            print("6. Configurar qualidade de vídeo")
+            print("7. Configurar estilo do vídeo")
+            print("8. Configurar música de fundo")
+            print("9. Configurar legendas")
+            print("10. Configurações avançadas")
+            print("11. Reset para padrões")
+            print("12. Salvar e sair")
             print("0. Sair sem salvar")
             
             choice = input("\nEscolha uma opção: ").strip()
@@ -44,18 +45,20 @@ class ConfigUI:
             elif choice == '4':
                 self.configure_voice_speed()
             elif choice == '5':
-                self.configure_video_quality()
+                self.configure_voice_volume()
             elif choice == '6':
-                self.configure_video_style()
+                self.configure_video_quality()
             elif choice == '7':
-                self.configure_background_music()
+                self.configure_video_style()
             elif choice == '8':
-                self.configure_subtitles()
+                self.configure_background_music()
             elif choice == '9':
-                self.configure_advanced()
+                self.configure_subtitles()
             elif choice == '10':
-                self.reset_to_default()
+                self.configure_advanced()
             elif choice == '11':
+                self.reset_to_default()
+            elif choice == '12':
                 self.save_and_exit()
                 break
             elif choice == '0':
@@ -85,6 +88,7 @@ class ConfigUI:
         
         print(f"Idioma: {language_options.get(self.config.get('language'), 'Desconhecido')}")
         print(f"Velocidade da voz: {self.config.get('voice_speed')}x")
+        print(f"Volume da voz: {int(self.config.get('voice_volume', 1.0) * 100)}%")
         print(f"Gênero da voz: {voice_options.get(self.config.get('voice_gender'), 'Desconhecido')}")
         print(f"Qualidade: {quality_options.get(self.config.get('video_quality'), 'Desconhecido')}")
         print(f"Estilo do vídeo: {style_options['video_style'].get(self.config.get('video_style'), 'Desconhecido')}")
@@ -229,6 +233,59 @@ class ConfigUI:
                             break
                         else:
                             print("Velocidade deve estar entre 0.5 e 3.0.")
+                    except ValueError:
+                        print("Digite um número válido.")
+                break
+            else:
+                print("Opção inválida. Tente novamente.")
+    
+    def configure_voice_volume(self):
+        """Configura volume da voz"""
+        print("\n" + "-" * 40)
+        print("CONFIGURAR VOLUME DA VOZ")
+        print("-" * 40)
+        
+        print("Opções rápidas:")
+        print("1. Muito baixo (25%)")
+        print("2. Baixo (50%)")
+        print("3. Normal (100%) - Padrão")
+        print("4. Alto (125%)")
+        print("5. Muito alto (150%)")
+        print("6. Personalizado")
+        
+        while True:
+            choice = input("Escolha uma opção (1-6): ").strip()
+            
+            if choice == '1':
+                self.config.set('voice_volume', 0.25)
+                print("Volume configurado: Muito baixo (25%)")
+                break
+            elif choice == '2':
+                self.config.set('voice_volume', 0.5)
+                print("Volume configurado: Baixo (50%)")
+                break
+            elif choice == '3':
+                self.config.set('voice_volume', 1.0)
+                print("Volume configurado: Normal (100%)")
+                break
+            elif choice == '4':
+                self.config.set('voice_volume', 1.25)
+                print("Volume configurado: Alto (125%)")
+                break
+            elif choice == '5':
+                self.config.set('voice_volume', 1.5)
+                print("Volume configurado: Muito alto (150%)")
+                break
+            elif choice == '6':
+                while True:
+                    try:
+                        volume = float(input("Digite o volume (0.0-2.0): "))
+                        if 0.0 <= volume <= 2.0:
+                            self.config.set('voice_volume', volume)
+                            print(f"Volume configurado: {int(volume * 100)}%")
+                            break
+                        else:
+                            print("Volume deve estar entre 0.0 e 2.0.")
                     except ValueError:
                         print("Digite um número válido.")
                 break

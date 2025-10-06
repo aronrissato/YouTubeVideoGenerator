@@ -1,0 +1,25 @@
+{
+  "reference": "2 John",
+  "verses": [
+    {
+      "book_id": "2JN",
+      "book_name": "2 John",
+      "chapter": 1,
+      "verse": 1,
+      "text": "The elder, to the chosen lady and her children, whom I love in truth; and not I only, but also all those who know the truth;\n"
+    }
+  ],
+  "metadata": {
+    "chapter_count": 1,
+    "verse_count": 1,
+    "duration": {
+      "duration_text": "31s",
+      "status": "Curto",
+      "duration_minutes": 0.52,
+      "char_count": 124,
+      "estimated_words": 25.0,
+      "words_per_minute": 48.0
+    },
+    "last_updated": "1759771114.2454472"
+  }
+}
