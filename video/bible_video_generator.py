@@ -83,6 +83,14 @@ class BibleVideoGenerator:
             temp_audio_files = glob.glob(os.path.join(TEMP_DIR, 'temp-audio*'))
             temp_files_to_clean.extend(temp_audio_files)
             
+            # Limpar arquivos temporários de partes de áudio
+            temp_part_audio_files = glob.glob(os.path.join(AUDIO_OUTPUT_DIR, 'temp_part_*.mp3'))
+            temp_files_to_clean.extend(temp_part_audio_files)
+            
+            # Limpar qualquer arquivo temporário de áudio
+            temp_audio_output_files = glob.glob(os.path.join(AUDIO_OUTPUT_DIR, '*temp*.mp3'))
+            temp_files_to_clean.extend(temp_audio_output_files)
+            
             # Limpar arquivos temporários do MoviePy no diretório raiz
             moviepy_temp_files = glob.glob('*TEMP*.mp4')
             temp_files_to_clean.extend(moviepy_temp_files)
@@ -327,6 +335,8 @@ class BibleVideoGenerator:
                 "*TEMP*.mp4",  # Arquivos temporários do MoviePy no diretório raiz
                 os.path.join(TEMP_DIR, "*TEMP*.mp4"),  # Arquivos temporários do MoviePy no temp
                 "temp-audio.*",  # Arquivos temp-audio que podem ficar no diretório raiz
+                os.path.join(AUDIO_OUTPUT_DIR, "temp_part_*.mp3"),  # Arquivos temporários de partes de áudio
+                os.path.join(AUDIO_OUTPUT_DIR, "*temp*.mp3"),  # Qualquer arquivo temporário de áudio
             ]
             
             cleaned_count = 0
