@@ -222,7 +222,7 @@ class BibleTextGenerator:
             print(f"Buscando capítulo {chapter_num}/{chapter_count}...")
             chapter_text = self.get_chapter_text(api_book_name, chapter_num)
             if chapter_text:
-                full_text += f"Capítulo {chapter_num}\n\n{chapter_text}\n\n"
+                full_text += f"{chapter_text}\n\n"
             else:
                 print(f"Aviso: Capítulo {chapter_num} não encontrado")
         

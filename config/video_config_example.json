@@ -8,7 +8,6 @@
   "video_quality": "high",
   "background_music": true,
   "background_music_volume": 0.3,
-  "subtitle_style": "modern",
   "video_style": "calm",
   "custom_queries": [
     "nature",

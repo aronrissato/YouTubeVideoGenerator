@@ -28,10 +28,9 @@ class ConfigUI:
             print("6. Configurar qualidade de vídeo")
             print("7. Configurar estilo do vídeo")
             print("8. Configurar música de fundo")
-            print("9. Configurar legendas")
-            print("10. Configurações avançadas")
-            print("11. Reset para padrões")
-            print("12. Salvar e sair")
+            print("9. Configurações avançadas")
+            print("10. Reset para padrões")
+            print("11. Salvar e sair")
             print("0. Sair sem salvar")
             
             choice = input("\nEscolha uma opção: ").strip()
@@ -53,12 +52,10 @@ class ConfigUI:
             elif choice == '8':
                 self.configure_background_music()
             elif choice == '9':
-                self.configure_subtitles()
-            elif choice == '10':
                 self.configure_advanced()
-            elif choice == '11':
+            elif choice == '10':
                 self.reset_to_default()
-            elif choice == '12':
+            elif choice == '11':
                 self.save_and_exit()
                 break
             elif choice == '0':
@@ -96,8 +93,6 @@ class ConfigUI:
         
         if self.config.get('background_music'):
             print(f"Volume da música: {int(self.config.get('background_music_volume', 0.3) * 100)}%")
-        
-        print(f"Estilo das legendas: {style_options['subtitle_style'].get(self.config.get('subtitle_style'), 'Desconhecido')}")
     
     def configure_subject(self):
         """Configura assunto do vídeo"""
@@ -382,33 +377,6 @@ class ConfigUI:
                 break
             else:
                 print("Opção inválida. Tente novamente.")
-    
-    def configure_subtitles(self):
-        """Configura legendas"""
-        print("\n" + "-" * 40)
-        print("CONFIGURAR LEGENDAS")
-        print("-" * 40)
-        
-        options = self.config.get_style_options()['subtitle_style']
-        
-        print("Estilos de legenda disponíveis:")
-        for i, (key, description) in enumerate(options.items(), 1):
-            print(f"{i}. {description}")
-        
-        while True:
-            choice = input(f"\nEscolha um estilo (1-{len(options)}): ").strip()
-            
-            if choice.isdigit():
-                choice_num = int(choice)
-                if 1 <= choice_num <= len(options):
-                    selected_key = list(options.keys())[choice_num - 1]
-                    self.config.set('subtitle_style', selected_key)
-                    print(f"Estilo de legenda configurado: {options[selected_key]}")
-                    break
-                else:
-                    print("Opção inválida. Tente novamente.")
-            else:
-                print("Digite um número válido.")
     
     def configure_advanced(self):
         """Configurações avançadas"""

@@ -1,6 +1,6 @@
 # 🎬 Gerador de Vídeos Bíblicos
 
-Sistema automatizado para geração de vídeos de livros bíblicos com narração, vídeos de fundo, legendas e publicação no YouTube.
+Sistema automatizado para geração de vídeos de livros bíblicos com narração, vídeos de fundo e publicação no YouTube.
 
 ## 📋 Requisitos
 
@@ -58,8 +58,7 @@ YouTubeVideoGenerator/
 ├── audio/
 │   └── audio_generator.py                   # Geração de áudio (TTS)
 ├── text/
-│   ├── bible_text_generator.py              # Obtenção de texto bíblico
-│   └── subtitle_generator.py                # Geração de legendas
+│   └── bible_text_generator.py              # Obtenção de texto bíblico
 ├── config/
 │   ├── config.py                            # Configurações globais
 │   ├── config_ui.py                         # Interface de configuração
@@ -78,8 +77,7 @@ YouTubeVideoGenerator/
 | `AudioGenerator` | Converte texto em áudio (Azure TTS, gTTS, pyttsx3) |
 | `PexelsVideoFetcher` | Busca e baixa vídeos do Pexels |
 | `VideoCreator` | Combina áudio + vídeos + música de fundo |
-| `SubtitleGenerator` | Gera arquivos SRT/VTT de legendas |
-| `YouTubePublisher` | Upload de vídeos e legendas no YouTube |
+| `YouTubePublisher` | Upload de vídeos no YouTube |
 | `Config` | Gerencia configurações personalizadas |
 
 ## 🔄 Fluxograma de Execução
@@ -114,20 +112,16 @@ graph TD
     Step4 --> Step4Details[VideoCreator MoviePy<br/>- Concatenação vídeos<br/>- Sincronização áudio<br/>- Música de fundo<br/>- Transições]
     Step4Details --> Step4Output[🎥 output/videos/livro_final.mp4]
     
-    Step4Output --> Step5[💬 ETAPA 5: Gerar Legendas]
-    Step5 --> Step5Details[SubtitleGenerator<br/>- Divisão de texto<br/>- Cálculo de timing<br/>- Formato SRT/VTT]
-    Step5Details --> Step5Output[📝 output/subtitles/livro.srt]
+    Step4Output --> Step5Decision{Publicar no<br/>YouTube?}
+    Step5Decision -->|Sim| Step5[📤 ETAPA 5: Upload YouTube]
+    Step5Decision -->|Não| Step6
     
-    Step5Output --> Step6Decision{Publicar no<br/>YouTube?}
-    Step6Decision -->|Sim| Step6[📤 ETAPA 6: Upload YouTube]
-    Step6Decision -->|Não| Step7
+    Step5 --> Step5Details[YouTubePublisher<br/>- OAuth 2.0<br/>- Upload vídeo<br/>- Metadados]
+    Step5Details --> Step5Output[🌐 URL do vídeo]
     
-    Step6 --> Step6Details[YouTubePublisher<br/>- OAuth 2.0<br/>- Upload vídeo<br/>- Upload legendas<br/>- Metadados]
-    Step6Details --> Step6Output[🌐 URL do vídeo]
-    
-    Step6Output --> Step7[🧹 ETAPA 7: Limpeza Automática]
-    Step7 --> Step7Details[Cleanup System<br/>- Remove temporários<br/>- Remove cache<br/>- Mantém vídeo final]
-    Step7Details --> Success([✅ Processo Concluído])
+    Step5Output --> Step6[🧹 ETAPA 6: Limpeza Automática]
+    Step6 --> Step6Details[Cleanup System<br/>- Remove temporários<br/>- Remove cache<br/>- Mantém vídeo final]
+    Step6Details --> Success([✅ Processo Concluído])
     
     VideoGen -.->|Erro| ErrorCleanup[❌ Limpeza por Erro]
     VideoGen -.->|Ctrl+C| InterruptCleanup[⛔ Limpeza por Interrupção]
@@ -142,9 +136,8 @@ graph TD
     style Step2 fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#fff
     style Step3 fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#fff
     style Step4 fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#fff
-    style Step5 fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#fff
-    style Step6 fill:#9C27B0,stroke:#6A1B9A,stroke-width:2px,color:#fff
-    style Step7 fill:#607D8B,stroke:#37474F,stroke-width:2px,color:#fff
+    style Step5 fill:#9C27B0,stroke:#6A1B9A,stroke-width:2px,color:#fff
+    style Step6 fill:#607D8B,stroke:#37474F,stroke-width:2px,color:#fff
 ```
 
 ### 📊 Visão Simplificada do Pipeline
@@ -154,19 +147,17 @@ flowchart LR
     A[📖 Texto] --> B[🎤 Áudio]
     B --> C[🎞️ Vídeos]
     C --> D[🎬 Composição]
-    D --> E[💬 Legendas]
-    E --> F{Upload?}
-    F -->|Sim| G[📤 YouTube]
-    F -->|Não| H[💾 Salvo]
-    G --> I[🧹 Limpeza]
-    H --> I
+    D --> E{Upload?}
+    E -->|Sim| F[📤 YouTube]
+    E -->|Não| G[💾 Salvo]
+    F --> H[🧹 Limpeza]
+    G --> H
     
     style A fill:#E3F2FD,stroke:#1976D2
     style B fill:#E8F5E9,stroke:#388E3C
     style C fill:#FFF3E0,stroke:#F57C00
     style D fill:#F3E5F5,stroke:#7B1FA2
-    style E fill:#E0F2F1,stroke:#00796B
-    style G fill:#FCE4EC,stroke:#C2185B
+    style F fill:#FCE4EC,stroke:#C2185B
     style H fill:#F5F5F5,stroke:#616161
     style I fill:#EFEBE9,stroke:#5D4037
 ```
@@ -198,24 +189,17 @@ flowchart LR
 - Aplica transições e efeitos
 - Salva em `output/videos/{livro}_final.mp4`
 
-#### **Etapa 5: Geração de Legendas**
-- Divide texto em segmentos baseados em duração
-- Calcula timing de cada segmento
-- Gera arquivo SRT com timestamps
-- Salva em `output/subtitles/{livro}_subtitles.srt`
-
-#### **Etapa 6: Publicação no YouTube** *(Opcional)*
+#### **Etapa 5: Publicação no YouTube** *(Opcional)*
 - Autentica via OAuth 2.0
 - Faz upload do vídeo com metadados
-- Faz upload das legendas
 - Retorna URL do vídeo publicado
+- YouTube gera legendas automaticamente via reconhecimento de fala
 
-#### **Etapa 7: Limpeza Automática**
+#### **Etapa 6: Limpeza Automática**
 - Remove arquivos temporários:
   - Textos (`temp/*_text.txt`)
   - Áudios (`audio/*_audio.mp3`)
   - Vídeos Pexels (`pexels_videos/*.mp4`)
-  - Legendas (`subtitles/*_subtitles.srt`)
   - Música de fundo (`temp/background_music.mp3`)
   - Temporários do MoviePy (`temp/temp-audio*`)
 - Mantém apenas vídeo final em `output/videos/`
@@ -256,7 +240,6 @@ python cleanup.py genesis
   "video_quality": "high",
   "background_music": true,
   "background_music_volume": 0.3,
-  "subtitle_style": "modern",
   "video_style": "calm",
   "custom_queries": [],
   "youtube_settings": {
@@ -276,7 +259,6 @@ python cleanup.py genesis
 | `voice_gender` | male, female | Gênero da voz |
 | `video_quality` | low, medium, high | Qualidade (720p, 1080p, 4K) |
 | `video_style` | dynamic, calm, dramatic | Estilo das transições |
-| `subtitle_style` | classic, modern, minimal | Estilo das legendas |
 | `background_music` | true, false | Música de fundo |
 | `background_music_volume` | 0.0 - 1.0 | Volume da música |
 | `youtube_settings.privacy` | private, unlisted, public | Privacidade do vídeo |

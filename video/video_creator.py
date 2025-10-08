@@ -4,7 +4,7 @@ Criador de vídeo final combinando áudio e vídeos do Pexels
 import os
 from moviepy.editor import VideoFileClip, AudioFileClip, concatenate_videoclips, CompositeAudioClip
 from moviepy.video.fx import resize
-from moviepy.audio.fx.all import volumex
+from moviepy.audio.fx.all import volumex, audio_loop
 import tempfile
 import yt_dlp
 from config.config import video_config
@@ -196,7 +196,7 @@ class VideoCreator:
                 # Ajustar duração da música de fundo para corresponder ao áudio
                 if background_music.duration < audio_duration:
                     # Repetir a música se for mais curta usando loop
-                    background_music = background_music.loop(duration=audio_duration)
+                    background_music = background_music.fx(audio_loop, duration=audio_duration)
                 
                 # Cortar para a duração exata
                 background_music = background_music.subclip(0, audio_duration)

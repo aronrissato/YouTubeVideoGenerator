@@ -56,7 +56,6 @@ class VideoConfig:
             'video_quality': 'high',  # 'low', 'medium', 'high'
             'background_music': True,
             'background_music_volume': 0.3,
-            'subtitle_style': 'modern',  # 'classic', 'modern', 'minimal'
             'video_style': 'calm',  # 'dynamic', 'calm', 'dramatic'
             'custom_queries': [],  # queries personalizadas para busca de vídeos
             'youtube_settings': {
@@ -156,11 +155,6 @@ class VideoConfig:
                 'dynamic': 'Dinâmico (música e transições rápidas)',
                 'calm': 'Calmo (música suave e transições lentas)',
                 'dramatic': 'Dramático (efeitos sonoros e visuais marcantes)'
-            },
-            'subtitle_style': {
-                'classic': 'Clássico (fonte serifada, fundo preto)',
-                'modern': 'Moderno (fonte sans-serif, fundo transparente)',
-                'minimal': 'Minimalista (fonte fina, sem fundo)'
             }
         }
     

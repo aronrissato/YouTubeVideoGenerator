@@ -1,6 +1,6 @@
 """
 Gerador principal de vídeos bíblicos
-Orquestra todo o processo: texto -> áudio -> vídeos -> vídeo final -> legendas -> publicação
+Orquestra todo o processo: texto -> áudio -> vídeos -> vídeo final -> publicação
 """
 import os
 import sys
@@ -13,9 +13,8 @@ from text.bible_text_generator import BibleTextGenerator
 from audio.audio_generator import AudioGenerator
 from .pexels_video_fetcher import PexelsVideoFetcher
 from .video_creator import VideoCreator
-from text.subtitle_generator import SubtitleGenerator
 from .youtube_publisher import YouTubePublisher
-from config.config import video_config, AUDIO_LANGUAGE, AUDIO_SPEED, VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, PEXELS_VIDEOS_DIR, SUBTITLES_DIR, OUTPUT_DIR, DEFAULT_PRIVACY_STATUS, DEFAULT_CATEGORY_ID
+from config.config import video_config, AUDIO_LANGUAGE, AUDIO_SPEED, VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, PEXELS_VIDEOS_DIR, OUTPUT_DIR, DEFAULT_PRIVACY_STATUS, DEFAULT_CATEGORY_ID
 
 class BibleVideoGenerator:
     def __init__(self):
@@ -28,7 +27,6 @@ class BibleVideoGenerator:
         
         self.video_fetcher = None  # Será inicializado quando necessário
         self.video_creator = VideoCreator()
-        self.subtitle_generator = SubtitleGenerator()
         self.youtube_publisher = YouTubePublisher()
         
         # Criar diretórios necessários
@@ -36,7 +34,7 @@ class BibleVideoGenerator:
     
     def _create_directories(self):
         """Cria diretórios necessários para o projeto"""
-        directories = [OUTPUT_DIR, VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, PEXELS_VIDEOS_DIR, SUBTITLES_DIR]
+        directories = [OUTPUT_DIR, VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, PEXELS_VIDEOS_DIR]
         for directory in directories:
             if not os.path.exists(directory):
                 os.makedirs(directory)
@@ -73,11 +71,13 @@ class BibleVideoGenerator:
             # Lista de arquivos temporários para limpar
             temp_files_to_clean = [
                 os.path.join(TEMP_DIR, f"{book_name}_text.txt"),
-                os.path.join(AUDIO_OUTPUT_DIR, f"{book_name}_audio.mp3"),
                 os.path.join(VIDEO_OUTPUT_DIR, f"{book_name}_final.mp4"),
-                os.path.join(SUBTITLES_DIR, f"{book_name}_subtitles.srt"),
                 os.path.join(TEMP_DIR, 'background_music.mp3'),
             ]
+            
+            # Limpar TODOS os arquivos de áudio gerados (não apenas o do livro atual)
+            all_audio_files = glob.glob(os.path.join(AUDIO_OUTPUT_DIR, '*_audio.mp3'))
+            temp_files_to_clean.extend(all_audio_files)
             
             # Limpar arquivos de áudio temporários (MoviePy)
             temp_audio_files = glob.glob(os.path.join(TEMP_DIR, 'temp-audio*'))
@@ -116,7 +116,7 @@ class BibleVideoGenerator:
                         cleaned_count += 1
             
             # Limpar diretórios vazios
-            temp_dirs = [PEXELS_VIDEOS_DIR, TEMP_DIR, AUDIO_OUTPUT_DIR, VIDEO_OUTPUT_DIR, SUBTITLES_DIR]
+            temp_dirs = [PEXELS_VIDEOS_DIR, TEMP_DIR, AUDIO_OUTPUT_DIR, VIDEO_OUTPUT_DIR]
             for temp_dir in temp_dirs:
                 if os.path.exists(temp_dir):
                     try:
@@ -208,18 +208,9 @@ class BibleVideoGenerator:
             
             print(f"Vídeo final criado: {final_video}")
             
-            # Etapa 5: Gerar legendas
-            print(f"\nEtapa 5: Gerando legendas...")
-            subtitle_file = self.subtitle_generator.text_to_srt(
-                book_text, audio_duration, f"{book_name}_subtitles"
-            )
-            
-            if subtitle_file:
-                print(f"Legendas geradas: {subtitle_file}")
-            
-            # Etapa 6: Publicar no YouTube (opcional)
+            # Etapa 5: Publicar no YouTube (opcional)
             if publish_to_youtube:
-                print(f"\nEtapa 6: Publicando no YouTube...")
+                print(f"\nEtapa 5: Publicando no YouTube...")
                 
                 # Usar configurações personalizadas do YouTube
                 youtube_settings = video_config.get('youtube_settings', {})
@@ -251,8 +242,7 @@ class BibleVideoGenerator:
                     final_video, title, description, tags, category, privacy
                 )
                 
-                if video_id and subtitle_file:
-                    self.youtube_publisher.upload_subtitle(video_id, subtitle_file)
+                if video_id:
                     print(f"Vídeo publicado no YouTube: https://www.youtube.com/watch?v={video_id}")
             
             print("\n" + "=" * 60)
@@ -261,8 +251,6 @@ class BibleVideoGenerator:
             print(f"   - Texto: {text_file}")
             print(f"   - Áudio: {audio_file}")
             print(f"   - Vídeo: {final_video}")
-            if subtitle_file:
-                print(f"   - Legendas: {subtitle_file}")
             
             # Limpeza após sucesso
             if publish_to_youtube:
@@ -328,7 +316,6 @@ class BibleVideoGenerator:
                 os.path.join(TEMP_DIR, "*_text.txt"),
                 os.path.join(AUDIO_OUTPUT_DIR, "*_audio.mp3"),
                 os.path.join(VIDEO_OUTPUT_DIR, "*_final.mp4"),
-                os.path.join(SUBTITLES_DIR, "*_subtitles.srt"),
                 os.path.join(TEMP_DIR, "temp-audio*"),
                 os.path.join(PEXELS_VIDEOS_DIR, "*.mp4"),
                 os.path.join(TEMP_DIR, 'background_music.mp3'),
@@ -348,7 +335,7 @@ class BibleVideoGenerator:
                         cleaned_count += 1
             
             # Limpar diretórios vazios após remoção dos arquivos
-            temp_dirs = [PEXELS_VIDEOS_DIR, TEMP_DIR, AUDIO_OUTPUT_DIR, VIDEO_OUTPUT_DIR, SUBTITLES_DIR]
+            temp_dirs = [PEXELS_VIDEOS_DIR, TEMP_DIR, AUDIO_OUTPUT_DIR, VIDEO_OUTPUT_DIR]
             for temp_dir in temp_dirs:
                 if os.path.exists(temp_dir):
                     try:

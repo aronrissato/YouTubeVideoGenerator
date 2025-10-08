@@ -23,7 +23,6 @@ def main():
         print("- Áudios de narração")
         print("- Vídeos do Pexels")
         print("- Vídeo final")
-        print("- Legendas")
         print("- Música de fundo")
         
         confirm = input("\nContinuar? (s/n): ").strip().lower()

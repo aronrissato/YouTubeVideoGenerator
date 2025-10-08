@@ -102,45 +102,6 @@ class YouTubePublisher:
             print(f"Erro no upload: {str(e)}")
             return None
     
-    def upload_subtitle(self, video_id: str, subtitle_path: str, language: str = 'pt') -> bool:
-        """
-        Faz upload de legenda para o vídeo
-        """
-        try:
-            if not self.youtube:
-                if not self.authenticate():
-                    return False
-            
-            # Preparar metadados da legenda
-            body = {
-                'snippet': {
-                    'videoId': video_id,
-                    'language': language,
-                    'name': 'Portuguese',
-                    'isDraft': False
-                }
-            }
-            
-            # Criar objeto de mídia para a legenda
-            media = MediaFileUpload(subtitle_path)
-            
-            # Fazer upload da legenda
-            request = self.youtube.captions().insert(
-                part='snippet',
-                body=body,
-                media_body=media
-            )
-            
-            response = request.execute()
-            caption_id = response['id']
-            
-            print(f"Legenda enviada! ID: {caption_id}")
-            return True
-            
-        except Exception as e:
-            print(f"Erro no upload da legenda: {str(e)}")
-            return False
-    
     def update_video_metadata(self, video_id: str, title: str = None, 
                              description: str = None, tags: list = None) -> bool:
         """
@@ -224,11 +185,6 @@ def main():
         
         if os.path.exists(video_path):
             video_id = publisher.upload_video(video_path, title, description, tags)
-            if video_id:
-                # Upload de legenda se disponível
-                subtitle_path = "subtitles/video_final.srt"
-                if os.path.exists(subtitle_path):
-                    publisher.upload_subtitle(video_id, subtitle_path)
         else:
             print(f"Arquivo de vídeo não encontrado: {video_path}")
 

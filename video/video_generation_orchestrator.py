@@ -386,7 +386,6 @@ class VideoGenerationOrchestrator:
         print("- Qualidade do vídeo (720p, 1080p, 4K)")
         print("- Estilo do vídeo (dinâmico, calmo, dramático)")
         print("- Música de fundo (ativar/desativar e volume)")
-        print("- Estilo das legendas (clássico, moderno, minimalista)")
         print("- Configurações do YouTube (privacidade, categoria, auto-publicação)")
         
         print("\nARQUIVOS DE CONFIGURAÇÃO:")
@@ -397,7 +396,6 @@ class VideoGenerationOrchestrator:
         print("\nPASTAS DO PROJETO:")
         print("- output/                  - Vídeos finais gerados")
         print("- audio/                   - Arquivos de áudio da narração")
-        print("- subtitles/               - Arquivos de legendas (.srt)")
         print("- pexels_videos/           - Vídeos baixados do Pexels")
         print("- temp/                    - Arquivos temporários")
         

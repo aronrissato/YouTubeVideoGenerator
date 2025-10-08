@@ -128,22 +128,22 @@ class PexelsVideoFetcher:
                 if actual_duration > 0:
                     downloaded_videos.append(file_path)
                     current_duration += actual_duration
-                    print(f"Baixado: {filename} (duração real: {actual_duration}s, total: {current_duration}s)")
+                    print(f"Baixado: {filename} (duração real: {actual_duration:.2f}s, total: {current_duration:.2f}s)")
                 else:
                     # Se não conseguir obter duração, usar estimativa da API
                     estimated_duration = video.get('duration', 30)
                     downloaded_videos.append(file_path)
                     current_duration += estimated_duration
-                    print(f"Baixado: {filename} (duração estimada: {estimated_duration}s, total: {current_duration}s)")
+                    print(f"Baixado: {filename} (duração estimada: {estimated_duration:.2f}s, total: {current_duration:.2f}s)")
             
             video_index += 1
         
         print(f"Total de vídeos baixados: {len(downloaded_videos)}")
-        print(f"Duração total dos vídeos: {current_duration}s")
-        print(f"Duração necessária do áudio: {total_duration}s")
+        print(f"Duração total dos vídeos: {current_duration:.2f}s")
+        print(f"Duração necessária do áudio: {total_duration:.2f}s")
         
         if current_duration < total_duration:
-            print(f"AVISO: Duração dos vídeos ({current_duration}s) é menor que a necessária ({total_duration}s)")
+            print(f"AVISO: Duração dos vídeos ({current_duration:.2f}s) é menor que a necessária ({total_duration:.2f}s)")
             print("O sistema irá repetir os vídeos para completar a duração do áudio")
         
         return downloaded_videos
