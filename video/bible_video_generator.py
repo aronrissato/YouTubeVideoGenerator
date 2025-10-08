@@ -395,7 +395,7 @@ Que a palavra de Deus abençoe sua vida!
             },
             'en': {
                 'livro-biblico': {
-                    'title': "Book of {book_name} - Complete Bible Narration",
+                    'title': "{book_name} | Full Audio Bible",
                     'description': """Complete narration of the book of {book_name} from the Holy Bible.
 
 This video contains the complete reading of the book, providing a meditation and Bible study experience.

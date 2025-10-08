@@ -4,6 +4,7 @@ Buscador de vídeos do Pexels baseado na duração do áudio
 import requests
 import os
 import tempfile
+import random
 from typing import List, Dict
 
 class PexelsVideoFetcher:
@@ -13,8 +14,11 @@ class PexelsVideoFetcher:
         self.headers = {
             'Authorization': api_key
         }
-        from config.config import PEXELS_VIDEOS_DIR
+        from config.config import PEXELS_VIDEOS_DIR, video_config
         self.videos_dir = PEXELS_VIDEOS_DIR
+        
+        # Carregar multiplicador de vídeos da configuração
+        self.video_multiplier = video_config.get('video_download_multiplier', 2)
         
         # Criar diretório se não existir
         if not os.path.exists(self.videos_dir):
@@ -86,6 +90,7 @@ class PexelsVideoFetcher:
     def get_videos_for_duration(self, query: str, total_duration: int) -> List[str]:
         """
         Obtém vídeos suficientes para cobrir a duração total do áudio
+        Baixa o dobro do necessário e seleciona aleatoriamente para variar as imagens de fundo
         """
         videos = self.search_videos(query, total_duration)
         
@@ -93,14 +98,21 @@ class PexelsVideoFetcher:
             print("Nenhum vídeo encontrado")
             return []
         
-        downloaded_videos = []
+        # Lista para armazenar vídeos com suas durações
+        downloaded_videos_with_duration = []
         current_duration = 0
         video_index = 0
         
         # Adicionar margem de segurança (10% a mais que a duração necessária)
         target_duration = total_duration * 1.1
         
-        while current_duration < target_duration and video_index < len(videos):
+        # Baixar múltiplos do necessário para ter mais opções de seleção aleatória (configurável)
+        download_target = target_duration * self.video_multiplier
+        
+        print(f"Duração necessária: {target_duration:.2f}s")
+        print(f"Baixando vídeos para cobrir: {download_target:.2f}s ({self.video_multiplier}x para seleção aleatória)")
+        
+        while current_duration < download_target and video_index < len(videos):
             video = videos[video_index]
             
             # Pegar a melhor qualidade disponível
@@ -119,34 +131,51 @@ class PexelsVideoFetcher:
                 continue
             
             # Baixar vídeo
-            filename = f"video_{len(downloaded_videos) + 1}"
+            filename = f"video_{len(downloaded_videos_with_duration) + 1}"
             file_path = self.download_video(video_url, filename)
             
             if file_path:
                 # Obter duração real do vídeo baixado
                 actual_duration = self._get_video_duration(file_path)
                 if actual_duration > 0:
-                    downloaded_videos.append(file_path)
+                    downloaded_videos_with_duration.append((file_path, actual_duration))
                     current_duration += actual_duration
                     print(f"Baixado: {filename} (duração real: {actual_duration:.2f}s, total: {current_duration:.2f}s)")
                 else:
                     # Se não conseguir obter duração, usar estimativa da API
                     estimated_duration = video.get('duration', 30)
-                    downloaded_videos.append(file_path)
+                    downloaded_videos_with_duration.append((file_path, estimated_duration))
                     current_duration += estimated_duration
                     print(f"Baixado: {filename} (duração estimada: {estimated_duration:.2f}s, total: {current_duration:.2f}s)")
             
             video_index += 1
         
-        print(f"Total de vídeos baixados: {len(downloaded_videos)}")
-        print(f"Duração total dos vídeos: {current_duration:.2f}s")
+        print(f"\nTotal de vídeos baixados: {len(downloaded_videos_with_duration)}")
+        print(f"Duração total disponível: {current_duration:.2f}s")
+        
+        # Embaralhar os vídeos aleatoriamente
+        random.shuffle(downloaded_videos_with_duration)
+        print("Vídeos embaralhados aleatoriamente para seleção")
+        
+        # Selecionar apenas os necessários para cobrir a duração alvo
+        selected_videos = []
+        selected_duration = 0
+        
+        for video_path, video_duration in downloaded_videos_with_duration:
+            selected_videos.append(video_path)
+            selected_duration += video_duration
+            if selected_duration >= target_duration:
+                break
+        
+        print(f"\nVídeos selecionados aleatoriamente: {len(selected_videos)}")
+        print(f"Duração dos vídeos selecionados: {selected_duration:.2f}s")
         print(f"Duração necessária do áudio: {total_duration:.2f}s")
         
-        if current_duration < total_duration:
-            print(f"AVISO: Duração dos vídeos ({current_duration:.2f}s) é menor que a necessária ({total_duration:.2f}s)")
+        if selected_duration < total_duration:
+            print(f"AVISO: Duração dos vídeos ({selected_duration:.2f}s) é menor que a necessária ({total_duration:.2f}s)")
             print("O sistema irá repetir os vídeos para completar a duração do áudio")
         
-        return downloaded_videos
+        return selected_videos
     
     def get_bible_related_queries(self, book_name: str) -> List[str]:
         """

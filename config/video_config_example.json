@@ -6,6 +6,7 @@
   "voice_gender": "female",
   "voice_volume": 1.0,
   "video_quality": "high",
+  "video_download_multiplier": 2,
   "background_music": true,
   "background_music_volume": 0.3,
   "video_style": "calm",

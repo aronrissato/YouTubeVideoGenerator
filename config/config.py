@@ -54,6 +54,7 @@ class VideoConfig:
             'voice_gender': 'female',  # 'male' ou 'female'
             'voice_volume': 1.0,  # Volume da voz (0.0 a 2.0)
             'video_quality': 'high',  # 'low', 'medium', 'high'
+            'video_download_multiplier': 2,  # Multiplicador para downloads de vídeos (2 = dobro, 3 = triplo, etc)
             'background_music': True,
             'background_music_volume': 0.3,
             'video_style': 'calm',  # 'dynamic', 'calm', 'dramatic'
@@ -196,6 +197,11 @@ class VideoConfig:
         # Validar volume da voz
         if not isinstance(self.config['voice_volume'], (int, float)) or self.config['voice_volume'] < 0 or self.config['voice_volume'] > 2:
             errors.append("Volume da voz deve estar entre 0 e 2")
+        
+        # Validar multiplicador de download de vídeos
+        if 'video_download_multiplier' in self.config:
+            if not isinstance(self.config['video_download_multiplier'], (int, float)) or self.config['video_download_multiplier'] < 1 or self.config['video_download_multiplier'] > 10:
+                errors.append("Multiplicador de download de vídeos deve estar entre 1 e 10")
         
         # Validar idioma
         valid_languages = list(self.get_language_options().keys())
