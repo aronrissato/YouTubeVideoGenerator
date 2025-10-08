@@ -50,9 +50,9 @@ class VideoConfig:
             'subject': 'livro-biblico',
             'duration': 'auto',  # 'auto' ou número em minutos
             'language': 'en',
-            'voice_speed': 0.3,
+            'voice_speed': 1.0,  # Velocidade da voz (0.5 a 3.0, 1.0 = normal)
             'voice_gender': 'female',  # 'male' ou 'female'
-            'voice_volume': 1.0,  # Volume da voz (0.0 a 1.0)
+            'voice_volume': 1.0,  # Volume da voz (0.0 a 2.0)
             'video_quality': 'high',  # 'low', 'medium', 'high'
             'background_music': True,
             'background_music_volume': 0.3,

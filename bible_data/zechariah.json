@@ -1483,13 +1483,13 @@
     "chapter_count": 14,
     "verse_count": 211,
     "duration": {
-      "duration_text": "2h10min",
-      "status": "Muito Longo",
-      "duration_minutes": 130.17,
+      "duration_text": "39.1min",
+      "status": "Longo",
+      "duration_minutes": 39.05,
       "char_count": 31241,
       "estimated_words": 6248.0,
-      "words_per_minute": 48.0
+      "words_per_minute": 160.0
     },
-    "last_updated": "1759773281.9924178"
+    "last_updated": "1759903012.8038135"
   }
 }

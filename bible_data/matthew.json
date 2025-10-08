@@ -4,6 +4,342 @@
     {
       "book_id": "MAT",
       "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 1,
+      "text": "The book of the genealogy of Jesus Christ, the son of David, the son of Abraham.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 2,
+      "text": "Abraham became the father of Isaac. Isaac became the father of Jacob. Jacob became the father of Judah and his brothers.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 3,
+      "text": "Judah became the father of Perez and Zerah by Tamar. Perez became the father of Hezron. Hezron became the father of Ram.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 4,
+      "text": "Ram became the father of Amminadab. Amminadab became the father of Nahshon. Nahshon became the father of Salmon.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 5,
+      "text": "Salmon became the father of Boaz by Rahab. Boaz became the father of Obed by Ruth. Obed became the father of Jesse.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 6,
+      "text": "Jesse became the father of King David. David became the father of Solomon by her who had been Uriah’s wife.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 7,
+      "text": "Solomon became the father of Rehoboam. Rehoboam became the father of Abijah. Abijah became the father of Asa.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 8,
+      "text": "Asa became the father of Jehoshaphat. Jehoshaphat became the father of Joram. Joram became the father of Uzziah.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 9,
+      "text": "Uzziah became the father of Jotham. Jotham became the father of Ahaz. Ahaz became the father of Hezekiah.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 10,
+      "text": "Hezekiah became the father of Manasseh. Manasseh became the father of Amon. Amon became the father of Josiah.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 11,
+      "text": "Josiah became the father of Jechoniah and his brothers, at the time of the exile to Babylon.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 12,
+      "text": "After the exile to Babylon, Jechoniah became the father of Shealtiel. Shealtiel became the father of Zerubbabel.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 13,
+      "text": "Zerubbabel became the father of Abiud. Abiud became the father of Eliakim. Eliakim became the father of Azor.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 14,
+      "text": "Azor became the father of Zadok. Zadok became the father of Achim. Achim became the father of Eliud.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 15,
+      "text": "Eliud became the father of Eleazar. Eleazar became the father of Matthan. Matthan became the father of Jacob.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 16,
+      "text": "Jacob became the father of Joseph, the husband of Mary, from whom was born Jesus, who is called Christ.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 17,
+      "text": "So all the generations from Abraham to David are fourteen generations; from David to the exile to Babylon fourteen generations; and from the carrying away to Babylon to the Christ, fourteen generations.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 18,
+      "text": "Now the birth of Jesus Christ was like this: After his mother, Mary, was engaged to Joseph, before they came together, she was found pregnant by the Holy Spirit.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 19,
+      "text": "Joseph, her husband, being a righteous man, and not willing to make her a public example, intended to put her away secretly.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 20,
+      "text": "But when he thought about these things, behold, an angel of the Lord appeared to him in a dream, saying, “Joseph, son of David, don’t be afraid to take to yourself Mary, your wife, for that which is conceived in her is of the Holy Spirit.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 21,
+      "text": "She shall give birth to a son. You shall call his name Jesus, for it is he who shall save his people from their sins.”\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 22,
+      "text": "Now all this has happened, that it might be fulfilled which was spoken by the Lord through the prophet, saying,\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 23,
+      "text": "“Behold, the virgin shall be with child,\nand shall give birth to a son.\nThey shall call his name Immanuel”;\nwhich is, being interpreted, “God with us.”\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 24,
+      "text": "Joseph arose from his sleep, and did as the angel of the Lord commanded him, and took his wife to himself;\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 1,
+      "verse": 25,
+      "text": "and didn’t know her sexually until she had given birth to her firstborn son. He named him Jesus.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 1,
+      "text": "Now when Jesus was born in Bethlehem of Judea in the days of King Herod, behold, wise men from the east came to Jerusalem, saying,\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 2,
+      "text": "“Where is he who is born King of the Jews? For we saw his star in the east, and have come to worship him.”\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 3,
+      "text": "When King Herod heard it, he was troubled, and all Jerusalem with him.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 4,
+      "text": "Gathering together all the chief priests and scribes of the people, he asked them where the Christ would be born.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 5,
+      "text": "They said to him, “In Bethlehem of Judea, for this is written through the prophet,\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 6,
+      "text": "‘You Bethlehem, land of Judah,\nare in no way least among the princes of Judah:\nfor out of you shall come a governor,\nwho shall shepherd my people, Israel.’”\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 7,
+      "text": "Then Herod secretly called the wise men, and learned from them exactly what time the star appeared.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 8,
+      "text": "He sent them to Bethlehem, and said, “Go and search diligently for the young child. When you have found him, bring me word, so that I also may come and worship him.”\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 9,
+      "text": "They, having heard the king, went their way; and behold, the star, which they saw in the east, went before them, until it came and stood over where the young child was.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 10,
+      "text": "When they saw the star, they rejoiced with exceedingly great joy.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 11,
+      "text": "They came into the house and saw the young child with Mary, his mother, and they fell down and worshiped him. Opening their treasures, they offered to him gifts: gold, frankincense, and myrrh.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 12,
+      "text": "Being warned in a dream that they shouldn’t return to Herod, they went back to their own country another way.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 13,
+      "text": "Now when they had departed, behold, an angel of the Lord appeared to Joseph in a dream, saying, “Arise and take the young child and his mother, and flee into Egypt, and stay there until I tell you, for Herod will seek the young child to destroy him.”\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 14,
+      "text": "He arose and took the young child and his mother by night, and departed into Egypt,\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 15,
+      "text": "and was there until the death of Herod; that it might be fulfilled which was spoken by the Lord through the prophet, saying, “Out of Egypt I called my son.”\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 16,
+      "text": "Then Herod, when he saw that he was mocked by the wise men, was exceedingly angry, and sent out, and killed all the male children who were in Bethlehem and in all the surrounding countryside, from two years old and under, according to the exact time which he had learned from the wise men.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 17,
+      "text": "Then that which was spoken by Jeremiah the prophet was fulfilled, saying,\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 18,
+      "text": "“A voice was heard in Ramah,\nlamentation, weeping and great mourning,\nRachel weeping for her children;\nshe wouldn’t be comforted,\nbecause they are no more.”\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 19,
+      "text": "But when Herod was dead, behold, an angel of the Lord appeared in a dream to Joseph in Egypt, saying,\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 20,
+      "text": "“Arise and take the young child and his mother, and go into the land of Israel, for those who sought the young child’s life are dead.”\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 21,
+      "text": "He arose and took the young child and his mother, and came into the land of Israel.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 22,
+      "text": "But when he heard that Archelaus was reigning over Judea in the place of his father, Herod, he was afraid to go there. Being warned in a dream, he withdrew into the region of Galilee,\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 2,
+      "verse": 23,
+      "text": "and came and lived in a city called Nazareth; that it might be fulfilled which was spoken through the prophets: “He will be called a Nazarene.”\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
       "chapter": 3,
       "verse": 1,
       "text": "In those days, John the Baptizer came, preaching in the wilderness of Judea, saying,\n"
@@ -3364,387 +3700,954 @@
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 1,
-      "text": "The Pharisees and Sadducees came, and testing him, asked him to show them a sign from heaven.\n"
+      "text": "Then Jesus spoke to the multitudes and to his disciples,\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 2,
-      "text": "But he answered them,\n“When it is evening, you say, ‘It will be fair weather, for the sky is red.’\n\n"
+      "text": "saying,\n“The scribes and the Pharisees sat on Moses’ seat.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 3,
-      "text": "\nIn the morning, ‘It will be foul weather today, for the sky is red and threatening.’ Hypocrites! You know how to discern the appearance of the sky, but you can’t discern the signs of the times!\n\n"
+      "text": "\nAll things therefore whatever they tell you to observe, observe and do, but don’t do their works; for they say, and don’t do.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 4,
-      "text": "\nAn evil and adulterous generation seeks after a sign, and there will be no sign given to it, except the sign of the prophet Jonah.”\nHe left them, and departed.\n"
+      "text": "\nFor they bind heavy burdens that are grievous to be borne, and lay them on men’s shoulders; but they themselves will not lift a finger to help them.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 5,
-      "text": "The disciples came to the other side and had forgotten to take bread.\n"
+      "text": "\nBut all their works they do to be seen by men. They make their phylacteries\n\nbroad, enlarge the fringes\nof their garments,\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 6,
-      "text": "Jesus said to them,\n“Take heed and beware of the yeast of the Pharisees and Sadducees.”\n"
+      "text": "\nand love the place of honor at feasts, the best seats in the synagogues,\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 7,
-      "text": "They reasoned among themselves, saying, “We brought no bread.”\n"
+      "text": "\nthe salutations in the marketplaces, and to be called ‘Rabbi, Rabbi’ by men.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 8,
-      "text": "Jesus, perceiving it, said,\n“Why do you reason among yourselves, you of little faith, ‘because you have brought no bread?’\n\n"
+      "text": "\nBut don’t you be called ‘Rabbi,’ for one is your teacher, the Christ, and all of you are brothers.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 9,
-      "text": "\nDon’t you yet perceive, neither remember the five loaves for the five thousand, and how many baskets you took up?\n\n"
+      "text": "\nCall no man on the earth your father, for one is your Father, he who is in heaven.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 10,
-      "text": "\nNor the seven loaves for the four thousand, and how many baskets you took up?\n\n"
+      "text": "\nNeither be called masters, for one is your master, the Christ.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 11,
-      "text": "\nHow is it that you don’t perceive that I didn’t speak to you concerning bread? But beware of the yeast of the Pharisees and Sadducees.”\n\n"
+      "text": "\nBut he who is greatest among you will be your servant.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 12,
-      "text": "Then they understood that he didn’t tell them to beware of the yeast of bread, but of the teaching of the Pharisees and Sadducees.\n"
+      "text": "\nWhoever exalts himself will be humbled, and whoever humbles himself will be exalted.\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 13,
-      "text": "Now when Jesus came into the parts of Caesarea Philippi, he asked his disciples, saying,\n“Who do men say that I, the Son of Man, am?”\n"
+      "text": "\n“Woe to you, scribes and Pharisees, hypocrites! For you devour widows’ houses, and as a pretense you make long prayers. Therefore you will receive greater condemnation.\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 14,
-      "text": "They said, “Some say John the Baptizer, some, Elijah, and others, Jeremiah, or one of the prophets.”\n"
+      "text": "\n“But woe to you, scribes and Pharisees, hypocrites! Because you shut up the Kingdom of Heaven against men; for you don’t enter in yourselves, neither do you allow those who are entering in to enter.\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 15,
-      "text": "He said to them,\n“But who do you say that I am?”\n"
+      "text": "\nWoe to you, scribes and Pharisees, hypocrites! For you travel around by sea and land to make one proselyte; and when he becomes one, you make him twice as much a son of Gehenna\nas yourselves.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 16,
-      "text": "Simon Peter answered, “You are the Christ, the Son of the living God.”\n"
+      "text": "\n“Woe to you, you blind guides, who say, ‘Whoever swears by the temple, it is nothing; but whoever swears by the gold of the temple, he is obligated.’\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 17,
-      "text": "Jesus answered him,\n“Blessed are you, Simon Bar Jonah, for flesh and blood has not revealed this to you, but my Father who is in heaven.\n\n"
+      "text": "\nYou blind fools! For which is greater, the gold, or the temple that sanctifies the gold?\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 18,
-      "text": "\nI also tell you that you are Peter,\nand on this rock\n\nI will build my assembly, and the gates of Hades\nwill not prevail against it.\n\n"
+      "text": "\n‘Whoever swears by the altar, it is nothing; but whoever swears by the gift that is on it, he is obligated?’\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 19,
-      "text": "\nI will give to you the keys of the Kingdom of Heaven, and whatever you bind on earth will have been bound in heaven; and whatever you release on earth will have been released in heaven.”\n"
+      "text": "\nYou blind fools! For which is greater, the gift, or the altar that sanctifies the gift?\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 20,
-      "text": "Then he commanded the disciples that they should tell no one that he was Jesus the Christ.\n"
+      "text": "\nHe therefore who swears by the altar, swears by it, and by everything on it.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 21,
-      "text": "From that time, Jesus began to show his disciples that he must go to Jerusalem and suffer many things from the elders, chief priests, and scribes, and be killed, and the third day be raised up.\n"
+      "text": "\nHe who swears by the temple, swears by it, and by him who has been living\nin it.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 22,
-      "text": "Peter took him aside, and began to rebuke him, saying, “Far be it from you, Lord! This will never be done to you.”\n"
+      "text": "\nHe who swears by heaven, swears by the throne of God, and by him who sits on it.\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 23,
-      "text": "But he turned, and said to Peter,\n“Get behind me, Satan! You are a stumbling block to me, for you are not setting your mind on the things of God, but on the things of men.”\n"
+      "text": "\n“Woe to you, scribes and Pharisees, hypocrites! For you tithe mint, dill, and cumin,\nand have left undone the weightier matters of the law: justice, mercy, and faith. But you ought to have done these, and not to have left the other undone.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 24,
-      "text": "Then Jesus said to his disciples,\n“If anyone desires to come after me, let him deny himself, and take up his cross, and follow me.\n\n"
+      "text": "\nYou blind guides, who strain out a gnat, and swallow a camel!\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 25,
-      "text": "\nFor whoever desires to save his life will lose it, and whoever will lose his life for my sake will find it.\n\n"
+      "text": "\n“Woe to you, scribes and Pharisees, hypocrites! For you clean the outside of the cup and of the platter, but within they are full of extortion and unrighteousness.\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 26,
-      "text": "\nFor what will it profit a man, if he gains the whole world, and forfeits his life? Or what will a man give in exchange for his life?\n\n"
+      "text": "\nYou blind Pharisee, first clean the inside of the cup and of the platter, that its outside may become clean also.\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 27,
-      "text": "\nFor the Son of Man will come in the glory of his Father with his angels, and then he will render to everyone according to his deeds.\n\n"
+      "text": "\n“Woe to you, scribes and Pharisees, hypocrites! For you are like whitened tombs, which outwardly appear beautiful, but inwardly are full of dead men’s bones, and of all uncleanness.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 16,
+      "chapter": 23,
       "verse": 28,
-      "text": "\nMost certainly I tell you, there are some standing here who will in no way taste of death, until they see the Son of Man coming in his Kingdom.”\n\n"
+      "text": "\nEven so you also outwardly appear righteous to men, but inwardly you are full of hypocrisy and iniquity.\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 23,
+      "verse": 29,
+      "text": "\n“Woe to you, scribes and Pharisees, hypocrites! For you build the tombs of the prophets, and decorate the tombs of the righteous,\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 23,
+      "verse": 30,
+      "text": "\nand say, ‘If we had lived in the days of our fathers, we wouldn’t have been partakers with them in the blood of the prophets.’\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 23,
+      "verse": 31,
+      "text": "\nTherefore you testify to yourselves that you are children of those who killed the prophets.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 23,
+      "verse": 32,
+      "text": "\nFill up, then, the measure of your fathers.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 23,
+      "verse": 33,
+      "text": "\nYou serpents, you offspring of vipers, how will you escape the judgment of Gehenna?\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 23,
+      "verse": 34,
+      "text": "\nTherefore behold, I send to you prophets, wise men, and scribes. Some of them you will kill and crucify; and some of them you will scourge in your synagogues, and persecute from city to city;\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 23,
+      "verse": 35,
+      "text": "\nthat on you may come all the righteous blood shed on the earth, from the blood of righteous Abel to the blood of Zachariah son of Barachiah, whom you killed between the sanctuary and the altar.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 23,
+      "verse": 36,
+      "text": "\nMost certainly I tell you, all these things will come upon this generation.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 23,
+      "verse": 37,
+      "text": "\n“Jerusalem, Jerusalem, who kills the prophets, and stones those who are sent to her! How often I would have gathered your children together, even as a hen gathers her chicks under her wings, and you would not!\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 23,
+      "verse": 38,
+      "text": "\nBehold, your house is left to you desolate.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 23,
+      "verse": 39,
+      "text": "\nFor I tell you, you will not see me from now on, until you say, ‘Blessed is he who comes in the name of the Lord!’”\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
       "verse": 1,
-      "text": "After six days, Jesus took with him Peter, James, and John his brother, and brought them up into a high mountain by themselves.\n"
+      "text": " Jesus went out from the temple, and was going on his way. His disciples came to him to show him the buildings of the temple.\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 2,
-      "text": "He was transfigured before them. His face shone like the sun, and his garments became as white as the light.\n"
+      "text": " But he answered them,\n“You see all of these things, don’t you? Most certainly I tell you, there will not be left here one stone on another, that will not be thrown down.”\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 3,
-      "text": "Behold, Moses and Elijah appeared to them talking with him.\n"
+      "text": "As he sat on the Mount of Olives, the disciples came to him privately, saying, “Tell us, when will these things be? What is the sign of your coming, and of the end of the age?”\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 4,
-      "text": "Peter answered, and said to Jesus, “Lord, it is good for us to be here. If you want, let’s make three tents here: one for you, one for Moses, and one for Elijah.”\n"
+      "text": "Jesus answered them,\n“Be careful that no one leads you astray.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 5,
-      "text": "While he was still speaking, behold, a bright cloud overshadowed them. Behold, a voice came out of the cloud, saying, “This is my beloved Son, in whom I am well pleased. Listen to him.”\n"
+      "text": "\nFor many will come in my name, saying, ‘I am the Christ,’ and will lead many astray.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 6,
-      "text": "When the disciples heard it, they fell on their faces, and were very afraid.\n"
+      "text": "\nYou will hear of wars and rumors of wars. See that you aren’t troubled, for all this must happen, but the end is not yet.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 7,
-      "text": "Jesus came and touched them and said,\n“Get up, and don’t be afraid.”\n\n"
+      "text": "\nFor nation will rise against nation, and kingdom against kingdom; and there will be famines, plagues, and earthquakes in various places.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 8,
-      "text": "Lifting up their eyes, they saw no one, except Jesus alone.\n"
+      "text": "\nBut all these things are the beginning of birth pains.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 9,
-      "text": "As they were coming down from the mountain, Jesus commanded them, saying,\n“Don’t tell anyone what you saw, until the Son of Man has risen from the dead.”\n"
+      "text": "\nThen they will deliver you up to oppression, and will kill you. You will be hated by all of the nations for my name’s sake.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 10,
-      "text": "His disciples asked him, saying, “Then why do the scribes say that Elijah must come first?”\n"
+      "text": "\nThen many will stumble, and will deliver up one another, and will hate one another.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 11,
-      "text": "Jesus answered them,\n“Elijah indeed comes first, and will restore all things,\n\n"
+      "text": "\nMany false prophets will arise, and will lead many astray.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 12,
-      "text": "\nbut I tell you that Elijah has come already, and they didn’t recognize him, but did to him whatever they wanted to. Even so the Son of Man will also suffer by them.”\n"
+      "text": "\nBecause iniquity will be multiplied, the love of many will grow cold.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 13,
-      "text": "Then the disciples understood that he spoke to them of John the Baptizer.\n"
+      "text": "\nBut he who endures to the end, the same will be saved.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 14,
-      "text": "When they came to the multitude, a man came to him, kneeling down to him, and saying,\n"
+      "text": "\nThis Good News of the Kingdom will be preached in the whole world for a testimony to all the nations, and then the end will come.\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 15,
-      "text": "“Lord, have mercy on my son, for he is epileptic, and suffers grievously; for he often falls into the fire, and often into the water.\n"
+      "text": "\n“When, therefore, you see the abomination of desolation,\n\nwhich was spoken of through Daniel the prophet, standing in the holy place (let the reader understand),\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 16,
-      "text": "So I brought him to your disciples, and they could not cure him.”\n"
+      "text": "\nthen let those who are in Judea flee to the mountains.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 17,
-      "text": "Jesus answered,\n“Faithless and perverse generation! How long will I be with you? How long will I bear with you? Bring him here to me.”\n"
+      "text": "\nLet him who is on the housetop not go down to take out the things that are in his house.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 18,
-      "text": "Jesus rebuked him, the demon went out of him, and the boy was cured from that hour.\n"
+      "text": "\nLet him who is in the field not return back to get his clothes.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 19,
-      "text": "Then the disciples came to Jesus privately, and said, “Why weren’t we able to cast it out?”\n"
+      "text": "\nBut woe to those who are with child and to nursing mothers in those days!\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 20,
-      "text": "He said to them,\n“Because of your unbelief. For most certainly I tell you, if you have faith as a grain of mustard seed, you will tell this mountain, ‘Move from here to there,’ and it will move; and nothing will be impossible for you.\n\n"
+      "text": "\nPray that your flight will not be in the winter, nor on a Sabbath,\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 21,
-      "text": "\nBut this kind doesn’t go out except by prayer and fasting.”\n\n"
+      "text": "\nfor then there will be great oppression, such as has not been from the beginning of the world until now, no, nor ever will be.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 22,
-      "text": "While they were staying in Galilee, Jesus said to them,\n“The Son of Man is about to be delivered up into the hands of men,\n\n"
+      "text": "\nUnless those days had been shortened, no flesh would have been saved. But for the sake of the chosen ones, those days will be shortened.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 23,
-      "text": "\nand they will kill him, and the third day he will be raised up.”\n\nThey were exceedingly sorry.\n"
+      "text": "\n“Then if any man tells you, ‘Behold, here is the Christ,’ or, ‘There,’ don’t believe it.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 24,
-      "text": "When they had come to Capernaum, those who collected the didrachma coins came to Peter, and said, “Doesn’t your teacher pay the didrachma?”\n"
+      "text": "\nFor there will arise false christs, and false prophets, and they will show great signs and wonders, so as to lead astray, if possible, even the chosen ones.\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 25,
-      "text": "He said, “Yes.”\nWhen he came into the house, Jesus anticipated him, saying,\n“What do you think, Simon? From whom do the kings of the earth receive toll or tribute? From their children, or from strangers?”\n"
+      "text": "\n“Behold, I have told you beforehand.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 26,
-      "text": "Peter said to him, “From strangers.”\nJesus said to him,\n“Therefore the children are exempt.\n\n"
+      "text": "\nIf therefore they tell you, ‘Behold, he is in the wilderness,’ don’t go out; ‘Behold, he is in the inner rooms,’ don’t believe it.\n\n"
     },
     {
       "book_id": "MAT",
       "book_name": "Matthew",
-      "chapter": 17,
+      "chapter": 24,
       "verse": 27,
-      "text": "\nBut, lest we cause them to stumble, go to the sea, cast a hook, and take up the first fish that comes up. When you have opened its mouth, you will find a stater coin.\nTake that, and give it to them for me and you.”\n"
+      "text": "\nFor as the lightning flashes from the east, and is seen even to the west, so will be the coming of the Son of Man.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 28,
+      "text": "\nFor wherever the carcass is, that is where the vultures\n\ngather together.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 29,
+      "text": "\nBut immediately after the oppression of those days, the sun will be darkened, the moon will not give its light, the stars will fall from the sky, and the powers of the heavens will be shaken;\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 30,
+      "text": "\nand then the sign of the Son of Man will appear in the sky. Then all the tribes of the earth will mourn, and they will see the Son of Man coming on the clouds of the sky with power and great glory.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 31,
+      "text": "\nHe will send out his angels with a great sound of a trumpet, and they will gather together his chosen ones from the four winds, from one end of the sky to the other.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 32,
+      "text": "\n“Now from the fig tree learn this parable. When its branch has now become tender, and produces its leaves, you know that the summer is near.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 33,
+      "text": "\nEven so you also, when you see all these things, know that it is near, even at the doors.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 34,
+      "text": "\nMost certainly I tell you, this generation\nwill not pass away, until all these things are accomplished.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 35,
+      "text": "\nHeaven and earth will pass away, but my words will not pass away.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 36,
+      "text": "\nBut no one knows of that day and hour, not even the angels of heaven,\nbut my Father only.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 37,
+      "text": "\n“As the days of Noah were, so will be the coming of the Son of Man.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 38,
+      "text": "\nFor as in those days which were before the flood they were eating and drinking, marrying and giving in marriage, until the day that Noah entered into the ship,\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 39,
+      "text": "\nand they didn’t know until the flood came, and took them all away, so will be the coming of the Son of Man.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 40,
+      "text": "\nThen two men will be in the field: one will be taken and one will be left.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 41,
+      "text": "\nTwo women will be grinding at the mill: one will be taken and one will be left.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 42,
+      "text": "\nWatch therefore, for you don’t know in what hour your Lord comes.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 43,
+      "text": "\nBut know this, that if the master of the house had known in what watch of the night the thief was coming, he would have watched, and would not have allowed his house to be broken into.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 44,
+      "text": "\nTherefore also be ready, for in an hour that you don’t expect, the Son of Man will come.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 45,
+      "text": "\n“Who then is the faithful and wise servant, whom his lord has set over his household, to give them their food in due season?\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 46,
+      "text": "\nBlessed is that servant whom his lord finds doing so when he comes.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 47,
+      "text": "\nMost certainly I tell you that he will set him over all that he has.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 48,
+      "text": "\nBut if that evil servant should say in his heart, ‘My lord is delaying his coming,’\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 49,
+      "text": "\nand begins to beat his fellow servants, and eat and drink with the drunkards,\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 50,
+      "text": "\nthe lord of that servant will come in a day when he doesn’t expect it, and in an hour when he doesn’t know it,\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 24,
+      "verse": 51,
+      "text": "\nand will cut him in pieces, and appoint his portion with the hypocrites. That is where the weeping and grinding of teeth will be.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 1,
+      "text": "\n“Then the Kingdom of Heaven will be like ten virgins, who took their lamps, and went out to meet the bridegroom.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 2,
+      "text": "\nFive of them were foolish, and five were wise.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 3,
+      "text": "\nThose who were foolish, when they took their lamps, took no oil with them,\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 4,
+      "text": "\nbut the wise took oil in their vessels with their lamps.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 5,
+      "text": "\nNow while the bridegroom delayed, they all slumbered and slept.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 6,
+      "text": "\nBut at midnight there was a cry, ‘Behold! The bridegroom is coming! Come out to meet him!’\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 7,
+      "text": "\nThen all those virgins arose, and trimmed their lamps.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 8,
+      "text": "\nThe foolish said to the wise, ‘Give us some of your oil, for our lamps are going out.’\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 9,
+      "text": "\nBut the wise answered, saying, ‘What if there isn’t enough for us and you? You go rather to those who sell, and buy for yourselves.’\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 10,
+      "text": "\nWhile they went away to buy, the bridegroom came, and those who were ready went in with him to the marriage feast, and the door was shut.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 11,
+      "text": "\nAfterward the other virgins also came, saying, ‘Lord, Lord, open to us.’\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 12,
+      "text": "\nBut he answered, ‘Most certainly I tell you, I don’t know you.’\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 13,
+      "text": "\nWatch therefore, for you don’t know the day nor the hour in which the Son of Man is coming.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 14,
+      "text": "\n“For it is like a man, going into another country, who called his own servants, and entrusted his goods to them.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 15,
+      "text": "\nTo one he gave five talents, to another two, to another one; to each according to his own ability. Then he went on his journey.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 16,
+      "text": "\nImmediately he who received the five talents went and traded with them, and made another five talents.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 17,
+      "text": "\nIn the same way, he also who got the two gained another two.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 18,
+      "text": "\nBut he who received the one talent went away and dug in the earth, and hid his lord’s money.\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 19,
+      "text": "\n“Now after a long time the lord of those servants came, and reconciled accounts with them.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 20,
+      "text": "\nHe who received the five talents came and brought another five talents, saying, ‘Lord, you delivered to me five talents. Behold, I have gained another five talents besides them.’\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 21,
+      "text": "\n“His lord said to him, ‘Well done, good and faithful servant. You have been faithful over a few things, I will set you over many things. Enter into the joy of your lord.’\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 22,
+      "text": "\n“He also who got the two talents came and said, ‘Lord, you delivered to me two talents. Behold, I have gained another two talents besides them.’\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 23,
+      "text": "\n“His lord said to him, ‘Well done, good and faithful servant. You have been faithful over a few things, I will set you over many things. Enter into the joy of your lord.’\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 24,
+      "text": "\n“He also who had received the one talent came and said, ‘Lord, I knew you that you are a hard man, reaping where you did not sow, and gathering where you did not scatter.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 25,
+      "text": "\nI was afraid, and went away and hid your talent in the earth. Behold, you have what is yours.’\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 26,
+      "text": "\n“But his lord answered him, ‘You wicked and slothful servant. You knew that I reap where I didn’t sow, and gather where I didn’t scatter.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 27,
+      "text": "\nYou ought therefore to have deposited my money with the bankers, and at my coming I should have received back my own with interest.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 28,
+      "text": "\nTake away therefore the talent from him, and give it to him who has the ten talents.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 29,
+      "text": "\nFor to everyone who has will be given, and he will have abundance, but from him who doesn’t have, even that which he has will be taken away.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 30,
+      "text": "\nThrow out the unprofitable servant into the outer darkness, where there will be weeping and gnashing of teeth.’\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 31,
+      "text": "\n“But when the Son of Man comes in his glory, and all the holy angels with him, then he will sit on the throne of his glory.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 32,
+      "text": "\nBefore him all the nations will be gathered, and he will separate them one from another, as a shepherd separates the sheep from the goats.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 33,
+      "text": "\nHe will set the sheep on his right hand, but the goats on the left.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 34,
+      "text": "\nThen the King will tell those on his right hand, ‘Come, blessed of my Father, inherit the Kingdom prepared for you from the foundation of the world;\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 35,
+      "text": "\nfor I was hungry, and you gave me food to eat. I was thirsty, and you gave me drink. I was a stranger, and you took me in.\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 36,
+      "text": "\nI was naked, and you clothed me. I was sick, and you visited me. I was in prison, and you came to me.’\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 37,
+      "text": "\n“Then the righteous will answer him, saying, ‘Lord, when did we see you hungry, and feed you; or thirsty, and give you a drink?\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 38,
+      "text": "\nWhen did we see you as a stranger, and take you in; or naked, and clothe you?\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 39,
+      "text": "\nWhen did we see you sick, or in prison, and come to you?’\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 40,
+      "text": "\n“The King will answer them, ‘Most certainly I tell you, because you did it to one of the least of these my brothers,\n you did it to me.’\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 41,
+      "text": "\nThen he will say also to those on the left hand, ‘Depart from me, you cursed, into the eternal fire which is prepared for the devil and his angels;\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 42,
+      "text": "\nfor I was hungry, and you didn’t give me food to eat; I was thirsty, and you gave me no drink;\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 43,
+      "text": "\nI was a stranger, and you didn’t take me in; naked, and you didn’t clothe me; sick, and in prison, and you didn’t visit me.’\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 44,
+      "text": "\n“Then they will also answer, saying, ‘Lord, when did we see you hungry, or thirsty, or a stranger, or naked, or sick, or in prison, and didn’t help you?’\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 45,
+      "text": "\n“Then he will answer them, saying, ‘Most certainly I tell you, because you didn’t do it to one of the least of these, you didn’t do it to me.’\n\n"
+    },
+    {
+      "book_id": "MAT",
+      "book_name": "Matthew",
+      "chapter": 25,
+      "verse": 46,
+      "text": "\nThese will go away into eternal punishment, but the righteous into eternal life.”\n"
     },
     {
       "book_id": "MAT",
@@ -4875,16 +5778,16 @@
     }
   ],
   "metadata": {
-    "chapter_count": 18,
-    "verse_count": 696,
+    "chapter_count": 21,
+    "verse_count": 825,
     "duration": {
-      "duration_text": "5h24min",
+      "duration_text": "1h55min",
       "status": "Muito Longo",
-      "duration_minutes": 324.44,
-      "char_count": 77866,
-      "estimated_words": 15573.0,
-      "words_per_minute": 48.0
+      "duration_minutes": 115.49,
+      "char_count": 92389,
+      "estimated_words": 18478.0,
+      "words_per_minute": 160.0
     },
-    "last_updated": "1759773324.354283"
+    "last_updated": "1759903012.7175229"
   }
 }

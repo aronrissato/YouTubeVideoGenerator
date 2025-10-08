@@ -131,11 +131,11 @@ def process_book_file(file_path: str) -> bool:
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(book_data, f, ensure_ascii=False, indent=2)
         
-        print(f"  ✓ {book_data.get('reference', 'Unknown')}: {chapter_count} capítulos, {duration_info['duration_text']}")
+        print(f"  OK {book_data.get('reference', 'Unknown')}: {chapter_count} capítulos, {duration_info['duration_text']}")
         return True
         
     except Exception as e:
-        print(f"  ✗ Erro ao processar {file_path}: {e}")
+        print(f"  ERRO ao processar {file_path}: {e}")
         return False
 
 def main():
@@ -169,9 +169,9 @@ def main():
     print(f"Processamento concluído: {success_count}/{total_count} arquivos processados com sucesso")
     
     if success_count == total_count:
-        print("✓ Todos os livros foram processados com sucesso!")
+        print("SUCESSO! Todos os livros foram processados com sucesso!")
     else:
-        print(f"⚠ {total_count - success_count} arquivos falharam no processamento")
+        print(f"AVISO: {total_count - success_count} arquivos falharam no processamento")
 
 if __name__ == "__main__":
     main()

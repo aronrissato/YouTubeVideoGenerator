@@ -56,7 +56,7 @@ class BibleTextGenerator:
         Returns:
             Dados do livro ou None se não encontrado
         """
-        filename = f"{book_name.replace(' ', '_').lower()}.json"
+        filename = f"{book_name.replace(' ', '_').replace('-', '_').lower()}.json"
         filepath = os.path.join(self.local_bible_dir, filename)
         
         if not os.path.exists(filepath):
@@ -302,31 +302,10 @@ class BibleTextGenerator:
             language_filter: Filtrar por idioma específico (None = usar idioma atual)
         
         Returns:
-            Lista de nomes de livros disponíveis
+            Lista de nomes de livros disponíveis na ordem cronológica da Bíblia
         """
-        filter_lang = language_filter or self.language
-        
-        # Se usar dados locais, verificar quais livros estão disponíveis no idioma
-        if self.use_local:
-            available = []
-            for filename in os.listdir(self.local_bible_dir):
-                if filename.endswith('.json'):
-                    try:
-                        filepath = os.path.join(self.local_bible_dir, filename)
-                        with open(filepath, 'r', encoding='utf-8') as f:
-                            data = json.load(f)
-                            book_lang = data.get('language', 'en')
-                            if book_lang == filter_lang:
-                                book_key = filename.replace('.json', '').replace('_', '-')
-                                available.append(book_key)
-                    except:
-                        continue
-            
-            if available:
-                return sorted(available)
-        
-        # Lista padrão de todos os livros
-        books = [
+        # Ordem cronológica dos livros bíblicos (Antigo Testamento + Novo Testamento)
+        biblical_order = [
             "genesis", "exodus", "leviticus", "numbers", "deuteronomy",
             "joshua", "judges", "ruth", "1-samuel", "2-samuel",
             "1-kings", "2-kings", "1-chronicles", "2-chronicles", "ezra",
@@ -342,7 +321,33 @@ class BibleTextGenerator:
             "1-peter", "2-peter", "1-john", "2-john", "3-john",
             "jude", "revelation"
         ]
-        return books
+        
+        filter_lang = language_filter or self.language
+        
+        # Se usar dados locais, verificar quais livros estão disponíveis
+        if self.use_local:
+            available_set = set()
+            for filename in os.listdir(self.local_bible_dir):
+                if filename.endswith('.json'):
+                    try:
+                        filepath = os.path.join(self.local_bible_dir, filename)
+                        with open(filepath, 'r', encoding='utf-8') as f:
+                            data = json.load(f)
+                            # Se o arquivo tiver campo "language", verificar se corresponde
+                            # Caso contrário, assumir que é compatível
+                            book_lang = data.get('language', None)
+                            if book_lang is None or book_lang == filter_lang:
+                                book_key = filename.replace('.json', '').replace('_', '-')
+                                available_set.add(book_key)
+                    except:
+                        continue
+            
+            if available_set:
+                # Retornar na ordem bíblica, apenas os livros disponíveis
+                return [book for book in biblical_order if book in available_set]
+        
+        # Lista padrão de todos os livros na ordem bíblica
+        return biblical_order
     
     def set_language(self, language: str):
         """

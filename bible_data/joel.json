@@ -517,13 +517,13 @@
     "chapter_count": 3,
     "verse_count": 73,
     "duration": {
-      "duration_text": "42.9min",
-      "status": "Longo",
-      "duration_minutes": 42.92,
+      "duration_text": "12.9min",
+      "status": "Médio",
+      "duration_minutes": 12.88,
       "char_count": 10300,
       "estimated_words": 2060.0,
-      "words_per_minute": 48.0
+      "words_per_minute": 160.0
     },
-    "last_updated": "1759773212.9016304"
+    "last_updated": "1759903012.6250756"
   }
 }

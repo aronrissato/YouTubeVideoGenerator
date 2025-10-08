@@ -167,13 +167,13 @@
     "chapter_count": 1,
     "verse_count": 23,
     "duration": {
-      "duration_text": "13.4min",
-      "status": "Médio",
-      "duration_minutes": 13.4,
+      "duration_text": "4.0min",
+      "status": "Curto",
+      "duration_minutes": 4.02,
       "char_count": 3216,
       "estimated_words": 643.0,
-      "words_per_minute": 48.0
+      "words_per_minute": 160.0
     },
-    "last_updated": "1759773262.3155556"
+    "last_updated": "1759903012.570511"
   }
 }

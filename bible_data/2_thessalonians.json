@@ -335,13 +335,13 @@
     "chapter_count": 3,
     "verse_count": 47,
     "duration": {
-      "duration_text": "22.7min",
+      "duration_text": "6.8min",
       "status": "Médio",
-      "duration_minutes": 22.75,
+      "duration_minutes": 6.82,
       "char_count": 5459,
       "estimated_words": 1092.0,
-      "words_per_minute": 48.0
+      "words_per_minute": 160.0
     },
-    "last_updated": "1759773546.4475853"
+    "last_updated": "1759903012.4585502"
   }
 }

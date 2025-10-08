@@ -13,13 +13,13 @@
     "chapter_count": 1,
     "verse_count": 1,
     "duration": {
-      "duration_text": "34s",
+      "duration_text": "10s",
       "status": "Curto",
-      "duration_minutes": 0.57,
+      "duration_minutes": 0.17,
       "char_count": 136,
       "estimated_words": 27.0,
-      "words_per_minute": 48.0
+      "words_per_minute": 160.0
     },
-    "last_updated": "1759771114.274603"
+    "last_updated": "1759903012.6475034"
   }
 }
