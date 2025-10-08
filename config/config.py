@@ -126,7 +126,7 @@ class VideoConfig:
         try:
             import sys
             sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-            from bible_data_creator import BibleDataCreator
+            from bible_data.bible_data_creator import BibleDataCreator
             return BibleDataCreator.get_supported_languages()
         except:
             # Fallback para lista hardcoded
@@ -232,7 +232,7 @@ class VideoConfig:
         try:
             import sys
             sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-            from bible_data_creator import BibleDataCreator
+            from bible_data.bible_data_creator import BibleDataCreator
             
             return BibleDataCreator()
         except Exception as e:

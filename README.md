@@ -1,6 +1,6 @@
 # 🎬 Gerador de Vídeos Bíblicos
 
-Sistema automatizado para geração de vídeos de livros bíblicos com narração, vídeos de fundo e publicação no YouTube.
+Sistema automatizado para geração de vídeos de livros bíblicos com narração, vídeos de fundo e publicação no YouTube. Suporta múltiplos idiomas e é totalmente configurável.
 
 ## 📋 Requisitos
 
@@ -40,6 +40,9 @@ python run.py config
 
 # Ver ajuda
 python run.py help
+
+# Limpeza manual
+python utils/cleanup.py
 ```
 
 ## 📐 Arquitetura do Sistema
@@ -49,6 +52,8 @@ python run.py help
 ```
 YouTubeVideoGenerator/
 ├── run.py                                    # Entry point
+├── utils/
+│   └── cleanup.py                           # Sistema de limpeza
 ├── video/
 │   ├── video_generation_orchestrator.py     # Orquestrador principal
 │   ├── bible_video_generator.py             # Gerador de vídeos
@@ -63,8 +68,11 @@ YouTubeVideoGenerator/
 │   ├── config.py                            # Configurações globais
 │   ├── config_ui.py                         # Interface de configuração
 │   └── video_config.json                    # Configurações salvas
-├── bible_data/                              # Dados bíblicos locais (JSON)
-└── cleanup.py                               # Sistema de limpeza
+└── bible_data/
+    ├── bible_data_creator.py                # Criador de dados bíblicos
+    ├── download_bible_books.py              # Download de livros
+    ├── calculate_book_durations.py          # Cálculo de durações
+    └── *.json                               # Dados bíblicos locais
 ```
 
 ### Responsabilidades dos Módulos
@@ -74,6 +82,7 @@ YouTubeVideoGenerator/
 | `VideoGenerationOrchestrator` | Controla fluxo de execução, menus e comandos |
 | `BibleVideoGenerator` | Coordena etapas de geração do vídeo |
 | `BibleTextGenerator` | Obtém texto bíblico (local ou API) |
+| `BibleDataCreator` | Cria e gerencia dados bíblicos em múltiplos idiomas |
 | `AudioGenerator` | Converte texto em áudio (Azure TTS, gTTS, pyttsx3) |
 | `PexelsVideoFetcher` | Busca e baixa vídeos do Pexels |
 | `VideoCreator` | Combina áudio + vídeos + música de fundo |
@@ -159,7 +168,6 @@ flowchart LR
     style D fill:#F3E5F5,stroke:#7B1FA2
     style F fill:#FCE4EC,stroke:#C2185B
     style H fill:#F5F5F5,stroke:#616161
-    style I fill:#EFEBE9,stroke:#5D4037
 ```
 
 ### Detalhamento das Etapas
@@ -204,6 +212,196 @@ flowchart LR
   - Temporários do MoviePy (`temp/temp-audio*`)
 - Mantém apenas vídeo final em `output/videos/`
 
+## 🌍 Sistema Multi-Idioma
+
+O sistema é completamente agnóstico ao idioma, permitindo gerar vídeos bíblicos em qualquer língua suportada sem necessidade de criar arquivos específicos para cada idioma.
+
+### Idiomas Suportados
+
+| Código | Nome Completo          | Status |
+|--------|------------------------|--------|
+| `pt`   | Português (Brasil)     | ✓      |
+| `pt-pt`| Português (Portugal)   | ✓      |
+| `en`   | English (US)           | ✓      |
+| `en-gb`| English (UK)           | ✓      |
+| `es`   | Español                | ✓      |
+| `fr`   | Français               | ✓      |
+| `de`   | Deutsch                | ✓      |
+| `it`   | Italiano               | ✓      |
+| `ru`   | Русский                | ✓      |
+| `zh`   | 中文                    | ✓      |
+| `ja`   | 日本語                  | ✓      |
+| `ko`   | 한국어                  | ✓      |
+| `ar`   | العربية                | ✓      |
+| `he`   | עברית                  | ✓      |
+
+### Como Usar Diferentes Idiomas
+
+#### Criar Dados Bíblicos em Qualquer Idioma
+
+```python
+from bible_data.bible_data_creator import BibleDataCreator
+
+# Criar instância
+creator = BibleDataCreator()
+
+# Criar livro em português
+chapter_texts_pt = {
+    1: 'No princípio criou Deus os céus e a terra.',
+    2: 'E assim foram acabados os céus e a terra.'
+}
+creator.create_bible_book('Gênesis', chapter_texts_pt, language='pt')
+
+# Criar livro em inglês
+chapter_texts_en = {
+    1: 'In the beginning God created the heaven and the earth.',
+    2: 'Thus the heavens and the earth were finished.'
+}
+creator.create_bible_book('Genesis', chapter_texts_en, language='en')
+
+# Criar livro em espanhol
+chapter_texts_es = {
+    1: 'En el principio creó Dios los cielos y la tierra.',
+    2: 'Fueron, pues, acabados los cielos y la tierra.'
+}
+creator.create_bible_book('Génesis', chapter_texts_es, language='es')
+```
+
+#### Gerar Texto Bíblico em Idioma Específico
+
+```python
+from text.bible_text_generator import BibleTextGenerator
+
+# Criar gerador para português
+generator_pt = BibleTextGenerator(language='pt')
+texto = generator_pt.get_full_book_text('genesis')
+
+# Criar gerador para inglês
+generator_en = BibleTextGenerator(language='en')
+text = generator_en.get_full_book_text('genesis')
+
+# Alternar idioma dinamicamente
+generator = BibleTextGenerator(language='en')
+generator.set_language('pt')  # Muda para português
+```
+
+#### Gerar Vídeo em Idioma Específico
+
+```python
+from video.bible_video_generator import BibleVideoGenerator
+
+# Criar gerador para inglês
+generator_en = BibleVideoGenerator(language='en')
+generator_en.generate_full_video('genesis', pexels_key, publish=False)
+
+# Criar gerador para português
+generator_pt = BibleVideoGenerator(language='pt')
+generator_pt.generate_full_video('genesis', pexels_key, publish=False)
+```
+
+#### Configurar Idioma Padrão
+
+Edite `video_config.json`:
+
+```json
+{
+  "language": "pt",
+  "voice_speed": 1.0,
+  "voice_gender": "female",
+  ...
+}
+```
+
+Ou use a interface de configuração:
+
+```bash
+python run.py config
+```
+
+### Estrutura de Arquivos JSON
+
+Os arquivos bíblicos incluem informação de idioma:
+
+```json
+{
+  "reference": "Genesis",
+  "language": "en",
+  "language_name": "English (US)",
+  "verses": [
+    {
+      "chapter": 1,
+      "verse": 1,
+      "text": "In the beginning God created..."
+    }
+  ],
+  "text": "Full text...",
+  "metadata": {
+    "chapter_count": 50,
+    "verse_count": 1533,
+    "character_count": 150000,
+    "word_count": 25000
+  }
+}
+```
+
+### Filtros por Idioma
+
+#### Listar Livros Disponíveis em um Idioma
+
+```python
+from text.bible_text_generator import BibleTextGenerator
+
+generator = BibleTextGenerator()
+
+# Apenas livros em inglês
+books_en = generator.get_available_books(language_filter='en')
+
+# Apenas livros em português
+books_pt = generator.get_available_books(language_filter='pt')
+```
+
+#### Listar Todos os Livros com Informação de Idioma
+
+```python
+from bible_data.bible_data_creator import BibleDataCreator
+
+creator = BibleDataCreator()
+books = creator.list_available_books()
+
+for book in books:
+    print(f"{book['book_name']} - {book['language_name']}")
+```
+
+### Adicionando Novo Idioma
+
+Para adicionar suporte a um novo idioma:
+
+1. **Adicionar à lista de idiomas suportados** em `bible_data/bible_data_creator.py`:
+
+```python
+SUPPORTED_LANGUAGES = {
+    # ... idiomas existentes ...
+    'ko': '한국어',  # Coreano
+}
+```
+
+2. **Configurar API** em `text/bible_text_generator.py`:
+
+```python
+BIBLE_APIS = {
+    # ... APIs existentes ...
+    'ko': {
+        'name': 'Bible API (Korean)',
+        'base_url': 'https://bible-api.com',
+        'version': 'kor'
+    }
+}
+```
+
+3. **Criar dados bíblicos** usando `bible_data/bible_data_creator.py`
+
+4. **Configurar voz** para o novo idioma (se aplicável)
+
 ## 🧹 Sistema de Limpeza
 
 ### Limpeza Automática
@@ -215,10 +413,10 @@ Acionada automaticamente em:
 ### Limpeza Manual
 ```bash
 # Limpar tudo
-python cleanup.py
+python utils/cleanup.py
 
 # Limpar livro específico
-python cleanup.py genesis
+python utils/cleanup.py genesis
 ```
 
 ### Arquivos Preservados
@@ -254,7 +452,7 @@ python cleanup.py genesis
 
 | Configuração | Valores | Descrição |
 |-------------|---------|-----------|
-| `language` | pt, en, es, fr, de, it | Idioma da narração |
+| `language` | pt, en, es, fr, de, it, etc | Idioma da narração |
 | `voice_speed` | 0.5 - 3.0 | Velocidade da voz |
 | `voice_gender` | male, female | Gênero da voz |
 | `video_quality` | low, medium, high | Qualidade (720p, 1080p, 4K) |
@@ -272,24 +470,17 @@ python bible_data/download_bible_books.py
 ```
 
 - **Fonte**: [bible-api.com](https://bible-api.com)
-- **Versão**: King James Version (KJV)
-- **Formato**: JSON estruturado
+- **Versão**: King James Version (KJV) e outras
+- **Formato**: JSON estruturado com metadados de idioma
 - **Total**: 66 livros bíblicos
 
-### Estrutura JSON
-```json
-{
-  "book": "Genesis",
-  "chapters": [
-    {
-      "chapter": 1,
-      "verses": [
-        {"verse": 1, "text": "In the beginning..."},
-        ...
-      ]
-    }
-  ]
-}
+### Cálculo de Durações
+```bash
+# Calcular durações por livro
+python bible_data/calculate_book_durations.py
+
+# Calcular durações por capítulo
+python bible_data/calculate_chapter_durations.py
 ```
 
 ## 🔍 Troubleshooting Rápido
@@ -300,6 +491,7 @@ python bible_data/download_bible_books.py
 | Áudio sem voz | Configurar `AZURE_SPEECH_KEY` (opcional) |
 | Erro de autenticação YouTube | Verificar `client_secret.json` em `config/` |
 | Vídeo não gerado | Verificar logs de erro, executar limpeza manual |
+| Idioma não suportado | Adicionar idioma em `bible_data_creator.py` |
 
 ## 📦 Dependências Principais
 
@@ -309,7 +501,35 @@ python bible_data/download_bible_books.py
 - `gtts` - Google Text-to-Speech
 - `google-api-python-client` - YouTube API
 - `pydub` - Processamento de áudio
+- `python-dotenv` - Gerenciamento de variáveis de ambiente
+
+## 🚀 Vantagens do Sistema
+
+1. **Escalável** - Adicionar novo idioma é apenas configurar a API/dados
+2. **Manutenível** - Um único código base para todos os idiomas
+3. **Flexível** - Alterar idioma em tempo de execução
+4. **Organizado** - Filtros automáticos por idioma
+5. **Robusto** - Validação e metadados completos
+6. **Documentado** - Cada componente tem documentação clara
+7. **Automatizado** - Pipeline completo de geração e publicação
+
+## 📝 Changelog
+
+### v2.0 - Sistema Multi-Idioma
+- ✓ Criado `bible_data_creator.py` genérico
+- ✓ Atualizado `bible_text_generator.py` com suporte multi-idioma
+- ✓ Integrado sistema de idiomas com `config.py`
+- ✓ Atualizado `bible_video_generator.py` para aceitar idioma
+- ✓ Suporte a 14+ idiomas
+- ✓ Reorganizada estrutura de pastas
+- ✓ Adicionados cálculos de duração por capítulo
+- ✓ Movidos arquivos utilitários para pastas apropriadas
+
+### v1.0 - Sistema Original
+- Suporte para geração automatizada de vídeos
+- Integração com Pexels, Azure TTS e YouTube
+- Sistema de configuração personalizada
 
 ---
 
-**Desenvolvido para compartilhar a Palavra de Deus através de tecnologia**
+**Desenvolvido para compartilhar a Palavra de Deus através de tecnologia** 🙏
