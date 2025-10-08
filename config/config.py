@@ -122,16 +122,30 @@ class VideoConfig:
     
     def get_language_options(self):
         """Retorna opções disponíveis para idioma"""
-        return {
-            'pt': 'Português (Brasil)',
-            'pt-pt': 'Português (Portugal)',
-            'en': 'English (US)',
-            'en-gb': 'English (UK)',
-            'es': 'Español',
-            'fr': 'Français',
-            'de': 'Deutsch',
-            'it': 'Italiano'
-        }
+        # Importar lista de idiomas do bible_data_creator
+        try:
+            import sys
+            sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            from bible_data_creator import BibleDataCreator
+            return BibleDataCreator.get_supported_languages()
+        except:
+            # Fallback para lista hardcoded
+            return {
+                'pt': 'Português (Brasil)',
+                'pt-pt': 'Português (Portugal)',
+                'en': 'English (US)',
+                'en-gb': 'English (UK)',
+                'es': 'Español',
+                'fr': 'Français',
+                'de': 'Deutsch',
+                'it': 'Italiano',
+                'ru': 'Русский',
+                'zh': '中文',
+                'ja': '日本語',
+                'ko': '한국어',
+                'ar': 'العربية',
+                'he': 'עברית'
+            }
     
     def get_voice_options(self):
         """Retorna opções de voz disponíveis"""
@@ -183,7 +197,47 @@ class VideoConfig:
         if not isinstance(self.config['voice_volume'], (int, float)) or self.config['voice_volume'] < 0 or self.config['voice_volume'] > 2:
             errors.append("Volume da voz deve estar entre 0 e 2")
         
+        # Validar idioma
+        valid_languages = list(self.get_language_options().keys())
+        if self.config.get('language') and self.config['language'] not in valid_languages:
+            errors.append(f"Idioma '{self.config['language']}' não é suportado. Idiomas válidos: {', '.join(valid_languages)}")
+        
         return errors
+    
+    def get_bible_text_generator(self):
+        """
+        Retorna uma instância configurada do BibleTextGenerator
+        
+        Returns:
+            BibleTextGenerator configurado com o idioma atual
+        """
+        try:
+            import sys
+            sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            from text.bible_text_generator import BibleTextGenerator
+            
+            language = self.config.get('language', 'en')
+            return BibleTextGenerator(language=language)
+        except Exception as e:
+            print(f"[ERROR] Erro ao criar BibleTextGenerator: {str(e)}")
+            return None
+    
+    def get_bible_data_creator(self):
+        """
+        Retorna uma instância do BibleDataCreator
+        
+        Returns:
+            BibleDataCreator para manipular dados bíblicos
+        """
+        try:
+            import sys
+            sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            from bible_data_creator import BibleDataCreator
+            
+            return BibleDataCreator()
+        except Exception as e:
+            print(f"[ERROR] Erro ao criar BibleDataCreator: {str(e)}")
+            return None
 
 # Instância global de configuração
 video_config = VideoConfig()

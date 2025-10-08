@@ -7,6 +7,7 @@ from video.bible_video_generator import BibleVideoGenerator
 
 def main():
     """Executa limpeza de arquivos temporários"""
+    # Para limpeza, não precisa especificar idioma
     generator = BibleVideoGenerator()
     
     print("LIMPEZA DE ARQUIVOS TEMPORÁRIOS")

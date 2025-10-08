@@ -13,8 +13,15 @@ from config.config import video_config
 class VideoGenerationOrchestrator:
     """Orquestra todo o processo de geração de vídeos bíblicos"""
     
-    def __init__(self):
-        self.generator = BibleVideoGenerator()
+    def __init__(self, language: Optional[str] = None):
+        """
+        Inicializa o orquestrador
+        
+        Args:
+            language: Código do idioma opcional (ex: 'en', 'pt', 'es')
+        """
+        self.language = language or video_config.get('language', 'en')
+        self.generator = BibleVideoGenerator(language=self.language)
         self.config_ui = ConfigUI()
         self.current_book_name = None
     

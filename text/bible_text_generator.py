@@ -1,24 +1,61 @@
 """
-Gerador de texto bíblico completo
+Gerador de texto bíblico completo com suporte multi-idioma
 """
 import requests
 import json
 import os
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 class BibleTextGenerator:
-    def __init__(self):
-        self.base_url = "https://bible-api.com"
+    # APIs disponíveis por idioma
+    BIBLE_APIS = {
+        'en': {
+            'name': 'Bible API (English)',
+            'base_url': 'https://bible-api.com',
+            'version': 'KJV'
+        },
+        'pt': {
+            'name': 'Bible API (Portuguese)',
+            'base_url': 'https://bible-api.com',
+            'version': 'almeida'
+        },
+        'es': {
+            'name': 'Bible API (Spanish)',
+            'base_url': 'https://bible-api.com',
+            'version': 'rvr95'
+        }
+        # Outros idiomas podem ser adicionados aqui
+    }
+    
+    def __init__(self, language: str = 'en'):
+        """
+        Inicializa o gerador de texto bíblico
+        
+        Args:
+            language: Código do idioma (ex: 'en', 'pt', 'es')
+        """
+        self.language = language
+        self.api_config = self.BIBLE_APIS.get(language, self.BIBLE_APIS['en'])
+        self.base_url = self.api_config['base_url']
         self.local_bible_dir = "bible_data"
         self.use_local = os.path.exists(self.local_bible_dir)
         
         if self.use_local:
-            print("[INFO] Usando dados locais da bíblia")
+            print(f"[INFO] Usando dados locais da bíblia (idioma: {language})")
         else:
-            print("[INFO] Usando API online da bíblia")
+            print(f"[INFO] Usando {self.api_config['name']}")
         
-    def get_local_book_data(self, book_name: str) -> Dict:
-        """Carrega dados de um livro do armazenamento local"""
+    def get_local_book_data(self, book_name: str, check_language: bool = True) -> Optional[Dict]:
+        """
+        Carrega dados de um livro do armazenamento local
+        
+        Args:
+            book_name: Nome do livro
+            check_language: Se True, verifica se o idioma do arquivo corresponde ao configurado
+        
+        Returns:
+            Dados do livro ou None se não encontrado
+        """
         filename = f"{book_name.replace(' ', '_').lower()}.json"
         filepath = os.path.join(self.local_bible_dir, filename)
         
@@ -27,7 +64,16 @@ class BibleTextGenerator:
         
         try:
             with open(filepath, 'r', encoding='utf-8') as f:
-                return json.load(f)
+                data = json.load(f)
+                
+                # Verificar idioma se solicitado
+                if check_language and 'language' in data:
+                    book_language = data['language']
+                    if book_language != self.language:
+                        print(f"[WARNING] Livro {book_name} está em {book_language}, mas o sistema está configurado para {self.language}")
+                        return None
+                
+                return data
         except Exception as e:
             print(f"[ERRO] Erro ao carregar arquivo local {filepath}: {str(e)}")
             return None
@@ -248,10 +294,38 @@ class BibleTextGenerator:
             }
         }
     
-    def get_available_books(self) -> List[str]:
+    def get_available_books(self, language_filter: Optional[str] = None) -> List[str]:
         """
         Retorna lista de livros bíblicos disponíveis
+        
+        Args:
+            language_filter: Filtrar por idioma específico (None = usar idioma atual)
+        
+        Returns:
+            Lista de nomes de livros disponíveis
         """
+        filter_lang = language_filter or self.language
+        
+        # Se usar dados locais, verificar quais livros estão disponíveis no idioma
+        if self.use_local:
+            available = []
+            for filename in os.listdir(self.local_bible_dir):
+                if filename.endswith('.json'):
+                    try:
+                        filepath = os.path.join(self.local_bible_dir, filename)
+                        with open(filepath, 'r', encoding='utf-8') as f:
+                            data = json.load(f)
+                            book_lang = data.get('language', 'en')
+                            if book_lang == filter_lang:
+                                book_key = filename.replace('.json', '').replace('_', '-')
+                                available.append(book_key)
+                    except:
+                        continue
+            
+            if available:
+                return sorted(available)
+        
+        # Lista padrão de todos os livros
         books = [
             "genesis", "exodus", "leviticus", "numbers", "deuteronomy",
             "joshua", "judges", "ruth", "1-samuel", "2-samuel",
@@ -269,9 +343,43 @@ class BibleTextGenerator:
             "jude", "revelation"
         ]
         return books
+    
+    def set_language(self, language: str):
+        """
+        Altera o idioma do gerador
+        
+        Args:
+            language: Código do novo idioma
+        """
+        self.language = language
+        self.api_config = self.BIBLE_APIS.get(language, self.BIBLE_APIS['en'])
+        self.base_url = self.api_config['base_url']
+        print(f"[INFO] Idioma alterado para: {language} ({self.api_config['name']})")
+    
+    @classmethod
+    def get_supported_languages(cls) -> List[str]:
+        """
+        Retorna lista de idiomas suportados pelas APIs
+        
+        Returns:
+            Lista de códigos de idioma
+        """
+        return list(cls.BIBLE_APIS.keys())
 
 def main():
-    generator = BibleTextGenerator()
+    # Detectar idioma do sistema ou usar padrão
+    import sys
+    default_lang = 'en'
+    
+    print("Idiomas suportados:")
+    for lang in BibleTextGenerator.get_supported_languages():
+        print(f"  - {lang}")
+    
+    lang_choice = input(f"\nEscolha o idioma (padrão: {default_lang}): ").strip().lower()
+    if not lang_choice:
+        lang_choice = default_lang
+    
+    generator = BibleTextGenerator(language=lang_choice)
     books = generator.get_available_books()
     
     # Mapeamento de livros bíblicos com número de capítulos

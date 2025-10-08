@@ -17,13 +17,22 @@ from .youtube_publisher import YouTubePublisher
 from config.config import video_config, AUDIO_LANGUAGE, AUDIO_SPEED, VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, PEXELS_VIDEOS_DIR, OUTPUT_DIR, DEFAULT_PRIVACY_STATUS, DEFAULT_CATEGORY_ID
 
 class BibleVideoGenerator:
-    def __init__(self):
-        self.text_generator = BibleTextGenerator()
+    def __init__(self, language: Optional[str] = None):
+        """
+        Inicializa o gerador de vídeos bíblicos
+        
+        Args:
+            language: Código do idioma (ex: 'en', 'pt', 'es'). Se None, usa configuração padrão.
+        """
+        # Determinar idioma a usar
+        self.language = language or video_config.get('language', AUDIO_LANGUAGE)
+        
+        # Inicializar geradores com idioma específico
+        self.text_generator = BibleTextGenerator(language=self.language)
         
         # Usar configurações personalizadas para áudio
-        language = video_config.get('language', AUDIO_LANGUAGE)
         speed = video_config.get('voice_speed', AUDIO_SPEED)
-        self.audio_generator = AudioGenerator(language, speed)
+        self.audio_generator = AudioGenerator(self.language, speed)
         
         self.video_fetcher = None  # Será inicializado quando necessário
         self.video_creator = VideoCreator()
@@ -31,6 +40,8 @@ class BibleVideoGenerator:
         
         # Criar diretórios necessários
         self._create_directories()
+        
+        print(f"[INFO] BibleVideoGenerator inicializado para idioma: {self.language}")
     
     def _create_directories(self):
         """Cria diretórios necessários para o projeto"""
@@ -512,9 +523,15 @@ Que la parole de Dieu bénisse votre vie !
 
 def main():
     """Função principal para execução interativa"""
-    generator = BibleVideoGenerator()
+    # Usar idioma da configuração
+    from config.config import video_config
+    language = video_config.get('language', 'en')
+    
+    generator = BibleVideoGenerator(language=language)
     
     print("GERADOR DE VIDEOS BIBLICOS")
+    print("=" * 40)
+    print(f"Idioma configurado: {language}")
     print("=" * 40)
     
     # Listar livros disponíveis
