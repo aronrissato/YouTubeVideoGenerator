@@ -6,6 +6,10 @@ Escolhe livro bíblico aleatoriamente e gera vídeo
 
 import os
 import sys
+
+# Adicionar diretório raiz ao path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 import random
 from datetime import datetime
 from video.video_generation_orchestrator import VideoGenerationOrchestrator
