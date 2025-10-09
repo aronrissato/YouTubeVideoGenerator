@@ -7,6 +7,10 @@ OPENAI_API_KEY=your_openai_api_key_here
 # Obtenha sua chave gratuita em: https://www.pexels.com/api/
 PEXELS_API_KEY=your_pexels_api_key_here
 
+# Google/Gemini API Key (se você usar Gemini para geração de texto)
+# Obtenha sua chave em: https://makersuite.google.com/app/apikey
+GOOGLE_API_KEY=your_google_api_key_here
+
 # Configurações opcionais
 AUDIO_LANGUAGE=pt
 AUDIO_SPEED=1.0

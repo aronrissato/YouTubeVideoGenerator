@@ -2,6 +2,8 @@
 .env
 client_secret.json
 token.json
+*.key
+*.pem
 
 # Diretórios de saída
 output/

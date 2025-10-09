@@ -3,7 +3,7 @@ name: Generate Bible Video
 on:
   # Executar automaticamente todo dia às 10:00 UTC (07:00 Brasília)
   schedule:
-    - cron: '30 21 * * *'
+    - cron: '00 23 * * *'
 
 jobs:
   generate-video:
