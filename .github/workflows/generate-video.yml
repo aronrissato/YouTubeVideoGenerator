@@ -1,0 +1,81 @@
+name: Generate Bible Video
+
+on:
+  # Executar automaticamente todo dia às 10:00 UTC (07:00 Brasília)
+  schedule:
+    - cron: '30 21 * * *'
+
+jobs:
+  generate-video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 480  # 8 horas
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+      
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Create directories
+        run: |
+          mkdir -p output/videos output/audio output/temp output/pexels_videos output/subtitles
+      
+      - name: Setup YouTube credentials
+        env:
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_TOKEN: ${{ secrets.YOUTUBE_TOKEN }}
+        run: |
+          if [ ! -z "$YOUTUBE_CLIENT_SECRET" ]; then
+            echo "$YOUTUBE_CLIENT_SECRET" > config/client_secret.json
+          fi
+          
+          if [ ! -z "$YOUTUBE_TOKEN" ]; then
+            echo "$YOUTUBE_TOKEN" > config/token.json
+          fi
+      
+      - name: Generate video
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ secrets.AZURE_SPEECH_REGION }}
+          AUTO_PUBLISH: 'true'
+        run: |
+          python run_automated.py
+      
+      - name: Upload generated video
+        uses: actions/upload-artifact@v3
+        if: success()
+        with:
+          name: generated-video-${{ github.run_number }}
+          path: output/videos/*.mp4
+          retention-days: 7
+      
+      - name: Upload logs on failure
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: error-logs-${{ github.run_number }}
+          path: |
+            output/temp/*.log
+            *.log
+          retention-days: 7
+      
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -rf output/temp/* output/pexels_videos/* output/audio/*
+
