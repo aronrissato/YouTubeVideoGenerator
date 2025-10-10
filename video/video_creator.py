@@ -2,12 +2,69 @@
 Criador de vídeo final combinando áudio e vídeos do Pexels
 """
 import os
+import time
 from moviepy.editor import VideoFileClip, AudioFileClip, concatenate_videoclips, CompositeAudioClip
 from moviepy.video.fx import resize
 from moviepy.audio.fx.all import volumex, audio_loop
 import tempfile
 import yt_dlp
 from config.config import video_config
+
+
+class ProgressLogger:
+    """Logger personalizado para MoviePy que mostra progresso apenas de 10% em 10%"""
+    
+    def __init__(self):
+        self.last_percentage = 0
+        self.start_time = None
+        self.last_message = ""
+    
+    def __call__(self, get_frame=None, t=None):
+        """Callback chamado pelo MoviePy durante o processamento"""
+        # MoviePy passa diferentes parâmetros dependendo do contexto
+        # Para write_videofile, recebe get_frame e t (tempo atual)
+        pass
+    
+    def bars_callback(self, bar, attr, value, old_value=None):
+        """Callback para o sistema de barras de progresso do MoviePy"""
+        if bar == 't' and attr == 'index':
+            # value é o frame atual, bar.total é o total de frames
+            if hasattr(bar, 'total') and bar.total:
+                current_frame = value
+                total_frames = bar.total
+                
+                # Calcular porcentagem
+                percentage = int((current_frame / total_frames) * 100)
+                
+                # Inicializar tempo se for a primeira vez
+                if self.start_time is None:
+                    self.start_time = time.time()
+                
+                # Mostrar apenas em múltiplos de 10%
+                if percentage >= self.last_percentage + 10 and percentage <= 100:
+                    self.last_percentage = percentage - (percentage % 10)  # Arredondar para múltiplo de 10
+                    
+                    elapsed_time = time.time() - self.start_time
+                    
+                    if percentage > 0 and percentage < 100:
+                        # Calcular tempo estimado restante
+                        estimated_total_time = (elapsed_time / percentage) * 100
+                        remaining_time = estimated_total_time - elapsed_time
+                        
+                        # Formatar tempo restante
+                        remaining_minutes = int(remaining_time // 60)
+                        remaining_seconds = int(remaining_time % 60)
+                        
+                        message = f"Progresso: {self.last_percentage}% - Tempo estimado restante: {remaining_minutes}m{remaining_seconds:02d}s"
+                        print(message, flush=True)
+                        self.last_message = message
+                    elif percentage >= 100:
+                        # Concluído
+                        total_minutes = int(elapsed_time // 60)
+                        total_seconds = int(elapsed_time % 60)
+                        message = f"Progresso: 100% - Concluído em {total_minutes}m{total_seconds:02d}s"
+                        print(message, flush=True)
+                        self.last_message = message
 
 class VideoCreator:
     def __init__(self):
@@ -213,6 +270,7 @@ class VideoCreator:
             # Configurações mais robustas para evitar erro de subprocess
             try:
                 print("Iniciando write_videofile...", flush=True)
+                progress_logger = ProgressLogger()
                 final_video.write_videofile(
                     output_path,
                     codec='libx264',
@@ -220,8 +278,8 @@ class VideoCreator:
                     temp_audiofile='temp-audio.m4a',
                     remove_temp=True,
                     fps=fps,
-                    verbose=True,  # Habilitado para ver progresso
-                    logger='bar'   # Mostrar barra de progresso
+                    verbose=False,
+                    logger=progress_logger.bars_callback
                 )
                 print("write_videofile completado com sucesso!", flush=True)
             except Exception as write_error:
@@ -230,13 +288,14 @@ class VideoCreator:
                 print("Tentando com configurações alternativas...")
                 
                 try:
+                    progress_logger = ProgressLogger()
                     final_video.write_videofile(
                         output_path,
                         codec='libx264',
                         audio_codec='aac',
                         fps=fps,
                         verbose=False,
-                        logger=None
+                        logger=progress_logger.bars_callback
                     )
                 except Exception as second_error:
                     # Última tentativa sem áudio se necessário
@@ -245,12 +304,13 @@ class VideoCreator:
                     
                     # Criar vídeo sem áudio temporariamente
                     video_without_audio = final_video.without_audio()
+                    progress_logger = ProgressLogger()
                     video_without_audio.write_videofile(
                         output_path,
                         codec='libx264',
                         fps=fps,
                         verbose=False,
-                        logger=None
+                        logger=progress_logger.bars_callback
                     )
                     
                     # Adicionar áudio separadamente usando ffmpeg
@@ -389,7 +449,7 @@ class VideoCreator:
             preview = clip.subclip(0, min(duration, clip.duration))
             
             preview_path = os.path.join(self.output_dir, "preview.mp4")
-            preview.write_videofile(preview_path, codec='libx264', audio_codec='aac')
+            preview.write_videofile(preview_path, codec='libx264', audio_codec='aac', verbose=False, logger=None)
             
             clip.close()
             preview.close()

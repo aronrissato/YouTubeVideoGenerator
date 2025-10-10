@@ -18,7 +18,10 @@ class YouTubePublisher:
         self.credentials = None
         
         # Scopes necessários para YouTube API
-        self.SCOPES = ['https://www.googleapis.com/auth/youtube.upload']
+        self.SCOPES = [
+            'https://www.googleapis.com/auth/youtube.upload',
+            'https://www.googleapis.com/auth/youtube.readonly'
+        ]
     
     def authenticate(self):
         """
@@ -32,13 +35,11 @@ class YouTubePublisher:
                     with open(self.token_file, 'r') as token:
                         token_data = json.load(token)
                         self.credentials = Credentials.from_authorized_user_info(token_data, self.SCOPES)
-                        print("Token carregado de JSON com sucesso")
                 except (json.JSONDecodeError, ValueError):
                     # Fallback para formato pickle (compatibilidade com versões antigas)
                     try:
                         with open(self.token_file, 'rb') as token:
                             self.credentials = pickle.load(token)
-                            print("Token carregado de pickle com sucesso")
                     except Exception as pickle_error:
                         print(f"Erro ao carregar token (JSON e pickle falharam): {str(pickle_error)}")
                         self.credentials = None
@@ -46,7 +47,39 @@ class YouTubePublisher:
             # Se não há credenciais válidas, fazer login
             if not self.credentials or not self.credentials.valid:
                 if self.credentials and self.credentials.expired and self.credentials.refresh_token:
-                    self.credentials.refresh(Request())
+                    try:
+                        # Tentar renovar o token
+                        self.credentials.refresh(Request())
+                    except Exception as refresh_error:
+                        error_str = str(refresh_error)
+                        
+                        # Verificar se é erro de token expirado/revogado
+                        if 'invalid_grant' in error_str.lower() or 'token has been expired or revoked' in error_str.lower():
+                            print("\n" + "="*70)
+                            print("ERRO: Token do YouTube expirou ou foi revogado!")
+                            print("="*70)
+                            print("\nO token precisa ser regenerado manualmente.")
+                            print("\nPara resolver este problema:")
+                            print("1. Execute localmente: python config/generate_youtube_token.py")
+                            print("2. Siga as instruções para autenticar no YouTube")
+                            print("3. Copie o novo token gerado para o GitHub Secret YOUTUBE_TOKEN")
+                            print("\nOBS: Tokens do YouTube expiram após ~6 meses de inatividade")
+                            print("ou quando o acesso é revogado manualmente.")
+                            print("="*70 + "\n")
+                            
+                            # Remover token inválido
+                            if os.path.exists(self.token_file):
+                                try:
+                                    os.remove(self.token_file)
+                                    print(f"Token inválido removido: {self.token_file}")
+                                except:
+                                    pass
+                            
+                            return False
+                        else:
+                            # Outro tipo de erro
+                            print(f"Erro ao renovar token: {error_str}")
+                            raise
                 else:
                     if not os.path.exists(self.client_secret_file):
                         print(f"Arquivo {self.client_secret_file} não encontrado!")
@@ -70,7 +103,6 @@ class YouTubePublisher:
             
             # Construir serviço YouTube
             self.youtube = build('youtube', 'v3', credentials=self.credentials)
-            print("Autenticação com YouTube bem-sucedida!")
             return True
             
         except Exception as e:
