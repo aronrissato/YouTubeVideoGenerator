@@ -29,8 +29,11 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install wheel setuptools
-          pip install moviepy[optional]
+          pip install --no-cache-dir moviepy
           pip install -r requirements.txt
+          echo "Validating moviepy installation..."
+          python -c "import moviepy; print(f'moviepy version: {moviepy.__version__}')"
+          python -c "from moviepy.editor import VideoFileClip; print('moviepy.editor import successful')"
       
       - name: Create directories
         run: |
