@@ -49,6 +49,7 @@ jobs:
       
       - name: Generate video
         env:
+          PYTHONPATH: ${{ github.workspace }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
           AZURE_SPEECH_REGION: ${{ secrets.AZURE_SPEECH_REGION }}
