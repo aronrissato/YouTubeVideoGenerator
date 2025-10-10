@@ -21,8 +21,22 @@ from video.video_generation_orchestrator import VideoGenerationOrchestrator
 from config.config import video_config
 
 
-# Lista dos 66 livros da Bíblia
-BIBLE_BOOKS = [
+# Lista de livros curtos e médios (ideais para GitHub Actions - 5 a 30 minutos)
+# Evita livros muito longos que causam timeout (Genesis, Psalms, Isaiah, etc.)
+BIBLE_BOOKS_SHORT = [
+    # Livros muito curtos (< 5 min)
+    'obadiah', 'philemon', '2_john', '3_john', 'jude',
+    # Livros curtos (5-15 min)
+    'jonah', 'nahum', 'habakkuk', 'zephaniah', 'haggai', 'malachi',
+    'ruth', 'titus', '2_timothy', '1_john', '2_peter', 'james',
+    # Livros médios (15-30 min)
+    'hosea', 'joel', 'amos', 'micah', 'galatians', 'ephesians',
+    'philippians', 'colossians', '1_thessalonians', '2_thessalonians',
+    '1_timothy', '1_peter', 'song_of_songs', 'ecclesiastes', 'lamentations'
+]
+
+# Lista completa dos 66 livros (para uso manual via argumento)
+BIBLE_BOOKS_ALL = [
     'genesis', 'exodus', 'leviticus', 'numbers', 'deuteronomy',
     'joshua', 'judges', 'ruth', '1_samuel', '2_samuel',
     '1_kings', '2_kings', '1_chronicles', '2_chronicles', 'ezra',
@@ -39,6 +53,9 @@ BIBLE_BOOKS = [
     'jude', 'revelation'
 ]
 
+# Usar lista de livros curtos para seleção aleatória automática
+BIBLE_BOOKS = BIBLE_BOOKS_SHORT
+
 
 def select_book():
     """Seleciona livro: por argumento, variável de ambiente ou aleatório"""
@@ -50,12 +67,12 @@ def select_book():
         if arg.isdigit():
             number = int(arg)
             if 1 <= number <= 66:
-                book = BIBLE_BOOKS[number - 1]
+                book = BIBLE_BOOKS_ALL[number - 1]
                 print(f"[NÚMERO] Livro #{number}: {book}")
                 return book
         
         book = arg.lower().replace(' ', '_')
-        if book in BIBLE_BOOKS:
+        if book in BIBLE_BOOKS_ALL:
             print(f"[NOME] Livro: {book}")
             return book
     
@@ -64,7 +81,7 @@ def select_book():
     if book_number and book_number.isdigit():
         number = int(book_number)
         if 1 <= number <= 66:
-            book = BIBLE_BOOKS[number - 1]
+            book = BIBLE_BOOKS_ALL[number - 1]
             print(f"[ENV BOOK_NUMBER] Livro #{number}: {book}")
             return book
     
@@ -72,13 +89,13 @@ def select_book():
     book_name = os.getenv('BOOK_NAME')
     if book_name:
         book = book_name.lower().replace(' ', '_')
-        if book in BIBLE_BOOKS:
+        if book in BIBLE_BOOKS_ALL:
             print(f"[ENV BOOK_NAME] Livro: {book}")
             return book
     
-    # Aleatório (padrão)
+    # Aleatório (padrão) - usa apenas livros curtos/médios
     book = random.choice(BIBLE_BOOKS)
-    print(f"[ALEATÓRIO] Livro sorteado: {book}")
+    print(f"[ALEATÓRIO] Livro sorteado: {book} (apenas livros curtos/médios)")
     return book
 
 
