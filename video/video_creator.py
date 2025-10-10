@@ -14,11 +14,13 @@ class VideoCreator:
         from config.config import VIDEO_OUTPUT_DIR, TEMP_DIR
         self.output_dir = VIDEO_OUTPUT_DIR
         self.temp_dir = TEMP_DIR
-        self.background_music_file = os.path.join(self.temp_dir, 'background_music.mp3')
+        
+        # Caminho para a música de fundo no repositório
+        project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.background_music_file = os.path.join(project_root, 'music', 'background_music.mp3')
         
         # Usar configurações personalizadas
-        # Música de fundo desabilitada por padrão (YouTube bloqueia yt-dlp no GitHub Actions)
-        self.background_music_enabled = video_config.get('background_music', False)
+        self.background_music_enabled = video_config.get('background_music', True)
         self.background_music_volume = video_config.get('background_music_volume', 0.1)
         self.voice_volume = video_config.get('voice_volume', 1.0)
         self.video_quality = video_config.get('video_quality', 'high')
@@ -29,67 +31,20 @@ class VideoCreator:
             if not os.path.exists(directory):
                 os.makedirs(directory)
     
-    def _download_background_music(self):
+    def _get_background_music(self):
         """
-        Baixa música de fundo do YouTube usando yt-dlp
+        Retorna o caminho para a música de fundo local
         """
         # Verificar se música de fundo está habilitada
         if not self.background_music_enabled:
             return None
-            
-        if os.path.exists(self.background_music_file):
-            return self.background_music_file
         
-        try:
-            # URL da música de fundo do YouTube
-            music_url = "https://www.youtube.com/watch?v=fg_wh-qqDf0"
-            
-            # Configurações do yt-dlp
-            ydl_opts = {
-                "format": "bestaudio/best",
-                "outtmpl": os.path.join(self.temp_dir, "background_music.%(ext)s"),
-                "postprocessors": [
-                    {
-                        "key": "FFmpegExtractAudio",
-                        "preferredcodec": "mp3",
-                        "preferredquality": "192",
-                    }
-                ],
-                "quiet": True,  # Sem output desnecessário para performance
-            }
-            
-            print("Baixando música de fundo do YouTube...")
-            print(f"URL: {music_url}")
-            print(f"Diretório de destino: {self.temp_dir}")
-            
-            # Criar diretório temp se não existir
-            os.makedirs(self.temp_dir, exist_ok=True)
-            
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                ydl.download([music_url])
-            
-            # Procurar o arquivo baixado (pode ter extensão diferente temporariamente)
-            downloaded_file = None
-            for file in os.listdir(self.temp_dir):
-                if file.startswith("background_music") and file.endswith((".mp3", ".m4a", ".webm")):
-                    downloaded_file = os.path.join(self.temp_dir, file)
-                    break
-            
-            if downloaded_file and os.path.exists(downloaded_file):
-                # Se o arquivo não é mp3, renomear para mp3
-                if not downloaded_file.endswith('.mp3'):
-                    if os.path.exists(self.background_music_file):
-                        os.unlink(self.background_music_file)
-                    os.rename(downloaded_file, self.background_music_file)
-                
-                print(f"Música de fundo baixada: {self.background_music_file}")
-                return self.background_music_file
-            else:
-                print("Aviso: Arquivo de música não encontrado após download")
-                return None
-                
-        except Exception as e:
-            print(f"Aviso: Erro ao baixar música de fundo: {str(e)}")
+        # Verificar se o arquivo existe no repositório
+        if os.path.exists(self.background_music_file):
+            print(f"Usando música de fundo: {self.background_music_file}")
+            return self.background_music_file
+        else:
+            print(f"Aviso: Arquivo de música não encontrado: {self.background_music_file}")
             print("Continuando sem música de fundo...")
             return None
     
@@ -180,8 +135,8 @@ class VideoCreator:
             
             print("Adicionando áudio ao vídeo...")
             
-            # Baixar música de fundo
-            background_music_file = self._download_background_music()
+            # Obter música de fundo do repositório
+            background_music_file = self._get_background_music()
             
             # Variável para armazenar o áudio final que será usado
             audio_to_use = audio_clip
