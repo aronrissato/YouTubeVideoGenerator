@@ -17,7 +17,8 @@ class VideoCreator:
         self.background_music_file = os.path.join(self.temp_dir, 'background_music.mp3')
         
         # Usar configurações personalizadas
-        self.background_music_enabled = video_config.get('background_music', True)
+        # Música de fundo desabilitada por padrão (YouTube bloqueia yt-dlp no GitHub Actions)
+        self.background_music_enabled = video_config.get('background_music', False)
         self.background_music_volume = video_config.get('background_music_volume', 0.1)
         self.voice_volume = video_config.get('voice_volume', 1.0)
         self.video_quality = video_config.get('video_quality', 'high')
