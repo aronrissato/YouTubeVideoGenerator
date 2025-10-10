@@ -25,7 +25,7 @@ class ProgressLogger:
         # Para write_videofile, recebe get_frame e t (tempo atual)
         pass
     
-    def bars_callback(self, bar, attr, value, old_value=None):
+    def bars_callback(self, bar, attr, value, old_value=None, **kwargs):
         """Callback para o sistema de barras de progresso do MoviePy"""
         if bar == 't' and attr == 'index':
             # value é o frame atual, bar.total é o total de frames
