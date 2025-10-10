@@ -3,6 +3,8 @@ Publicador de vídeos no YouTube
 """
 import os
 import pickle
+import json
+from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
@@ -25,8 +27,21 @@ class YouTubePublisher:
         try:
             # Carregar credenciais existentes
             if os.path.exists(self.token_file):
-                with open(self.token_file, 'rb') as token:
-                    self.credentials = pickle.load(token)
+                # Tentar carregar como JSON primeiro (mais seguro e compatível com GitHub secrets)
+                try:
+                    with open(self.token_file, 'r') as token:
+                        token_data = json.load(token)
+                        self.credentials = Credentials.from_authorized_user_info(token_data, self.SCOPES)
+                        print("Token carregado de JSON com sucesso")
+                except (json.JSONDecodeError, ValueError):
+                    # Fallback para formato pickle (compatibilidade com versões antigas)
+                    try:
+                        with open(self.token_file, 'rb') as token:
+                            self.credentials = pickle.load(token)
+                            print("Token carregado de pickle com sucesso")
+                    except Exception as pickle_error:
+                        print(f"Erro ao carregar token (JSON e pickle falharam): {str(pickle_error)}")
+                        self.credentials = None
             
             # Se não há credenciais válidas, fazer login
             if not self.credentials or not self.credentials.valid:
@@ -41,9 +56,17 @@ class YouTubePublisher:
                         self.client_secret_file, self.SCOPES)
                     self.credentials = flow.run_local_server(port=0)
                 
-                # Salvar credenciais para próximo uso
-                with open(self.token_file, 'wb') as token:
-                    pickle.dump(self.credentials, token)
+                # Salvar credenciais para próximo uso (em JSON para compatibilidade)
+                token_data = {
+                    'token': self.credentials.token,
+                    'refresh_token': self.credentials.refresh_token,
+                    'token_uri': self.credentials.token_uri,
+                    'client_id': self.credentials.client_id,
+                    'client_secret': self.credentials.client_secret,
+                    'scopes': self.credentials.scopes
+                }
+                with open(self.token_file, 'w') as token:
+                    json.dump(token_data, token, indent=2)
             
             # Construir serviço YouTube
             self.youtube = build('youtube', 'v3', credentials=self.credentials)
