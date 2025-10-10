@@ -8,6 +8,11 @@ import shutil
 import glob
 from typing import Optional
 
+# Garantir que o diretório raiz está no sys.path
+root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if root_dir not in sys.path:
+    sys.path.insert(0, root_dir)
+
 # Importar módulos do projeto
 from text.bible_text_generator import BibleTextGenerator
 from audio.audio_generator import AudioGenerator

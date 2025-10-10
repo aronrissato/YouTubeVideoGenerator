@@ -7,8 +7,13 @@ Escolhe livro bíblico aleatoriamente e gera vídeo
 import os
 import sys
 
-# Adicionar diretório raiz ao path
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# Garantir que o diretório raiz do projeto está no PYTHONPATH
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
+
+# Adicionar também ao PYTHONPATH do ambiente
+os.environ['PYTHONPATH'] = current_dir + os.pathsep + os.environ.get('PYTHONPATH', '')
 
 import random
 from datetime import datetime
