@@ -202,13 +202,17 @@ class VideoCreator:
             
             # Salvar vídeo final
             output_path = os.path.join(self.output_dir, f"{output_filename}.mp4")
-            print(f"Renderizando vídeo final: {output_path}")
+            print(f"Renderizando vídeo final: {output_path}", flush=True)
+            print(f"Duração do vídeo: {final_video.duration:.2f}s", flush=True)
+            print(f"Duração do áudio: {audio_to_use.duration:.2f}s", flush=True)
             
             # Configurar FPS baseado no estilo do vídeo
             fps = 30 if self.video_style == 'dynamic' else 24
+            print(f"FPS configurado: {fps}", flush=True)
             
             # Configurações mais robustas para evitar erro de subprocess
             try:
+                print("Iniciando write_videofile...", flush=True)
                 final_video.write_videofile(
                     output_path,
                     codec='libx264',
@@ -216,9 +220,10 @@ class VideoCreator:
                     temp_audiofile='temp-audio.m4a',
                     remove_temp=True,
                     fps=fps,
-                    verbose=False,
-                    logger=None
+                    verbose=True,  # Habilitado para ver progresso
+                    logger='bar'   # Mostrar barra de progresso
                 )
+                print("write_videofile completado com sucesso!", flush=True)
             except Exception as write_error:
                 # Tentar novamente com configurações mais simples
                 print(f"Erro na primeira tentativa: {str(write_error)}")
