@@ -5,6 +5,7 @@ import os
 import math
 import time
 import asyncio
+import warnings
 from gtts import gTTS
 from pydub import AudioSegment
 from pydub.effects import speedup
@@ -36,6 +37,7 @@ class AudioGenerator:
         self.voice_gender = video_config.get('voice_gender', 'female')
         self.voice_volume = video_config.get('voice_volume', 1.0)
         self.output_dir = AUDIO_OUTPUT_DIR
+        self._azure_warning_shown = False  # Flag para evitar mensagens repetidas do Azure
         
         # Criar diretório de saída se não existir
         if not os.path.exists(self.output_dir):
@@ -104,7 +106,8 @@ class AudioGenerator:
                             pass
                 
                 # SEGUNDA OPÇÃO: Azure TTS (fallback)
-                print("Edge TTS falhou, tentando Azure TTS...")
+                if not self._azure_warning_shown:
+                    print("Edge TTS falhou, tentando Azure TTS...")
                 azure_result = None
                 max_azure_retries = 2
                 
@@ -113,7 +116,6 @@ class AudioGenerator:
                     if azure_result:
                         break
                     elif azure_attempt < max_azure_retries - 1:
-                        print(f"Azure TTS falhou na tentativa {azure_attempt + 1}/{max_azure_retries}, tentando novamente...")
                         time.sleep(2)
                 
                 if azure_result:
@@ -187,14 +189,15 @@ class AudioGenerator:
                         
                         audio = AudioSegment.from_mp3(temp_file.name)
                         
-                        # Aplicar velocidade se necessário
-                        if self.speed != 1.0:
-                            print(f"Aplicando velocidade de voz: {self.speed}x")
-                            if self.speed > 1.0:
-                                audio = speedup(audio, playback_speed=self.speed)
+                        # Aplicar velocidade ajustada para gTTS (+0.2 mais rápida que Edge TTS)
+                        gtts_speed = self.speed + 0.2
+                        if gtts_speed != 1.0:
+                            print(f"Aplicando velocidade ajustada para gTTS: {gtts_speed}x (Edge TTS configurado: {self.speed}x)")
+                            if gtts_speed > 1.0:
+                                audio = speedup(audio, playback_speed=gtts_speed)
                             else:
                                 sound_with_altered_frame_rate = audio._spawn(audio.raw_data, overrides={
-                                    "frame_rate": int(audio.frame_rate * self.speed)
+                                    "frame_rate": int(audio.frame_rate * gtts_speed)
                                 })
                                 audio = sound_with_altered_frame_rate.set_frame_rate(audio.frame_rate)
                         
@@ -384,16 +387,28 @@ class AudioGenerator:
             except Exception as e:
                 error_msg = str(e) if str(e).strip() else "Erro desconhecido no Edge TTS"
                 
-                # Se for erro 403 ou erro de conexão, tentar novamente
-                if "403" in error_msg or "Invalid response status" in error_msg or "ConnectionError" in error_msg:
+                # Extrair apenas código de erro e tipo (sem URL completa por segurança)
+                error_code = "desconhecido"
+                error_type = "erro"
+                if "401" in error_msg:
+                    error_code = "401"
+                elif "403" in error_msg:
+                    error_code = "403"
+                if "Invalid response status" in error_msg:
+                    error_type = "Invalid response status"
+                elif "ConnectionError" in error_msg:
+                    error_type = "ConnectionError"
+                
+                # Se for erro 403/401 ou erro de conexão, tentar novamente
+                if "403" in error_msg or "401" in error_msg or "Invalid response status" in error_msg or "ConnectionError" in error_msg:
                     if attempt < max_retries - 1:
                         wait_time = 2 + (attempt * 2)  # 2s, 4s, 6s
-                        print(f"Edge TTS erro temporário (tentativa {attempt + 1}/{max_retries}): {error_msg}")
+                        print(f"Edge TTS erro temporário (tentativa {attempt + 1}/{max_retries}): {error_code} - {error_type}")
                         print(f"Aguardando {wait_time} segundos antes de tentar novamente...")
                         time.sleep(wait_time)
                         continue
                 
-                print(f"Erro no Edge TTS: {error_msg}")
+                print(f"Erro no Edge TTS: {error_code} - {error_type}")
                 return None
         
         print("Edge TTS falhou após múltiplas tentativas")
@@ -471,7 +486,9 @@ class AudioGenerator:
             speech_region = os.getenv('AZURE_SPEECH_REGION', 'eastus')
             
             if not speech_key:
-                print("Azure Speech Key não configurada. Configure a variável AZURE_SPEECH_KEY")
+                if not self._azure_warning_shown:
+                    print("Azure Speech Key não configurada, pulando Azure TTS")
+                    self._azure_warning_shown = True
                 return None
             
             # Configurar voz neural baseada no idioma e gênero
@@ -713,7 +730,16 @@ class AudioGenerator:
             # Salvar em arquivo temporário
             output_path = os.path.join(self.output_dir, f"{output_filename}.wav")
             engine.save_to_file(text, output_path)
-            engine.runAndWait()
+            
+            # Suprimir warnings e erros do espeak/pyttsx3
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore", category=RuntimeWarning)
+                warnings.filterwarnings("ignore", message=".*weakly-referenced object.*")
+                try:
+                    engine.runAndWait()
+                except (ReferenceError, RuntimeError):
+                    # Ignorar erros de referência fraca do espeak
+                    pass
             
             # Verificar se arquivo foi criado
             if not os.path.exists(output_path):
