@@ -189,17 +189,10 @@ class AudioGenerator:
                         
                         audio = AudioSegment.from_mp3(temp_file.name)
                         
-                        # Aplicar velocidade ajustada para gTTS (+0.2 mais rápida que Edge TTS)
-                        gtts_speed = self.speed + 0.2
-                        if gtts_speed != 1.0:
-                            print(f"Aplicando velocidade ajustada para gTTS: {gtts_speed}x (Edge TTS configurado: {self.speed}x)")
-                            if gtts_speed > 1.0:
-                                audio = speedup(audio, playback_speed=gtts_speed)
-                            else:
-                                sound_with_altered_frame_rate = audio._spawn(audio.raw_data, overrides={
-                                    "frame_rate": int(audio.frame_rate * gtts_speed)
-                                })
-                                audio = sound_with_altered_frame_rate.set_frame_rate(audio.frame_rate)
+                        # gTTS usa velocidade fixa 1.0x (velocidade normal para melhor naturalidade)
+                        gtts_speed = 1.0
+                        print(f"gTTS usando velocidade fixa: {gtts_speed}x (Edge TTS configurado: {self.speed}x)")
+                        # Não precisa aplicar velocidade pois já está em 1.0x (normal)
                         
                         # Aplicar volume da voz se necessário
                         if self.voice_volume != 1.0:
