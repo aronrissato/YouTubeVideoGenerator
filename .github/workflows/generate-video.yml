@@ -3,7 +3,8 @@ name: Generate Bible Video
 on:
   workflow_dispatch: # Executar manualmente pelo botão "Run workflow"
   schedule: # Executar automaticamente todo dia às 10:00 UTC (07:00 Brasília)
-    - cron: '00 23 * * *'
+    - cron: '00 13 * * *'  # 10h BRT (13h UTC)
+    - cron: '00 23 * * *'  # 20h BRT (23h UTC)
 
 jobs:
   generate-video:
