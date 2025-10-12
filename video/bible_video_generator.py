@@ -241,16 +241,19 @@ class BibleVideoGenerator:
                 # Mapeamento de descrições por idioma
                 descriptions = self._get_descriptions_by_language(language)
                 
+                # Humanize book name for YouTube title
+                humanized_name = self._humanize_book_name_for_youtube(book_name)
+                
                 if subject_type == 'livro-biblico':
-                    title = descriptions['livro-biblico']['title'].format(book_name=book_name.upper())
-                    description = descriptions['livro-biblico']['description'].format(book_name=book_name.upper())
+                    title = descriptions['livro-biblico']['title'].format(book_name=humanized_name)
+                    description = descriptions['livro-biblico']['description'].format(book_name=humanized_name)
                 elif subject_type == 'salmos':
-                    title = descriptions['salmos']['title'].format(book_name=book_name.upper())
-                    description = descriptions['salmos']['description'].format(book_name=book_name.upper())
+                    title = descriptions['salmos']['title'].format(book_name=humanized_name)
+                    description = descriptions['salmos']['description'].format(book_name=humanized_name)
                 else:
                     subject_name = subject_options.get(subject_type, 'Conteúdo Bíblico')
-                    title = descriptions['outros']['title'].format(subject_name=subject_name, book_name=book_name.upper())
-                    description = descriptions['outros']['description'].format(book_name=book_name.upper())
+                    title = descriptions['outros']['title'].format(subject_name=subject_name, book_name=humanized_name)
+                    description = descriptions['outros']['description'].format(book_name=humanized_name)
                 
                 tags = self._get_tags_by_language(language, book_name, subject_type)
                 
@@ -365,6 +368,31 @@ class BibleVideoGenerator:
                 print(f"Limpeza completa: {cleaned_count} arquivos temporários removidos")
             else:
                 print("Nenhum arquivo temporário encontrado para limpeza")
+    
+    def _humanize_book_name_for_youtube(self, book_name: str) -> str:
+        """
+        Converts book names to human-readable format for YouTube titles
+        Examples: 
+            - "2_peter" → "II Peter"
+            - "1_john" → "I John"
+            - "genesis" → "Genesis"
+            - "song_of_songs" → "Song Of Songs"
+        """
+        # Handle numbered books (1, 2, or 3)
+        if book_name[0].isdigit() and len(book_name) > 1 and book_name[1] in ['_', '-']:
+            number = book_name[0]
+            rest_of_name = book_name[2:]  # Skip the number and separator
+            
+            # Convert number to Roman numeral
+            roman = {'1': 'I', '2': 'II', '3': 'III'}[number]
+            
+            # Convert rest to title case (replace underscores/hyphens with spaces)
+            readable_name = rest_of_name.replace('_', ' ').replace('-', ' ').title()
+            
+            return f"{roman} {readable_name}"
+        
+        # For non-numbered books, just convert to title case
+        return book_name.replace('_', ' ').replace('-', ' ').title()
     
     def _get_descriptions_by_language(self, language: str) -> dict:
         """Retorna descrições e títulos traduzidos baseados no idioma configurado"""
