@@ -351,7 +351,7 @@ class AudioGenerator:
                 
                 if attempt == 0:
                     print(f"Edge TTS usando voz: {voice_name}")
-                    print(f"Aplicando velocidade de voz: {self.speed}x ({rate})")
+                    print(f"Edge TTS aplicando velocidade configurada: {self.speed}x ({rate})")
                 else:
                     print(f"Edge TTS tentativa {attempt + 1}/{max_retries}...")
                 
@@ -502,40 +502,14 @@ class AudioGenerator:
             
             # Sintetizar fala
             print(f"Azure TTS usando voz neural: {voice_name}")
-            print(f"Aplicando velocidade de voz: {self.speed}x")
+            print(f"Azure TTS usando velocidade fixa: 1.0x (Edge TTS configurado: {self.speed}x)")
             result = speech_synthesizer.speak_text_async(text).get()
             
             if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
-                # Aplicar velocidade da voz usando pydub se necessário
-                if self.speed != 1.0:
-                    audio = AudioSegment.from_mp3(temp_output)
-                    
-                    # Ajustar velocidade usando mudança de frame rate
-                    # Para velocidades menores que 1.0, precisamos desacelerar
-                    # Para velocidades maiores que 1.0, precisamos acelerar
-                    if self.speed > 1.0:
-                        # Acelerar usando speedup (funciona bem para valores > 1.0)
-                        audio = speedup(audio, playback_speed=self.speed)
-                    else:
-                        # Desacelerar usando mudança de frame rate (funciona bem para valores < 1.0)
-                        # Alterar frame_rate e depois restaurar
-                        sound_with_altered_frame_rate = audio._spawn(audio.raw_data, overrides={
-                            "frame_rate": int(audio.frame_rate * self.speed)
-                        })
-                        # Converter de volta para frame rate padrão mantendo a velocidade alterada
-                        audio = sound_with_altered_frame_rate.set_frame_rate(audio.frame_rate)
-                    
-                    output_path = os.path.join(self.output_dir, f"{output_filename}.mp3")
-                    audio.export(output_path, format="mp3")
-                    # Limpar arquivo temporário
-                    try:
-                        os.unlink(temp_output)
-                    except:
-                        pass
-                else:
-                    # Se velocidade é 1.0, apenas renomear o arquivo temporário
-                    output_path = os.path.join(self.output_dir, f"{output_filename}.mp3")
-                    os.rename(temp_output, output_path)
+                # Azure TTS sempre usa velocidade 1.0x (sem modificações de speed)
+                # Apenas renomear o arquivo temporário
+                output_path = os.path.join(self.output_dir, f"{output_filename}.mp3")
+                os.rename(temp_output, output_path)
                 
                 print(f"Azure TTS funcionou: {output_path}")
                 return output_path
@@ -714,11 +688,12 @@ class AudioGenerator:
                 print("Nenhuma voz específica encontrada, usando voz padrão (pode ser robótica)")
             
             # Configurar velocidade e volume otimizados
-            # Usar velocidade base padrão para síntese, aplicar velocidade depois com pydub
+            # TTS Local sempre usa velocidade 1.0x (sem modificações de speed)
             base_rate = 200
             engine.setProperty('rate', base_rate)
             engine.setProperty('volume', 0.9)
             print(f"TTS local configurado com taxa de fala base: {base_rate}")
+            print(f"TTS local usando velocidade fixa: 1.0x (Edge TTS configurado: {self.speed}x)")
             
             # Salvar em arquivo temporário
             output_path = os.path.join(self.output_dir, f"{output_filename}.wav")
@@ -741,19 +716,6 @@ class AudioGenerator:
             
             # Converter WAV para MP3
             audio = AudioSegment.from_wav(output_path)
-            
-            # Aplicar velocidade da voz usando pydub (consistente com outros métodos)
-            if self.speed != 1.0:
-                print(f"Aplicando velocidade de voz: {self.speed}x")
-                if self.speed > 1.0:
-                    # Acelerar usando speedup (funciona bem para valores > 1.0)
-                    audio = speedup(audio, playback_speed=self.speed)
-                else:
-                    # Desacelerar usando mudança de frame rate (funciona bem para valores < 1.0)
-                    sound_with_altered_frame_rate = audio._spawn(audio.raw_data, overrides={
-                        "frame_rate": int(audio.frame_rate * self.speed)
-                    })
-                    audio = sound_with_altered_frame_rate.set_frame_rate(audio.frame_rate)
             
             # Aplicar volume da voz se necessário
             if self.voice_volume != 1.0:
