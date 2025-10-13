@@ -25,7 +25,7 @@ from config.config import video_config
 # Evita livros muito longos que causam timeout (Genesis, Psalms, Isaiah, etc.)
 BIBLE_BOOKS_SHORT = [
     # Livros muito curtos (< 5 min)
-    'obadiah', 'philemon', '2_john', '3_john', 'jude',
+    #'obadiah', 'philemon', '2_john', '3_john', 'jude',
     # Livros curtos (5-15 min)
     'jonah', 'nahum', 'habakkuk', 'zephaniah', 'haggai', 'malachi',
     'ruth', 'titus', '2_timothy', '1_john', '2_peter', 'james',
