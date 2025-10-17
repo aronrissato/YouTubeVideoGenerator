@@ -293,22 +293,28 @@ O sistema é completamente agnóstico ao idioma, permitindo gerar vídeos bíbli
 
 ### Idiomas Suportados
 
-| Código | Nome Completo          | Status |
-|--------|------------------------|--------|
-| `pt`   | Português (Brasil)     | ✓      |
-| `pt-pt`| Português (Portugal)   | ✓      |
-| `en`   | English (US)           | ✓      |
-| `en-gb`| English (UK)           | ✓      |
-| `es`   | Español                | ✓      |
-| `fr`   | Français               | ✓      |
-| `de`   | Deutsch                | ✓      |
-| `it`   | Italiano               | ✓      |
-| `ru`   | Русский                | ✓      |
-| `zh`   | 中文                    | ✓      |
-| `ja`   | 日本語                  | ✓      |
-| `ko`   | 한국어                  | ✓      |
-| `ar`   | العربية                | ✓      |
-| `he`   | עברית                  | ✓      |
+| Código | Nome Completo          | Status | Variações Aceitas |
+|--------|------------------------|--------|-------------------|
+| `pt`   | Português (Brasil)     | ✓      | `pt-BR` |
+| `pt-pt`| Português (Portugal)   | ✓      | |
+| `en`   | English (US)           | ✓      | `en-US`, `en-gb`, `en-GB` |
+| `es`   | Español                | ✓      | `es-ES`, `es-MX` |
+| `fr`   | Français               | ✓      | `fr-FR` |
+| `de`   | Deutsch                | ✓      | `de-DE` |
+| `it`   | Italiano               | ✓      | `it-IT` |
+| `ru`   | Русский                | ✓      | `ru-RU` |
+| `zh`   | 中文                    | ✓      | `zh-CN`, `zh-TW` |
+| `ja`   | 日本語                  | ✓      | `ja-JP` |
+| `ko`   | 한국어                  | ✓      | `ko-KR` |
+| `ar`   | العربية                | ✓      | `ar-SA` |
+| `he`   | עברית                  | ✓      | `he-IL` |
+
+**⚙️ Normalização Automática de Idiomas:** O sistema normaliza automaticamente variações de código de idioma. Por exemplo:
+- `pt-BR`, `pt-PT` → `pt` (Português)
+- `en-US`, `en-GB` → `en` (Inglês)  
+- `es-ES`, `es-MX` → `es` (Espanhol)
+
+Você pode usar qualquer variação - todas funcionam perfeitamente! Use o código principal na interface, mas qualquer variação funciona no `video_config.json` ou via código.
 
 ### Como Usar Diferentes Idiomas
 
@@ -380,7 +386,7 @@ Edite `video_config.json`:
 
 ```json
 {
-  "language": "pt",
+  "language": "pt-BR",  // ou "pt" - ambos funcionam
   "voice_speed": 1.0,
   "voice_gender": "female",
   ...
@@ -392,6 +398,8 @@ Ou use a interface de configuração:
 ```bash
 python run.py config
 ```
+
+**Observação:** O sistema normaliza automaticamente `pt-BR` → `pt`, `en-US` → `en`, etc. para garantir compatibilidade com os dados bíblicos locais.
 
 ### Estrutura de Arquivos JSON
 
@@ -507,7 +515,7 @@ BIBLE_APIS = {
 
 | Configuração | Valores | Descrição |
 |-------------|---------|-----------|
-| `language` | pt, en, es, fr, de, it, etc | Idioma da narração |
+| `language` | pt, pt-BR, en, es, fr, de, it, etc | Idioma da narração |
 | `voice_speed` | 0.5 - 3.0 | Velocidade da voz |
 | `voice_gender` | male, female | Gênero da voz |
 | `video_quality` | low, medium, high | Qualidade (720p, 1080p, 4K) |
@@ -517,20 +525,53 @@ BIBLE_APIS = {
 | `youtube_settings.privacy` | private, unlisted, public | Privacidade do vídeo |
 | `youtube_settings.auto_publish` | true, false | Publicação automática |
 
+**💡 Dica:** Use `pt-BR` para explicitar português do Brasil, ou apenas `pt` - ambos funcionam identicamente.
+
+#### Vozes Disponíveis por Idioma
+
+**Português (pt / pt-BR):**
+- **Feminina:** `pt-BR-FranciscaNeural` (Edge TTS e Azure)
+- **Masculina:** `pt-BR-AntonioNeural` (Edge TTS e Azure)
+
+**Inglês (en / en-US):**
+- **Feminina:** `en-US-AriaNeural`
+- **Masculina:** `en-US-BrianMultilingualNeural`
+
+**Outros idiomas:** Vozes neurais disponíveis para espanhol, francês, alemão, italiano, etc.
+
 ---
 
 ## 📚 Dados Bíblicos Locais
 
 ### Download de Livros
 
+#### Português (Brasil) 🇧🇷
+
+```bash
+# Menu interativo (recomendado)
+python manage_bible_books.py
+
+# Ou linha de comando
+python bible_data/download_portuguese_bible_v2.py all      # Todos os 66 livros
+python bible_data/download_portuguese_bible_v2.py jonah    # Livro específico
+```
+
+#### Inglês (padrão)
+
 ```bash
 python bible_data/download_bible_books.py
 ```
 
+**Características:**
 - **Fonte**: [bible-api.com](https://bible-api.com)
-- **Versão**: King James Version (KJV) e outras
+- **Versões**: KJV (inglês), Almeida (português), outras
 - **Formato**: JSON estruturado com metadados de idioma
 - **Total**: 66 livros bíblicos
+
+**Validar instalação:**
+```bash
+python validate_portuguese_setup.py  # Verifica configuração completa
+```
 
 ### Cálculo de Durações
 
@@ -693,6 +734,12 @@ Guia completo para automatizar a geração de vídeos bíblicos usando GitHub Ac
 5. Limpa arquivos temporários
 6. Fim! Zero interação necessária
 ```
+
+**🇧🇷 Workflows Disponíveis:**
+- **`generate-video.yml`** - Gera vídeos em inglês (10h UTC / 07h BRT)
+- **`generate-video-pt.yml`** - Gera vídeos em português (21h UTC / 18h BRT)
+
+Ambos funcionam de forma independente e podem executar no mesmo repositório.
 
 ### 🚀 Passo a Passo Completo
 
@@ -1178,6 +1225,14 @@ python utils/cleanup.py genesis
 ---
 
 ## 📝 Changelog
+
+### v2.1 - Suporte Completo a pt-BR
+- ✓ Adicionado suporte explícito para código `pt-BR` (Português do Brasil)
+- ✓ Sistema de normalização de idiomas (`pt-BR` e `pt` são equivalentes)
+- ✓ Workflow dedicado para geração de vídeos em português
+- ✓ Atualizado `BibleTextGenerator` com normalização de idiomas
+- ✓ Atualizado `BibleDataCreator` com suporte a `pt-BR`
+- ✓ Compatibilidade retroativa mantida com arquivos existentes
 
 ### v2.0 - Sistema Multi-Idioma
 - ✓ Criado `bible_data_creator.py` genérico

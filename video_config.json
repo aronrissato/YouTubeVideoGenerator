@@ -1,11 +1,12 @@
 {
   "subject": "livro-biblico",
   "duration": "auto",
-  "language": "en",
+  "language": "pt",
   "voice_speed": 0.8,
   "voice_gender": "male",
   "voice_volume": 1.0,
   "video_quality": "medium",
+  "video_download_multiplier": 2,
   "background_music": true,
   "background_music_volume": 0.2,
   "video_style": "calm",

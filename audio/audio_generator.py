@@ -542,11 +542,11 @@ class AudioGenerator:
             },
             'en': {
                 'female': 'en-US-AriaNeural',
-                'male': 'en-US-GuyNeural'
+                'male': 'en-US-BrianMultilingualNeural'
             },
             'en-US': {
                 'female': 'en-US-AriaNeural',
-                'male': 'en-US-GuyNeural'
+                'male': 'en-US-BrianMultilingualNeural'
             },
             'en-GB': {
                 'female': 'en-GB-SoniaNeural',
