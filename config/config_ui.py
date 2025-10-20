@@ -22,15 +22,14 @@ class ConfigUI:
             print("\nOpções:")
             print("1. Configurar assunto do vídeo")
             print("2. Configurar duração do vídeo")
-            print("3. Configurar idioma")
-            print("4. Configurar velocidade da voz")
-            print("5. Configurar volume da voz")
-            print("6. Configurar qualidade de vídeo")
-            print("7. Configurar estilo do vídeo")
-            print("8. Configurar música de fundo")
-            print("9. Configurações avançadas")
-            print("10. Reset para padrões")
-            print("11. Salvar e sair")
+            print("3. Configurar velocidade da voz")
+            print("4. Configurar volume da voz")
+            print("5. Configurar qualidade de vídeo")
+            print("6. Configurar estilo do vídeo")
+            print("7. Configurar música de fundo")
+            print("8. Configurações avançadas")
+            print("9. Reset para padrões")
+            print("10. Salvar e sair")
             print("0. Sair sem salvar")
             
             choice = input("\nEscolha uma opção: ").strip()
@@ -40,22 +39,20 @@ class ConfigUI:
             elif choice == '2':
                 self.configure_duration()
             elif choice == '3':
-                self.configure_language()
-            elif choice == '4':
                 self.configure_voice_speed()
-            elif choice == '5':
+            elif choice == '4':
                 self.configure_voice_volume()
-            elif choice == '6':
+            elif choice == '5':
                 self.configure_video_quality()
-            elif choice == '7':
+            elif choice == '6':
                 self.configure_video_style()
-            elif choice == '8':
+            elif choice == '7':
                 self.configure_background_music()
-            elif choice == '9':
+            elif choice == '8':
                 self.configure_advanced()
-            elif choice == '10':
+            elif choice == '9':
                 self.reset_to_default()
-            elif choice == '11':
+            elif choice == '10':
                 self.save_and_exit()
                 break
             elif choice == '0':
@@ -70,7 +67,6 @@ class ConfigUI:
         print("-" * 40)
         
         subject_options = self.config.get_subject_options()
-        language_options = self.config.get_language_options()
         voice_options = self.config.get_voice_options()
         quality_options = self.config.get_quality_options()
         style_options = self.config.get_style_options()
@@ -83,7 +79,7 @@ class ConfigUI:
         else:
             print(f"Duração: {duration} minutos")
         
-        print(f"Idioma: {language_options.get(self.config.get('language'), 'Desconhecido')}")
+        print(f"Idioma: English (fixed)")
         print(f"Velocidade da voz: {self.config.get('voice_speed')}x")
         print(f"Volume da voz: {int(self.config.get('voice_volume', 1.0) * 100)}%")
         print(f"Gênero da voz: {voice_options.get(self.config.get('voice_gender'), 'Desconhecido')}")
@@ -153,33 +149,6 @@ class ConfigUI:
                 break
             else:
                 print("Opção inválida. Tente novamente.")
-    
-    def configure_language(self):
-        """Configura idioma"""
-        print("\n" + "-" * 40)
-        print("CONFIGURAR IDIOMA")
-        print("-" * 40)
-        
-        options = self.config.get_language_options()
-        
-        print("Idiomas disponíveis:")
-        for i, (key, description) in enumerate(options.items(), 1):
-            print(f"{i}. {description}")
-        
-        while True:
-            choice = input(f"\nEscolha um idioma (1-{len(options)}): ").strip()
-            
-            if choice.isdigit():
-                choice_num = int(choice)
-                if 1 <= choice_num <= len(options):
-                    selected_key = list(options.keys())[choice_num - 1]
-                    self.config.set('language', selected_key)
-                    print(f"Idioma configurado: {options[selected_key]}")
-                    break
-                else:
-                    print("Opção inválida. Tente novamente.")
-            else:
-                print("Digite um número válido.")
     
     def configure_voice_speed(self):
         """Configura velocidade da voz"""
