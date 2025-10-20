@@ -30,9 +30,9 @@ except ImportError:
     print("Azure Speech Services não disponível. Instale com: pip install azure-cognitiveservices-speech")
 
 class AudioGenerator:
-    def __init__(self, language='en', speed=1.0):
+    def __init__(self, speed=1.0):
         # Usar configurações personalizadas se disponíveis
-        self.language = video_config.get('language', language)
+        self.language = 'en'  # Fixed to English
         self.speed = video_config.get('voice_speed', speed)
         self.voice_gender = video_config.get('voice_gender', 'female')
         self.voice_volume = video_config.get('voice_volume', 1.0)
@@ -408,63 +408,16 @@ class AudioGenerator:
         return None
     
     def _get_edge_voice_name(self) -> str:
-        """Retorna o nome da voz Edge TTS baseada no idioma e gênero configurados"""
+        """Retorna o nome da voz Edge TTS em inglês baseada no gênero configurado"""
         
-        # Mapeamento de vozes neurais Edge TTS por idioma e gênero
-        edge_voices = {
-            'pt': {
-                'female': 'pt-BR-FranciscaNeural',
-                'male': 'pt-BR-AntonioNeural'
-            },
-            'pt-BR': {
-                'female': 'pt-BR-FranciscaNeural',
-                'male': 'pt-BR-AntonioNeural'
-            },
-            'en': {
-                'female': 'en-US-AriaNeural',
-                'male': 'en-US-BrianMultilingualNeural'
-            },
-            'en-US': {
-                'female': 'en-US-AriaNeural',
-                'male': 'en-US-BrianMultilingualNeural'
-            },
-            'en-GB': {
-                'female': 'en-GB-SoniaNeural',
-                'male': 'en-GB-RyanNeural'
-            },
-            'es': {
-                'female': 'es-ES-ElviraNeural',
-                'male': 'es-ES-AlvaroNeural'
-            },
-            'fr': {
-                'female': 'fr-FR-DeniseNeural',
-                'male': 'fr-FR-HenriNeural'
-            },
-            'de': {
-                'female': 'de-DE-KatjaNeural',
-                'male': 'de-DE-ConradNeural'
-            },
-            'it': {
-                'female': 'it-IT-ElsaNeural',
-                'male': 'it-IT-DiegoNeural'
-            }
+        # Vozes neurais Edge TTS em inglês
+        english_voices = {
+            'female': 'en-US-AriaNeural',
+            'male': 'en-US-BrianMultilingualNeural'
         }
         
-        language = self.language
         gender = self.voice_gender
-        
-        # Buscar voz específica
-        if language in edge_voices and gender in edge_voices[language]:
-            return edge_voices[language][gender]
-        
-        # Fallback para inglês se idioma não encontrado
-        if 'en' in edge_voices and gender in edge_voices['en']:
-            print(f"Voz Edge TTS não encontrada para {language}, usando inglês como fallback")
-            return edge_voices['en'][gender]
-        
-        # Fallback padrão
-        print("Usando voz Edge TTS padrão: en-US-AriaNeural")
-        return 'en-US-AriaNeural'
+        return english_voices.get(gender, 'en-US-AriaNeural')
     
     def text_to_speech_azure(self, text: str, output_filename: str) -> str:
         """
@@ -528,63 +481,16 @@ class AudioGenerator:
             return None
     
     def _get_azure_voice_name(self) -> str:
-        """Retorna o nome da voz neural Azure baseada no idioma e gênero configurados"""
+        """Retorna o nome da voz neural Azure em inglês baseada no gênero configurado"""
         
-        # Mapeamento de vozes neurais Azure por idioma e gênero
-        neural_voices = {
-            'pt': {
-                'female': 'pt-BR-FranciscaNeural',
-                'male': 'pt-BR-AntonioNeural'
-            },
-            'pt-BR': {
-                'female': 'pt-BR-FranciscaNeural', 
-                'male': 'pt-BR-AntonioNeural'
-            },
-            'en': {
-                'female': 'en-US-AriaNeural',
-                'male': 'en-US-BrianMultilingualNeural'
-            },
-            'en-US': {
-                'female': 'en-US-AriaNeural',
-                'male': 'en-US-BrianMultilingualNeural'
-            },
-            'en-GB': {
-                'female': 'en-GB-SoniaNeural',
-                'male': 'en-GB-RyanNeural'
-            },
-            'es': {
-                'female': 'es-ES-ElviraNeural',
-                'male': 'es-ES-AlvaroNeural'
-            },
-            'fr': {
-                'female': 'fr-FR-DeniseNeural',
-                'male': 'fr-FR-HenriNeural'
-            },
-            'de': {
-                'female': 'de-DE-KatjaNeural',
-                'male': 'de-DE-ConradNeural'
-            },
-            'it': {
-                'female': 'it-IT-ElsaNeural',
-                'male': 'it-IT-DiegoNeural'
-            }
+        # Vozes neurais Azure em inglês
+        english_voices = {
+            'female': 'en-US-AriaNeural',
+            'male': 'en-US-BrianMultilingualNeural'
         }
         
-        language = self.language
         gender = self.voice_gender
-        
-        # Buscar voz específica
-        if language in neural_voices and gender in neural_voices[language]:
-            return neural_voices[language][gender]
-        
-        # Fallback para inglês se idioma não encontrado
-        if 'en' in neural_voices and gender in neural_voices['en']:
-            print(f"Voz neural não encontrada para {language}, usando inglês como fallback")
-            return neural_voices['en'][gender]
-        
-        # Fallback padrão
-        print("Usando voz neural padrão: en-US-AriaNeural")
-        return 'en-US-AriaNeural'
+        return english_voices.get(gender, 'en-US-AriaNeural')
 
     def text_to_speech_local(self, text: str, output_filename: str) -> str:
         """
@@ -739,21 +645,21 @@ class AudioGenerator:
             return None
 
 def main():
-    # Exemplo de uso com Edge TTS (melhor qualidade!)
-    audio_gen = AudioGenerator(language='pt-BR', speed=1.0)
+    # Example usage with Edge TTS (best quality!)
+    audio_gen = AudioGenerator(speed=1.0)
     
-    # Texto de exemplo
+    # Sample text
     sample_text = """
-    No princípio, Deus criou os céus e a terra. E a terra era sem forma e vazia; 
-    e havia trevas sobre a face do abismo; e o Espírito de Deus se movia sobre a face das águas.
-    E disse Deus: Haja luz. E houve luz.
+    In the beginning God created the heaven and the earth. And the earth was without form, and void; 
+    and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters.
+    And God said, Let there be light: and there was light.
     """
     
-    print("Gerando áudio com Edge TTS (Microsoft) - Melhor qualidade!")
-    audio_file = audio_gen.text_to_speech(sample_text, "teste")
+    print("Generating audio with Edge TTS (Microsoft) - Best quality!")
+    audio_file = audio_gen.text_to_speech(sample_text, "test")
     if audio_file:
         duration = audio_gen.get_audio_duration(audio_file)
-        print(f"Duração: {duration:.2f} segundos")
+        print(f"Duration: {duration:.2f} seconds")
 
 if __name__ == "__main__":
     main()

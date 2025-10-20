@@ -22,22 +22,14 @@ from .youtube_publisher import YouTubePublisher
 from config.config import video_config, AUDIO_LANGUAGE, AUDIO_SPEED, VIDEO_OUTPUT_DIR, AUDIO_OUTPUT_DIR, TEMP_DIR, PEXELS_VIDEOS_DIR, OUTPUT_DIR, DEFAULT_PRIVACY_STATUS, DEFAULT_CATEGORY_ID
 
 class BibleVideoGenerator:
-    def __init__(self, language: Optional[str] = None):
-        """
-        Inicializa o gerador de vídeos bíblicos
-        
-        Args:
-            language: Código do idioma (ex: 'en', 'pt', 'es'). Se None, usa configuração padrão.
-        """
-        # Determinar idioma a usar
-        self.language = language or video_config.get('language', AUDIO_LANGUAGE)
-        
-        # Inicializar geradores com idioma específico
-        self.text_generator = BibleTextGenerator(language=self.language)
+    def __init__(self):
+        """Inicializa o gerador de vídeos bíblicos em inglês"""
+        # Inicializar geradores (apenas inglês)
+        self.text_generator = BibleTextGenerator()
         
         # Usar configurações personalizadas para áudio
         speed = video_config.get('voice_speed', AUDIO_SPEED)
-        self.audio_generator = AudioGenerator(self.language, speed)
+        self.audio_generator = AudioGenerator(speed)
         
         self.video_fetcher = None  # Será inicializado quando necessário
         self.video_creator = VideoCreator()
@@ -46,7 +38,7 @@ class BibleVideoGenerator:
         # Criar diretórios necessários
         self._create_directories()
         
-        print(f"[INFO] BibleVideoGenerator inicializado para idioma: {self.language}")
+        print(f"[INFO] BibleVideoGenerator initialized (English)")
     
     def _create_directories(self):
         """Cria diretórios necessários para o projeto"""
@@ -233,29 +225,23 @@ class BibleVideoGenerator:
                 privacy = youtube_settings.get('privacy', DEFAULT_PRIVACY_STATUS)
                 category = youtube_settings.get('category', DEFAULT_CATEGORY_ID)
                 
-                # Personalizar título baseado no assunto configurado
-                subject_options = video_config.get_subject_options()
-                subject_type = video_config.get('subject', 'livro-biblico')
-                language = video_config.get('language', 'pt')
-                
-                # Mapeamento de descrições por idioma
-                descriptions = self._get_descriptions_by_language(language)
-                
                 # Humanize book name for YouTube title
                 humanized_name = self._humanize_book_name_for_youtube(book_name)
                 
-                if subject_type == 'livro-biblico':
-                    title = descriptions['livro-biblico']['title'].format(book_name=humanized_name)
-                    description = descriptions['livro-biblico']['description'].format(book_name=humanized_name)
-                elif subject_type == 'salmos':
-                    title = descriptions['salmos']['title'].format(book_name=humanized_name)
-                    description = descriptions['salmos']['description'].format(book_name=humanized_name)
-                else:
-                    subject_name = subject_options.get(subject_type, 'Conteúdo Bíblico')
-                    title = descriptions['outros']['title'].format(subject_name=subject_name, book_name=humanized_name)
-                    description = descriptions['outros']['description'].format(book_name=humanized_name)
+                # Create title and description in English
+                title = f"{humanized_name} | Full Audio Bible"
+                description = f"""Complete narration of the book of {humanized_name} from the Holy Bible.
+
+This video contains the complete reading of the book, providing a meditation and Bible study experience.
+
+May this word bless your life!
+
+#Bible #Christianity #Faith #God #Jesus #Religion #Meditation #BibleStudy #WordOfGod #Spirituality"""
                 
-                tags = self._get_tags_by_language(language, book_name, subject_type)
+                # Tags in English
+                tags = ["bible", "christianity", "faith", "god", "jesus", "religion",
+                       "meditation", "bible study", "word of god", "spirituality",
+                       book_name.lower(), "narration", "bible reading"]
                 
                 video_id = self.youtube_publisher.upload_video(
                     final_video, title, description, tags, category, privacy
@@ -393,178 +379,16 @@ class BibleVideoGenerator:
         
         # For non-numbered books, just convert to title case
         return book_name.replace('_', ' ').replace('-', ' ').title()
-    
-    def _get_descriptions_by_language(self, language: str) -> dict:
-        """Retorna descrições e títulos traduzidos baseados no idioma configurado"""
-        
-        descriptions = {
-            'pt': {
-                'livro-biblico': {
-                    'title': "Livro de {book_name} - Narração Completa da Bíblia",
-                    'description': """Narração completa do livro de {book_name} da Bíblia Sagrada.
-
-Este vídeo contém a leitura integral do livro, proporcionando uma experiência de meditação e estudo bíblico.
-
-Que esta palavra abençoe sua vida!
-
-#Bíblia #Cristianismo #Fé #Deus #Jesus #Religião #Meditação #EstudoBíblico #PalavraDeDeus #Espiritualidade"""
-                },
-                'salmos': {
-                    'title': "Salmos de {book_name} - Louvores e Adoração",
-                    'description': """Salmos selecionados do livro de {book_name} para meditação e adoração.
-
-Que estes louvores elevem seu coração ao Senhor!
-
-#Salmos #Louvores #Adoração #Bíblia #Cristianismo #Música #Espiritualidade"""
-                },
-                'outros': {
-                    'title': "{subject_name} - {book_name}",
-                    'description': """Conteúdo bíblico do livro de {book_name}.
-
-Que a palavra de Deus abençoe sua vida!
-
-#Bíblia #Cristianismo #Fé #PalavraDeDeus #Espiritualidade"""
-                }
-            },
-            'en': {
-                'livro-biblico': {
-                    'title': "{book_name} | Full Audio Bible",
-                    'description': """Complete narration of the book of {book_name} from the Holy Bible.
-
-This video contains the complete reading of the book, providing a meditation and Bible study experience.
-
-May this word bless your life!
-
-#Bible #Christianity #Faith #God #Jesus #Religion #Meditation #BibleStudy #WordOfGod #Spirituality"""
-                },
-                'salmos': {
-                    'title': "Psalms of {book_name} - Praise and Worship",
-                    'description': """Selected Psalms from the book of {book_name} for meditation and worship.
-
-May these praises lift your heart to the Lord!
-
-#Psalms #Praise #Worship #Bible #Christianity #Music #Spirituality"""
-                },
-                'outros': {
-                    'title': "{subject_name} - {book_name}",
-                    'description': """Biblical content from the book of {book_name}.
-
-May the word of God bless your life!
-
-#Bible #Christianity #Faith #WordOfGod #Spirituality"""
-                }
-            },
-            'es': {
-                'livro-biblico': {
-                    'title': "Libro de {book_name} - Narración Completa de la Biblia",
-                    'description': """Narración completa del libro de {book_name} de la Sagrada Biblia.
-
-Este video contiene la lectura integral del libro, proporcionando una experiencia de meditación y estudio bíblico.
-
-¡Que esta palabra bendiga tu vida!
-
-#Biblia #Cristianismo #Fe #Dios #Jesús #Religión #Meditación #EstudioBíblico #PalabraDeDios #Espiritualidad"""
-                },
-                'salmos': {
-                    'title': "Salmos de {book_name} - Alabanzas y Adoración",
-                    'description': """Salmos seleccionados del libro de {book_name} para meditación y adoración.
-
-¡Que estas alabanzas eleven tu corazón al Señor!
-
-#Salmos #Alabanzas #Adoración #Biblia #Cristianismo #Música #Espiritualidad"""
-                },
-                'outros': {
-                    'title': "{subject_name} - {book_name}",
-                    'description': """Contenido bíblico del libro de {book_name}.
-
-¡Que la palabra de Dios bendiga tu vida!
-
-#Biblia #Cristianismo #Fe #PalabraDeDios #Espiritualidad"""
-                }
-            },
-            'fr': {
-                'livro-biblico': {
-                    'title': "Livre de {book_name} - Narration Complète de la Bible",
-                    'description': """Narration complète du livre de {book_name} de la Sainte Bible.
-
-Cette vidéo contient la lecture intégrale du livre, offrant une expérience de méditation et d'étude biblique.
-
-Que cette parole bénisse votre vie !
-
-#Bible #Christianisme #Foi #Dieu #Jésus #Religion #Méditation #ÉtudeBiblique #ParoleDeDieu #Spiritualité"""
-                },
-                'salmos': {
-                    'title': "Psaumes de {book_name} - Louanges et Adoration",
-                    'description': """Psaumes sélectionnés du livre de {book_name} pour la méditation et l'adoration.
-
-Que ces louanges élèvent votre cœur vers le Seigneur !
-
-#Psaumes #Louanges #Adoration #Bible #Christianisme #Musique #Spiritualité"""
-                },
-                'outros': {
-                    'title': "{subject_name} - {book_name}",
-                    'description': """Contenu biblique du livre de {book_name}.
-
-Que la parole de Dieu bénisse votre vie !
-
-#Bible #Christianisme #Foi #ParoleDeDieu #Spiritualité"""
-                }
-            }
-        }
-        
-        # Retorna descrições em português como fallback se o idioma não estiver disponível
-        return descriptions.get(language, descriptions['pt'])
-    
-    def _get_tags_by_language(self, language: str, book_name: str, subject_type: str) -> list:
-        """Retorna tags traduzidas baseadas no idioma configurado"""
-        
-        tag_sets = {
-            'pt': {
-                'base': ["bíblia", "cristianismo", "fé", "deus", "jesus", "religião", 
-                        "meditação", "estudo bíblico", "palavra de deus", "espiritualidade",
-                        book_name.lower(), "narração", "leitura bíblica"],
-                'salmos': ["salmos", "louvores", "adoração", "música", "cantos"]
-            },
-            'en': {
-                'base': ["bible", "christianity", "faith", "god", "jesus", "religion",
-                        "meditation", "bible study", "word of god", "spirituality",
-                        book_name.lower(), "narration", "bible reading"],
-                'salmos': ["psalms", "praise", "worship", "music", "songs"]
-            },
-            'es': {
-                'base': ["biblia", "cristianismo", "fe", "dios", "jesús", "religión",
-                        "meditación", "estudio bíblico", "palabra de dios", "espiritualidad",
-                        book_name.lower(), "narración", "lectura bíblica"],
-                'salmos': ["salmos", "alabanzas", "adoración", "música", "cantos"]
-            },
-            'fr': {
-                'base': ["bible", "christianisme", "foi", "dieu", "jésus", "religion",
-                        "méditation", "étude biblique", "parole de dieu", "spiritualité",
-                        book_name.lower(), "narration", "lecture biblique"],
-                'salmos': ["psaumes", "louanges", "adoration", "musique", "chants"]
-            }
-        }
-        
-        # Obter tags base
-        tags = tag_sets.get(language, tag_sets['pt'])['base']
-        
-        # Adicionar tags específicas para salmos
-        if subject_type == 'salmos':
-            tags.extend(tag_sets.get(language, tag_sets['pt'])['salmos'])
-        
-        return tags
 
 def main():
-    """Função principal para execução interativa"""
-    # Usar idioma da configuração
+    """Main function for interactive execution"""
     from config.config import video_config
-    language = video_config.get('language', 'en')
     
-    generator = BibleVideoGenerator(language=language)
+    generator = BibleVideoGenerator()
     
-    print("GERADOR DE VIDEOS BIBLICOS")
+    print("BIBLE VIDEO GENERATOR")
     print("=" * 40)
-    print(f"Idioma configurado: {language}")
+    print("Language: English")
     print("=" * 40)
     
     # Listar livros disponíveis

@@ -49,7 +49,6 @@ class VideoConfig:
         self.default_config = {
             'subject': 'livro-biblico',
             'duration': 'auto',  # 'auto' ou número em minutos
-            'language': 'en',
             'voice_speed': 1.0,  # Velocidade da voz (0.5 a 3.0, 1.0 = normal)
             'voice_gender': 'female',  # 'male' ou 'female'
             'voice_volume': 1.0,  # Volume da voz (0.0 a 2.0)
@@ -121,33 +120,6 @@ class VideoConfig:
             'proverbios': 'Provérbios de Sabedoria'
         }
     
-    def get_language_options(self):
-        """Retorna opções disponíveis para idioma"""
-        # Importar lista de idiomas do bible_data_creator
-        try:
-            import sys
-            sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-            from bible_data.bible_data_creator import BibleDataCreator
-            return BibleDataCreator.get_supported_languages()
-        except:
-            # Fallback para lista hardcoded
-            return {
-                'pt': 'Português (Brasil)',
-                'pt-pt': 'Português (Portugal)',
-                'en': 'English (US)',
-                'en-gb': 'English (UK)',
-                'es': 'Español',
-                'fr': 'Français',
-                'de': 'Deutsch',
-                'it': 'Italiano',
-                'ru': 'Русский',
-                'zh': '中文',
-                'ja': '日本語',
-                'ko': '한국어',
-                'ar': 'العربية',
-                'he': 'עברית'
-            }
-    
     def get_voice_options(self):
         """Retorna opções de voz disponíveis"""
         return {
@@ -203,29 +175,23 @@ class VideoConfig:
             if not isinstance(self.config['video_download_multiplier'], (int, float)) or self.config['video_download_multiplier'] < 1 or self.config['video_download_multiplier'] > 10:
                 errors.append("Multiplicador de download de vídeos deve estar entre 1 e 10")
         
-        # Validar idioma
-        valid_languages = list(self.get_language_options().keys())
-        if self.config.get('language') and self.config['language'] not in valid_languages:
-            errors.append(f"Idioma '{self.config['language']}' não é suportado. Idiomas válidos: {', '.join(valid_languages)}")
-        
         return errors
     
     def get_bible_text_generator(self):
         """
-        Retorna uma instância configurada do BibleTextGenerator
+        Retorna uma instância configurada do BibleTextGenerator (English only)
         
         Returns:
-            BibleTextGenerator configurado com o idioma atual
+            BibleTextGenerator configurado para inglês
         """
         try:
             import sys
             sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
             from text.bible_text_generator import BibleTextGenerator
             
-            language = self.config.get('language', 'en')
-            return BibleTextGenerator(language=language)
+            return BibleTextGenerator()
         except Exception as e:
-            print(f"[ERROR] Erro ao criar BibleTextGenerator: {str(e)}")
+            print(f"[ERROR] Error creating BibleTextGenerator: {str(e)}")
             return None
     
     def get_bible_data_creator(self):

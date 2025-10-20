@@ -13,15 +13,9 @@ from config.config import video_config
 class VideoGenerationOrchestrator:
     """Orquestra todo o processo de geração de vídeos bíblicos"""
     
-    def __init__(self, language: Optional[str] = None):
-        """
-        Inicializa o orquestrador
-        
-        Args:
-            language: Código do idioma opcional (ex: 'en', 'pt', 'es')
-        """
-        self.language = language or video_config.get('language', 'en')
-        self.generator = BibleVideoGenerator(language=self.language)
+    def __init__(self):
+        """Inicializa o orquestrador (English only)"""
+        self.generator = BibleVideoGenerator()
         self.config_ui = ConfigUI()
         self.current_book_name = None
     
@@ -158,17 +152,10 @@ class VideoGenerationOrchestrator:
             # Configurações de velocidade da voz
             voice_speed = video_config.get('voice_speed', 1.0)
             
-            # Palavras por minuto baseadas no idioma e velocidade
-            language = video_config.get('language', 'en')
+            # Palavras por minuto para inglês (velocidade 1.0x = 160 WPM)
+            base_wpm = 160
             
-            # Palavras por minuto padrão por idioma (velocidade 1.0x)
-            base_wpm = {
-                'pt': 150, 'pt-BR': 150, 'pt-pt': 150,
-                'en': 160, 'en-US': 160, 'en-GB': 160,
-                'es': 155, 'fr': 150, 'de': 150, 'it': 150
-            }
-            
-            words_per_minute = base_wpm.get(language, 160) * voice_speed
+            words_per_minute = base_wpm * voice_speed
             
             # Estimar palavras baseado em caracteres (aproximadamente 5 caracteres por palavra)
             estimated_words = char_count / 5
@@ -241,19 +228,15 @@ class VideoGenerationOrchestrator:
     
     def _show_current_settings(self):
         """Exibe configurações atuais"""
-        print("\nConfigurações atuais:")
-        print(f"- Assunto: {self._get_subject_description()}")
-        print(f"- Idioma: {self._get_language_description()}")
-        print(f"- Velocidade da voz: {video_config.get('voice_speed')}x")
-        print(f"- Duração: {self._get_duration_description()}")
+        print("\nCurrent settings:")
+        print(f"- Subject: {self._get_subject_description()}")
+        print(f"- Language: English (fixed)")
+        print(f"- Voice speed: {video_config.get('voice_speed')}x")
+        print(f"- Duration: {self._get_duration_description()}")
     
     def _get_subject_description(self) -> str:
         """Obtém descrição do assunto configurado"""
         return video_config.get_subject_options().get(video_config.get('subject'), 'Desconhecido')
-    
-    def _get_language_description(self) -> str:
-        """Obtém descrição do idioma configurado"""
-        return video_config.get_language_options().get(video_config.get('language'), 'Desconhecido')
     
     def _get_duration_description(self) -> str:
         """Obtém descrição da duração configurada"""

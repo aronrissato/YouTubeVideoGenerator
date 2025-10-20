@@ -57,15 +57,16 @@ Sistema automatizado para geração de vídeos de livros bíblicos com narraçã
 
 ## 🎯 Introdução
 
-Sistema automatizado para geração de vídeos de livros bíblicos com narração, vídeos de fundo e publicação no YouTube. Suporta múltiplos idiomas e é totalmente configurável.
+Sistema automatizado para geração de vídeos de livros bíblicos com narração, vídeos de fundo e publicação no YouTube. Sistema em inglês, totalmente configurável e com notificações automáticas.
 
 ### Características Principais
 
 - ✅ **Automatizado** - Pipeline completo de geração e publicação
-- ✅ **Multi-idioma** - Suporta 14+ idiomas
+- ✅ **Inglês** - Narração e texto em inglês de alta qualidade
 - ✅ **Flexível** - Totalmente configurável
 - ✅ **Escalável** - Funciona com GitHub Actions
 - ✅ **Robusto** - Sistema de limpeza e recuperação de erros
+- ✅ **Notificações** - Avisos automáticos por email sobre token expirando
 
 ---
 
@@ -287,203 +288,46 @@ flowchart LR
 
 ---
 
-## 🌍 Sistema Multi-Idioma
+## 🌍 Language
 
-O sistema é completamente agnóstico ao idioma, permitindo gerar vídeos bíblicos em qualquer língua suportada sem necessidade de criar arquivos específicos para cada idioma.
+The system generates Bible videos in **English only**, using high-quality neural voices from Microsoft Edge TTS and Azure Speech Services.
 
-### Idiomas Suportados
+### Voice Options
 
-| Código | Nome Completo          | Status | Variações Aceitas |
-|--------|------------------------|--------|-------------------|
-| `pt`   | Português (Brasil)     | ✓      | `pt-BR` |
-| `pt-pt`| Português (Portugal)   | ✓      | |
-| `en`   | English (US)           | ✓      | `en-US`, `en-gb`, `en-GB` |
-| `es`   | Español                | ✓      | `es-ES`, `es-MX` |
-| `fr`   | Français               | ✓      | `fr-FR` |
-| `de`   | Deutsch                | ✓      | `de-DE` |
-| `it`   | Italiano               | ✓      | `it-IT` |
-| `ru`   | Русский                | ✓      | `ru-RU` |
-| `zh`   | 中文                    | ✓      | `zh-CN`, `zh-TW` |
-| `ja`   | 日本語                  | ✓      | `ja-JP` |
-| `ko`   | 한국어                  | ✓      | `ko-KR` |
-| `ar`   | العربية                | ✓      | `ar-SA` |
-| `he`   | עברית                  | ✓      | `he-IL` |
+The system supports two voice genders in English:
 
-**⚙️ Normalização Automática de Idiomas:** O sistema normaliza automaticamente variações de código de idioma. Por exemplo:
-- `pt-BR`, `pt-PT` → `pt` (Português)
-- `en-US`, `en-GB` → `en` (Inglês)  
-- `es-ES`, `es-MX` → `es` (Espanhol)
+| Gender | Voice Name | Provider |
+|--------|------------|----------|
+| Female | `en-US-AriaNeural` | Edge TTS / Azure |
+| Male | `en-US-BrianMultilingualNeural` | Edge TTS / Azure |
 
-Você pode usar qualquer variação - todas funcionam perfeitamente! Use o código principal na interface, mas qualquer variação funciona no `video_config.json` ou via código.
-
-### Como Usar Diferentes Idiomas
-
-#### Criar Dados Bíblicos em Qualquer Idioma
-
-```python
-from bible_data.bible_data_creator import BibleDataCreator
-
-# Criar instância
-creator = BibleDataCreator()
-
-# Criar livro em português
-chapter_texts_pt = {
-    1: 'No princípio criou Deus os céus e a terra.',
-    2: 'E assim foram acabados os céus e a terra.'
-}
-creator.create_bible_book('Gênesis', chapter_texts_pt, language='pt')
-
-# Criar livro em inglês
-chapter_texts_en = {
-    1: 'In the beginning God created the heaven and the earth.',
-    2: 'Thus the heavens and the earth were finished.'
-}
-creator.create_bible_book('Genesis', chapter_texts_en, language='en')
-
-# Criar livro em espanhol
-chapter_texts_es = {
-    1: 'En el principio creó Dios los cielos y la tierra.',
-    2: 'Fueron, pues, acabados los cielos y la tierra.'
-}
-creator.create_bible_book('Génesis', chapter_texts_es, language='es')
-```
-
-#### Gerar Texto Bíblico em Idioma Específico
-
-```python
-from text.bible_text_generator import BibleTextGenerator
-
-# Criar gerador para português
-generator_pt = BibleTextGenerator(language='pt')
-texto = generator_pt.get_full_book_text('genesis')
-
-# Criar gerador para inglês
-generator_en = BibleTextGenerator(language='en')
-text = generator_en.get_full_book_text('genesis')
-
-# Alternar idioma dinamicamente
-generator = BibleTextGenerator(language='en')
-generator.set_language('pt')  # Muda para português
-```
-
-#### Gerar Vídeo em Idioma Específico
-
-```python
-from video.bible_video_generator import BibleVideoGenerator
-
-# Criar gerador para inglês
-generator_en = BibleVideoGenerator(language='en')
-generator_en.generate_full_video('genesis', pexels_key, publish=False)
-
-# Criar gerador para português
-generator_pt = BibleVideoGenerator(language='pt')
-generator_pt.generate_full_video('genesis', pexels_key, publish=False)
-```
-
-#### Configurar Idioma Padrão
-
-Edite `video_config.json`:
+**Configure in `video_config.json`:**
 
 ```json
 {
-  "language": "pt-BR",  // ou "pt" - ambos funcionam
-  "voice_speed": 1.0,
-  "voice_gender": "female",
+  "voice_gender": "female",  // or "male"
+  "voice_speed": 0.7,         // 0.5 to 3.0
   ...
 }
 ```
 
-Ou use a interface de configuração:
+### Bible Text Source
 
-```bash
-python run.py config
-```
+- **Language**: English (KJV - King James Version)
+- **Source**: Local JSON files in `bible_data/` or fallback to bible-api.com
+- **Format**: 66 books of the Bible in chronological order
 
-**Observação:** O sistema normaliza automaticamente `pt-BR` → `pt`, `en-US` → `en`, etc. para garantir compatibilidade com os dados bíblicos locais.
+### Why English Only?
 
-### Estrutura de Arquivos JSON
+The system was simplified to focus on quality over quantity:
+- **Consistency**: Single language avoids text/audio mismatches
+- **Simplicity**: Easier to maintain and debug
+- **Quality**: High-quality neural voices available
+- **Performance**: Optimized for one language
 
-Os arquivos bíblicos incluem informação de idioma:
+### Future Multi-Language Support
 
-```json
-{
-  "reference": "Genesis",
-  "language": "en",
-  "language_name": "English (US)",
-  "verses": [
-    {
-      "chapter": 1,
-      "verse": 1,
-      "text": "In the beginning God created..."
-    }
-  ],
-  "text": "Full text...",
-  "metadata": {
-    "chapter_count": 50,
-    "verse_count": 1533,
-    "character_count": 150000,
-    "word_count": 25000
-  }
-}
-```
-
-### Filtros por Idioma
-
-#### Listar Livros Disponíveis em um Idioma
-
-```python
-from text.bible_text_generator import BibleTextGenerator
-
-generator = BibleTextGenerator()
-
-# Apenas livros em inglês
-books_en = generator.get_available_books(language_filter='en')
-
-# Apenas livros em português
-books_pt = generator.get_available_books(language_filter='pt')
-```
-
-#### Listar Todos os Livros com Informação de Idioma
-
-```python
-from bible_data.bible_data_creator import BibleDataCreator
-
-creator = BibleDataCreator()
-books = creator.list_available_books()
-
-for book in books:
-    print(f"{book['book_name']} - {book['language_name']}")
-```
-
-### Adicionando Novo Idioma
-
-Para adicionar suporte a um novo idioma:
-
-1. **Adicionar à lista de idiomas suportados** em `bible_data/bible_data_creator.py`:
-
-```python
-SUPPORTED_LANGUAGES = {
-    # ... idiomas existentes ...
-    'ko': '한국어',  # Coreano
-}
-```
-
-2. **Configurar API** em `text/bible_text_generator.py`:
-
-```python
-BIBLE_APIS = {
-    # ... APIs existentes ...
-    'ko': {
-        'name': 'Bible API (Korean)',
-        'base_url': 'https://bible-api.com',
-        'version': 'kor'
-    }
-}
-```
-
-3. **Criar dados bíblicos** usando `bible_data/bible_data_creator.py`
-
-4. **Configurar voz** para o novo idioma (se aplicável)
+While the system currently supports only English, the architecture is designed to allow multi-language support in the future if needed
 
 ---
 
@@ -495,7 +339,6 @@ BIBLE_APIS = {
 {
   "subject": "livro-biblico",
   "duration": "auto",
-  "language": "pt",
   "voice_speed": 1.0,
   "voice_gender": "female",
   "video_quality": "high",
@@ -515,9 +358,8 @@ BIBLE_APIS = {
 
 | Configuração | Valores | Descrição |
 |-------------|---------|-----------|
-| `language` | pt, pt-BR, en, es, fr, de, it, etc | Idioma da narração |
 | `voice_speed` | 0.5 - 3.0 | Velocidade da voz |
-| `voice_gender` | male, female | Gênero da voz |
+| `voice_gender` | male, female | Gênero da voz (inglês) |
 | `video_quality` | low, medium, high | Qualidade (720p, 1080p, 4K) |
 | `video_style` | dynamic, calm, dramatic | Estilo das transições |
 | `background_music` | true, false | Música de fundo |
@@ -525,53 +367,32 @@ BIBLE_APIS = {
 | `youtube_settings.privacy` | private, unlisted, public | Privacidade do vídeo |
 | `youtube_settings.auto_publish` | true, false | Publicação automática |
 
-**💡 Dica:** Use `pt-BR` para explicitar português do Brasil, ou apenas `pt` - ambos funcionam identicamente.
+#### Available English Voices
 
-#### Vozes Disponíveis por Idioma
-
-**Português (pt / pt-BR):**
-- **Feminina:** `pt-BR-FranciscaNeural` (Edge TTS e Azure)
-- **Masculina:** `pt-BR-AntonioNeural` (Edge TTS e Azure)
-
-**Inglês (en / en-US):**
-- **Feminina:** `en-US-AriaNeural`
-- **Masculina:** `en-US-BrianMultilingualNeural`
-
-**Outros idiomas:** Vozes neurais disponíveis para espanhol, francês, alemão, italiano, etc.
+- **Female:** `en-US-AriaNeural` (Edge TTS and Azure)
+- **Male:** `en-US-BrianMultilingualNeural` (Edge TTS and Azure)
 
 ---
 
 ## 📚 Dados Bíblicos Locais
 
-### Download de Livros
-
-#### Português (Brasil) 🇧🇷
+### Download de Livros (English)
 
 ```bash
-# Menu interativo (recomendado)
-python manage_bible_books.py
-
-# Ou linha de comando
-python bible_data/download_portuguese_bible_v2.py all      # Todos os 66 livros
-python bible_data/download_portuguese_bible_v2.py jonah    # Livro específico
-```
-
-#### Inglês (padrão)
-
-```bash
+# Download all 66 Bible books
 python bible_data/download_bible_books.py
 ```
 
-**Características:**
-- **Fonte**: [bible-api.com](https://bible-api.com)
-- **Versões**: KJV (inglês), Almeida (português), outras
-- **Formato**: JSON estruturado com metadados de idioma
-- **Total**: 66 livros bíblicos
+**Features:**
+- **Source**: [bible-api.com](https://bible-api.com)
+- **Version**: KJV (King James Version)
+- **Format**: Structured JSON with metadata
+- **Total**: 66 Bible books
 
-**Validar instalação:**
-```bash
-python validate_portuguese_setup.py  # Verifica configuração completa
-```
+**Data structure:**
+- Local JSON files in `bible_data/`
+- Fallback to online API if local files missing
+- Automatic caching for faster access
 
 ### Cálculo de Durações
 
@@ -717,6 +538,111 @@ ASVBAQAAAAAAACMGWdvb2dsZS5vYXV0aDIuY3JlZGVudGlhbHOUjAtDcmVkZW50aWFsc5STlCmBlH2U.
 ```
 
 O código agora suporta **tokens em formato JSON** (compatível com GitHub Secrets) ao invés de apenas pickle binário. Isso garante compatibilidade tanto local quanto no GitHub Actions.
+
+---
+
+## 📧 Sistema de Notificações por Email
+
+### Visão Geral
+
+O sistema inclui notificações automáticas por email para avisar quando é hora de renovar o token do YouTube, evitando interrupções na publicação de vídeos.
+
+### Como Funciona
+
+- **Frequência**: Email enviado automaticamente a cada **6 dias**
+- **Rastreamento**: Sistema rastreia última data de envio em `notifications/last_email_sent.json`
+- **Integração**: Executado automaticamente ANTES da geração de vídeo na pipeline
+- **Falha segura**: Se email falhar, pipeline continua normalmente
+
+### Configuração do Gmail App Password
+
+⚠️ **IMPORTANTE**: Você precisa de um **App Password**, NÃO sua senha regular do Gmail!
+
+**Passo a passo:**
+
+1. Acesse: https://myaccount.google.com/apppasswords
+2. Faça login na sua conta Google
+3. Em "Select app", escolha "Mail"
+4. Em "Select device", escolha "Other" e digite "YouTubeVideoGenerator"
+5. Clique em "Generate"
+6. Copie a senha de 16 caracteres gerada (ex: `abcd efgh ijkl mnop`)
+7. Use essa senha no secret `EMAIL_PASSWORD`
+
+### Secrets Necessários no GitHub
+
+Adicione estes 3 secrets em: **Settings → Secrets and variables → Actions**
+
+| Secret | Valor | Exemplo |
+|--------|-------|---------|
+| `EMAIL_SENDER` | Seu email Gmail | `aronhrissato@gmail.com` |
+| `EMAIL_RECIPIENT` | Email destinatário | `aronhrissato@gmail.com` |
+| `EMAIL_PASSWORD` | App Password do Gmail | `abcd efgh ijkl mnop` |
+
+### Teste Local
+
+```bash
+# Configure as variáveis de ambiente
+export EMAIL_SENDER="seu-email@gmail.com"
+export EMAIL_RECIPIENT="seu-email@gmail.com"
+export EMAIL_PASSWORD="sua-app-password-aqui"
+
+# Execute o notificador
+python notifications/email_notifier.py
+```
+
+### Conteúdo do Email
+
+O email enviado contém:
+
+- **Assunto**: "Atualizar token YouTubeVideoGenerator"
+- **Corpo**: Instruções completas de como regenerar o token
+- **Idioma**: Português (conforme solicitado)
+- **Frequência**: A cada 6 dias
+
+### Estrutura do Tracking
+
+Arquivo `notifications/last_email_sent.json`:
+
+```json
+{
+  "last_sent_date": "2025-10-20T14:30:00.123456",
+  "last_sent_readable": "2025-10-20 14:30:00"
+}
+```
+
+### Fluxo na Pipeline
+
+```
+1. Checkout code
+2. Setup Python
+3. Install dependencies
+4. Create directories
+5. Setup YouTube credentials
+6. ✉️ CHECK EMAIL NOTIFICATION (novo!)
+   - Verifica se passaram 6 dias
+   - Envia email se necessário
+   - Atualiza tracking file
+   - Continua pipeline independente do resultado
+7. Generate video
+8. Upload artifacts
+9. Cleanup
+```
+
+### Troubleshooting
+
+**Erro: "Gmail authentication failed"**
+- Certifique-se de usar App Password, não senha regular
+- Verifique se 2FA está ativado na conta Gmail
+- Recrie o App Password se necessário
+
+**Erro: "EMAIL_SENDER not set"**
+- Adicione os secrets no GitHub Actions
+- Verifique os nomes exatos dos secrets
+
+**Email não chegou**
+- Verifique spam/lixo eletrônico
+- Confirme o email destinatário está correto
+- Veja logs do GitHub Actions para erros
 
 ---
 
@@ -1226,23 +1152,29 @@ python utils/cleanup.py genesis
 
 ## 📝 Changelog
 
-### v2.1 - Suporte Completo a pt-BR
-- ✓ Adicionado suporte explícito para código `pt-BR` (Português do Brasil)
-- ✓ Sistema de normalização de idiomas (`pt-BR` e `pt` são equivalentes)
-- ✓ Workflow dedicado para geração de vídeos em português
-- ✓ Atualizado `BibleTextGenerator` com normalização de idiomas
-- ✓ Atualizado `BibleDataCreator` com suporte a `pt-BR`
-- ✓ Compatibilidade retroativa mantida com arquivos existentes
+### v3.0 - Simplificação e Sistema de Notificações (2025-10-20)
+- ✓ **BREAKING CHANGE**: Sistema simplificado para **apenas inglês**
+- ✓ Removida toda a bagunça de múltiplos idiomas
+- ✓ Removidos arquivos JSON em português e backups
+- ✓ Removido workflow redundante `generate-video-pt.yml`
+- ✓ Removidos scripts `download_portuguese_bible*.py`
+- ✓ Simplificado `text/bible_text_generator.py` (sem parâmetro language)
+- ✓ Simplificado `audio/audio_generator.py` (fixado em inglês)
+- ✓ Simplificado `video/bible_video_generator.py` (sem métodos multi-idioma)
+- ✓ Simplificado `config/config.py` (removido campo language)
+- ✓ **NOVO**: Sistema de notificações por email (`notifications/email_notifier.py`)
+- ✓ **NOVO**: Envio automático de email a cada 6 dias para renovar token
+- ✓ **NOVO**: Integração com GitHub Actions para notificações
+- ✓ **NOVO**: Suporte a Gmail App Password
+- ✓ Atualizado README com documentação completa do sistema de email
+- ✓ Removidas todas as referências a múltiplos idiomas do README
+- ✓ Código muito mais simples e manutenível
 
-### v2.0 - Sistema Multi-Idioma
-- ✓ Criado `bible_data_creator.py` genérico
-- ✓ Atualizado `bible_text_generator.py` com suporte multi-idioma
-- ✓ Integrado sistema de idiomas com `config.py`
-- ✓ Atualizado `bible_video_generator.py` para aceitar idioma
-- ✓ Suporte a 14+ idiomas
-- ✓ Reorganizada estrutura de pastas
-- ✓ Adicionados cálculos de duração por capítulo
-- ✓ Movidos arquivos utilitários para pastas apropriadas
+### v2.1 - Suporte Completo a pt-BR (OBSOLETO - Removido em v3.0)
+- Sistema multi-idioma removido para simplificar manutenção
+
+### v2.0 - Sistema Multi-Idioma (OBSOLETO - Removido em v3.0)
+- Sistema multi-idioma removido para simplificar manutenção
 
 ### v1.0 - Sistema Original
 - Suporte para geração automatizada de vídeos

@@ -1,7 +1,6 @@
 {
   "subject": "livro-biblico",
   "duration": "auto",
-  "language": "en",
   "voice_speed": 0.7,
   "voice_gender": "female",
   "video_quality": "medium",

@@ -5,6 +5,9 @@ token.json
 *.key
 *.pem
 
+# Email notification tracking
+notifications/last_email_sent.json
+
 # Diretórios de saída
 output/
 audio/

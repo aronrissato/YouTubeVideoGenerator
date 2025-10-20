@@ -1,12 +1,12 @@
-name: Generate Bible Video
+name: Generate Bible Video (Portuguese)
 
 on:
   workflow_dispatch: # Executar manualmente pelo botão "Run workflow"
-  schedule: # Executar automaticamente todo dia às 10:00 UTC (07:00 Brasília)
-    - cron: '00 13,23 * * *'  # 10h BRT (13h UTC)
+  schedule: # Executar automaticamente todo dia às 14:00 UTC (11:00 Brasília)
+    - cron: '00 21 * * *'  # 18h BRT (21h UTC)
 
 jobs:
-  generate-video:
+  generate-video-pt:
     runs-on: ubuntu-latest
     timeout-minutes: 480  # 8 horas
     
@@ -51,15 +51,25 @@ jobs:
             echo "$YOUTUBE_TOKEN" > config/token.json
           fi
       
-      - name: Check and send token expiration notification
-        env:
-          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
-          EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
-          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+      - name: Configure Portuguese language
         run: |
-          echo "Checking if token expiration email notification is needed..."
-          python notifications/email_notifier.py || true
-          echo "Email check complete (continuing with video generation)"
+          # Criar arquivo de configuração temporário com idioma português
+          python3 << 'EOF'
+          import json
+          
+          # Ler configuração atual
+          with open('config/video_config.json', 'r', encoding='utf-8') as f:
+              config = json.load(f)
+          
+          # Alterar para português do Brasil
+          config['language'] = 'pt-BR'
+          
+          # Salvar configuração modificada
+          with open('config/video_config.json', 'w', encoding='utf-8') as f:
+              json.dump(config, f, indent=2, ensure_ascii=False)
+          
+          print(f"✓ Idioma configurado: {config['language']}")
+          EOF
       
       - name: Generate video
         env:
@@ -70,14 +80,14 @@ jobs:
           PYTHONWARNINGS: 'ignore'
         run: |
           export PYTHONPATH="${PYTHONPATH}:$(pwd)"
-          echo "Starting video generation..."
+          echo "Starting video generation in Portuguese..."
           python -u run_automated.py
       
       - name: Upload generated video
         uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: generated-video-${{ github.run_number }}
+          name: generated-video-pt-${{ github.run_number }}
           path: output/videos/*.mp4
           retention-days: 7
           if-no-files-found: ignore
@@ -86,7 +96,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: error-logs-${{ github.run_number }}
+          name: error-logs-pt-${{ github.run_number }}
           path: |
             output/temp/*.log
             *.log
@@ -96,4 +106,5 @@ jobs:
         if: always()
         run: |
           rm -rf output/temp/* output/pexels_videos/* output/audio/*
+
 
