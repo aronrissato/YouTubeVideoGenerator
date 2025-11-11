@@ -157,12 +157,14 @@ YouTubeVideoGenerator - Automated Notification System
         except Exception as e:
             print(f"[ERROR] Failed to update tracking file: {str(e)}")
     
-    def run(self) -> bool:
+    def run(self) -> str:
         """
         Main execution: check if should send and send if needed
         
         Returns:
-            True if email was sent, False if not needed or failed
+            "sent" when email was dispatched,
+            "skipped" when notification not needed,
+            "failed" on errors.
         """
         print("="*60)
         print("EMAIL NOTIFIER - YouTube Token Expiration Warning")
@@ -171,17 +173,17 @@ YouTubeVideoGenerator - Automated Notification System
         if not self.should_send_email():
             print("[INFO] Email not needed yet (less than 6 days since last email)")
             print("[INFO] Skipping email notification")
-            return False
+            return "skipped"
         
         print("[INFO] Time to send email notification!")
         
         if self.send_token_expiration_warning():
             self.update_last_sent_date()
             print("[SUCCESS] Email notification sent and tracked")
-            return True
+            return "sent"
         else:
             print("[ERROR] Failed to send email notification")
-            return False
+            return "failed"
 
 
 def main():
@@ -213,9 +215,13 @@ def main():
     
     # Create notifier and run
     notifier = EmailNotifier(sender_email, recipient_email, app_password)
-    success = notifier.run()
+    result = notifier.run()
     
-    return 0 if success else 1
+    if result == "skipped":
+        return 0
+    if result == "sent":
+        return 2  # Non-zero exit to halt workflows when token attention is required
+    return 1
 
 
 if __name__ == "__main__":

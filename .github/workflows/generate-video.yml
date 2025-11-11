@@ -58,7 +58,7 @@ jobs:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
         run: |
           echo "Checking if token expiration email notification is needed..."
-          python notifications/email_notifier.py || true
+          python notifications/email_notifier.py
           echo "Email check complete (continuing with video generation)"
       
       - name: Generate video
