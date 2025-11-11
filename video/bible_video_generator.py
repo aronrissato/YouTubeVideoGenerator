@@ -247,8 +247,10 @@ May this word bless your life!
                     final_video, title, description, tags, category, privacy
                 )
                 
-                if video_id:
-                    print(f"Vídeo publicado no YouTube: https://www.youtube.com/watch?v={video_id}")
+                if not video_id:
+                    raise RuntimeError("Upload do vídeo não retornou um ID válido.")
+                
+                print(f"Vídeo publicado no YouTube: https://www.youtube.com/watch?v={video_id}")
             
             print("\n" + "=" * 60)
             print("PROCESSO CONCLUÍDO COM SUCESSO!")

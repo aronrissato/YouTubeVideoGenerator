@@ -118,7 +118,7 @@ class YouTubePublisher:
         try:
             if not self.youtube:
                 if not self.authenticate():
-                    return None
+                    raise RuntimeError("Falha na autenticação do YouTube.")
             
             # Preparar metadados do vídeo
             body = {
@@ -146,7 +146,9 @@ class YouTubePublisher:
             
             # Executar upload
             response = request.execute()
-            video_id = response['id']
+            video_id = response.get('id') if isinstance(response, dict) else None
+            if not video_id:
+                raise RuntimeError("Resposta do YouTube não contém o ID do vídeo.")
             
             print(f"Upload concluído! ID do vídeo: {video_id}")
             print(f"URL do vídeo: https://www.youtube.com/watch?v={video_id}")
@@ -155,7 +157,7 @@ class YouTubePublisher:
             
         except Exception as e:
             print(f"Erro no upload: {str(e)}")
-            return None
+            raise
     
     def update_video_metadata(self, video_id: str, title: str = None, 
                              description: str = None, tags: list = None) -> bool:
