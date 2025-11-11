@@ -67,6 +67,7 @@ Sistema automatizado para geração de vídeos de livros bíblicos com narraçã
 - ✅ **Escalável** - Funciona com GitHub Actions
 - ✅ **Robusto** - Sistema de limpeza e recuperação de erros
 - ✅ **Notificações** - Avisos automáticos por email sobre token expirando
+- ✅ **Proteção do Workflow** - Execução interrompida se o token precisar ser renovado
 
 ---
 
@@ -549,10 +550,11 @@ O sistema inclui notificações automáticas por email para avisar quando é hor
 
 ### Como Funciona
 
-- **Frequência**: Email enviado automaticamente a cada **6 dias**
-- **Rastreamento**: Sistema rastreia última data de envio em `notifications/last_email_sent.json`
-- **Integração**: Executado automaticamente ANTES da geração de vídeo na pipeline
-- **Falha segura**: Se email falhar, pipeline continua normalmente
+- **Detecção automática**: Antes de gerar o vídeo, o sistema autentica com o YouTube usando `YouTubePublisher`
+- **Notificação imediata**: Se a autenticação falhar (token expirado/revogado ou faltando), um email é enviado automaticamente
+- **Integração**: Executado automaticamente **antes** da geração de vídeo na pipeline
+- **Falha controlada**: Ao enviar email, o workflow finaliza com erro para impedir execução com token inválido
+- **Resiliência**: Tokens válidos fazem o step encerrar com sucesso; problemas de configuração geram erro explícito
 
 ### Configuração do Gmail App Password
 
@@ -597,18 +599,8 @@ O email enviado contém:
 - **Assunto**: "Atualizar token YouTubeVideoGenerator"
 - **Corpo**: Instruções completas de como regenerar o token
 - **Idioma**: Português (conforme solicitado)
-- **Frequência**: A cada 6 dias
 
-### Estrutura do Tracking
-
-Arquivo `notifications/last_email_sent.json`:
-
-```json
-{
-  "last_sent_date": "2025-10-20T14:30:00.123456",
-  "last_sent_readable": "2025-10-20 14:30:00"
-}
-```
+> O arquivo `notifications/last_email_sent.json` ainda é atualizado para fins de auditoria/local, mas não é utilizado para controle da cadência.
 
 ### Fluxo na Pipeline
 
@@ -619,14 +611,37 @@ Arquivo `notifications/last_email_sent.json`:
 4. Create directories
 5. Setup YouTube credentials
 6. ✉️ CHECK EMAIL NOTIFICATION (novo!)
-   - Verifica se passaram 6 dias
-   - Envia email se necessário
+   - Valida o token com a API do YouTube
+   - Envia email se a autenticação falhar
    - Atualiza tracking file
-   - Continua pipeline independente do resultado
-7. Generate video
+   - Se o email foi enviado, o job encerra com status de falha para forçar renovação do token
+7. Generate video (executado apenas quando o passo anterior indica que o token está válido)
 8. Upload artifacts
 9. Cleanup
 ```
+
+### Fluxograma da Pipeline com Token Expirado
+
+```mermaid
+flowchart TD
+    A[Início do Workflow] --> B[Setup & Dependências]
+    B --> C[✉️ Check email notification]
+    C -->|Token válido ou notificação desnecessária| D[🎬 Generate video]
+    C -->|Email enviado → token expirado| E[[❌ Job finaliza informando renovar token]]
+    C -->|Erro ao enviar email/configuração ausente| F[[❌ Job falha para alertar configuração]]
+    D --> G[📤 Upload artifacts]
+    G --> H[🧹 Cleanup]
+    H --> I([✅ Workflow concluído])
+    style E fill:#f8d7da,stroke:#c62828,color:#b71c1c
+    style F fill:#ffe0b2,stroke:#ef6c00,color:#e65100
+    style D fill:#dcedc8,stroke:#558b2f,color:#33691e
+```
+
+### Saídas e comportamento do notificador
+
+- `0` (sucesso): token válido; pipeline prossegue normalmente.
+- `2` (email enviado): token precisa ser renovado; o workflow falha de propósito antes de gerar o vídeo para evitar falsos positivos.
+- `1` (erro): problema de configuração ou envio; corrija as variáveis de ambiente/secrets e rode novamente.
 
 ### Troubleshooting
 
@@ -1152,6 +1167,12 @@ python utils/cleanup.py genesis
 
 ## 📝 Changelog
 
+### v3.1 - Token Expiration Guard (2025-11-11)
+- ✓ Workflow passa a falhar quando o email de expiração é enviado, evitando uploads com token inválido
+- ✓ Documentação atualizada com novo fluxo e instruções de configuração
+- ✓ Novo fluxograma Mermaid mostrando a interrupção planejada do pipeline
+- ✓ Notificador valida o token via `YouTubePublisher` e só envia email quando a autenticação falha
+
 ### v3.0 - Simplificação e Sistema de Notificações (2025-10-20)
 - ✓ **BREAKING CHANGE**: Sistema simplificado para **apenas inglês**
 - ✓ Removida toda a bagunça de múltiplos idiomas
@@ -1163,7 +1184,7 @@ python utils/cleanup.py genesis
 - ✓ Simplificado `video/bible_video_generator.py` (sem métodos multi-idioma)
 - ✓ Simplificado `config/config.py` (removido campo language)
 - ✓ **NOVO**: Sistema de notificações por email (`notifications/email_notifier.py`)
-- ✓ **NOVO**: Envio automático de email a cada 6 dias para renovar token
+- ✓ **NOVO**: Lembretes automáticos para renovar token do YouTube
 - ✓ **NOVO**: Integração com GitHub Actions para notificações
 - ✓ **NOVO**: Suporte a Gmail App Password
 - ✓ Atualizado README com documentação completa do sistema de email

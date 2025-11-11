@@ -1,16 +1,24 @@
 #!/usr/bin/env python3
 """
-Email notification system for YouTube token expiration warnings
-Sends email every 6 days to remind user to renew YouTube token
+Email notification system for YouTube token expiration warnings.
+Attempts to authenticate with YouTube and notifies when the token needs regeneration.
 """
 
 import os
+import sys
 import json
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Optional
+
+# Garantir acesso aos módulos do projeto
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+
+from video.youtube_publisher import YouTubePublisher
 
 
 class EmailNotifier:
@@ -34,36 +42,22 @@ class EmailNotifier:
         )
         self.notification_interval_days = 6
     
-    def should_send_email(self) -> bool:
+    def token_requires_regeneration(self) -> bool:
         """
-        Check if 6 days have passed since last email
-        
-        Returns:
-            True if should send email, False otherwise
+        Usa o YouTubePublisher para validar o token atual.
+        Retorna True quando o token precisa ser regenerado.
         """
-        if not os.path.exists(self.tracking_file):
-            # First time - should send
-            return True
-        
+        print("[INFO] Validating YouTube token before sending notification...")
         try:
-            with open(self.tracking_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-                last_sent_str = data.get('last_sent_date')
-                
-                if not last_sent_str:
-                    return True
-                
-                # Parse date
-                last_sent = datetime.fromisoformat(last_sent_str)
-                days_passed = (datetime.now() - last_sent).days
-                
-                print(f"[INFO] Last email sent: {last_sent.strftime('%Y-%m-%d')}")
-                print(f"[INFO] Days since last email: {days_passed}")
-                
-                return days_passed >= self.notification_interval_days
-        
+            publisher = YouTubePublisher()
+            if publisher.authenticate():
+                print("[SUCCESS] Token válido. Nenhum email necessário.")
+                return False
+            print("[WARNING] Token inválido detectado. Notificação será enviada.")
+            return True
         except Exception as e:
-            print(f"[WARNING] Error reading tracking file: {str(e)}")
+            print(f"[ERROR] Falha ao validar token: {str(e)}")
+            print("[WARNING] Assumindo que o token precisa ser regenerado.")
             return True
     
     def send_token_expiration_warning(self) -> bool:
@@ -84,16 +78,15 @@ class EmailNotifier:
             body = """
 Olá!
 
-Este é um lembrete automático para renovar o token do YouTube no projeto YouTubeVideoGenerator.
+Detectamos que o token do YouTube utilizado pelo projeto YouTubeVideoGenerator não pôde ser autenticado.
+Isso normalmente acontece quando o token expira (após ~6 meses sem uso) ou quando o acesso é revogado manualmente.
 
-O token do YouTube expira após aproximadamente 6 meses de inatividade. Para evitar interrupções na publicação automática de vídeos, é recomendado renová-lo periodicamente.
-
-COMO RENOVAR O TOKEN:
+PARA NORMALIZAR A PUBLICAÇÃO AUTOMÁTICA:
 
 1. Execute localmente no seu computador:
    python config/generate_youtube_token.py
 
-2. Siga as instruções no navegador para autenticar
+2. Siga as instruções no navegador para autenticar com a conta correta
 
 3. Copie o novo token gerado:
    python config/copy_token_to_clipboard.py
@@ -106,9 +99,9 @@ COMO RENOVAR O TOKEN:
    - Salve!
 
 IMPORTANTE:
-- Este email é enviado automaticamente a cada 6 dias
+- Este email é enviado apenas quando o token atual falha na autenticação
 - Não responda a este email (é automático)
-- O token pode levar até 6 meses para expirar, mas é bom renovar regularmente
+- Após atualizar o token, rode novamente o workflow no GitHub Actions
 
 Para mais informações, consulte o README.md do projeto.
 
@@ -159,23 +152,17 @@ YouTubeVideoGenerator - Automated Notification System
     
     def run(self) -> str:
         """
-        Main execution: check if should send and send if needed
-        
-        Returns:
-            "sent" when email was dispatched,
-            "skipped" when notification not needed,
-            "failed" on errors.
+        Main execution flow:
+        1. Valida token
+        2. Envia email se necessário
         """
         print("="*60)
         print("EMAIL NOTIFIER - YouTube Token Expiration Warning")
         print("="*60)
+        if not self.token_requires_regeneration():
+            return "token_ok"
         
-        if not self.should_send_email():
-            print("[INFO] Email not needed yet (less than 6 days since last email)")
-            print("[INFO] Skipping email notification")
-            return "skipped"
-        
-        print("[INFO] Time to send email notification!")
+        print("[INFO] Token inválido detectado. Enviando email de notificação...")
         
         if self.send_token_expiration_warning():
             self.update_last_sent_date()
@@ -217,7 +204,7 @@ def main():
     notifier = EmailNotifier(sender_email, recipient_email, app_password)
     result = notifier.run()
     
-    if result == "skipped":
+    if result == "token_ok":
         return 0
     if result == "sent":
         return 2  # Non-zero exit to halt workflows when token attention is required
